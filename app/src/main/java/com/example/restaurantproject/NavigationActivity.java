@@ -62,6 +62,16 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             drawer.closeDrawer(GravityCompat.START);
             displayToast("Go to about us page successfully!");
             return true;
+        } else if (item.getItemId() == R.id.nav_order) {
+            // Redirect to order page (for now display a toast).
+            drawer.closeDrawer(GravityCompat.START);
+            displayToast("Go to order page successfully!");
+            return true;
+        } else if (item.getItemId() == R.id.nav_reservation) {
+            // Redirect to reservation page (for now display a toast).
+            drawer.closeDrawer(GravityCompat.START);
+            displayToast("Go to reservation page successfully!");
+            return true;
         } else if (item.getItemId() == R.id.nav_login) {
             // Redirect to login page (for now display a toast).
             drawer.closeDrawer(GravityCompat.START);
