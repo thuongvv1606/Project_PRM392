@@ -51,6 +51,17 @@ public class Account {
     @ColumnInfo(name = "status")
     private boolean status;
 
+    @ColumnInfo(name = "avatar")
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public boolean isStatus() {
         return status;
     }
@@ -129,5 +140,28 @@ public class Account {
 
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Account(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public Account() {
+    }
+
+    public Account(int accountId, String username, String password, String fullname, String email, String phoneNumber, String address, int roleId, int restaurantId, boolean status, String avatar) {
+        this.accountId = accountId;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.roleId = roleId;
+        this.restaurantId = restaurantId;
+        this.status = status;
+        this.avatar = avatar;
     }
 }

@@ -2,5 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_grey">#777777</color>
     <color name="navbar_green">#80CA51</color>
+    <color name="navbar_green_2">#78A75A</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF6300B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="purple">#8692f7</color>
+    <color name="brown">#A96424</color>
+    <color name="green_camo">#314D1C</color>
 </resources>
