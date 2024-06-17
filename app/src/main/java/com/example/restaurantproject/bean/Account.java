@@ -42,12 +42,12 @@ public class Account {
     @ColumnInfo(name = "address")
     private String address;
 
-    @Nullable
     @ColumnInfo(name = "role_id")
     private int roleId;
 
+    @Nullable
     @ColumnInfo(name = "restaurant_id")
-    private int restaurantId;
+    private Integer restaurantId;
 
     @ColumnInfo(name = "status")
     private boolean status;
@@ -127,15 +127,20 @@ public class Account {
         this.address = address;
     }
 
-    public int getRoleId() { return roleId; }
+    public int getRoleId() {
+        return roleId;
+    }
 
-    public void setRoleId(@Nullable int roleId) { this.roleId = roleId; }
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
-    public int getRestaurantId() {
+    @Nullable
+    public Integer getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(@Nullable Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
@@ -158,6 +163,18 @@ public class Account {
         this.address = address;
         this.roleId = roleId;
         this.restaurantId = restaurantId;
+        this.status = status;
+        this.avatar = avatar;
+    }
+
+    public Account(String username, String password, String fullname, String email, String phoneNumber, String address, int roleId, boolean status, String avatar) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.roleId = roleId;
         this.status = status;
         this.avatar = avatar;
     }

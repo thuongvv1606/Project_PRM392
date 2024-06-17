@@ -2,9 +2,11 @@ package com.example.restaurantproject.dao;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Category;
@@ -17,8 +19,11 @@ import com.example.restaurantproject.bean.Reservation;
 import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.bean.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Database(entities = {Category.class, Product.class, Role.class, Account.class, Restaurant.class,
-        Order.class, OrderDetails.class, Reservation.class, Delivery.class, Menu.class}, version = 2)
+        Order.class, OrderDetails.class, Reservation.class, Delivery.class, Menu.class}, version = 6)
 public abstract class RestaurantDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "DemoDatabase";
@@ -44,9 +49,44 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                     .allowMainThreadQueries() // Allow queries on the main thread (not recommended for large applications)
                     .fallbackToDestructiveMigration() // Automatically deletes and recreates the database when the version changes
                     .enableMultiInstanceInvalidation() // Allows data synchronization between multiple instances of the database
+                    .addCallback(roomDatabaseCallback) // Thêm callback để chèn dữ liệu mẫu
                     .build();
         }
         return INSTANCE;
     }
+
+    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            // Đây là nơi bạn sẽ thêm dữ liệu vào cơ sở dữ liệu khi nó được tạo lần đầu tiên.
+            new Thread(() -> {
+                // Lấy đối tượng cơ sở dữ liệu
+                RestaurantDatabase database = INSTANCE;
+
+
+                RoleDao roleDao = database.roleDao();
+                List<Role> roles = new ArrayList<>();
+                roles.add(new Role("Admin", "Administrator with full access"));
+                roles.add(new Role("Restaurant staff", "Staff working in the restaurant"));
+                roles.add(new Role("Waiter", "Server responsible for serving customers"));
+                roles.add(new Role("Customer", "Regular customer of the restaurant"));
+                roles.add(new Role("Deliverer", "Delivery person responsible for delivering orders"));
+                for (Role c : roles) {
+                    roleDao.insert(c);
+                }
+
+                AccountDao accountDao = database.accountDao();
+                List<Account> accounts = new ArrayList<>();
+                accounts.add(new Account("admin", "123", "Admin", "admin@gmail.com","0123456789","FPT",1, true, "admin.png"));
+                accounts.add(new Account("thuong", "123", "Vu Thuong", "thuongvv16@gmail.com","0888160699","FPT",2, true, "thuong.png"));
+                for (Account a : accounts) {
+                    accountDao.insert(a);
+                }
+
+
+            }).start();
+        }
+    };
 }
 

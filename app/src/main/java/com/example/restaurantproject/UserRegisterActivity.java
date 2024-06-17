@@ -79,8 +79,8 @@ public class UserRegisterActivity extends AppCompatActivity {
                 newAccount.setEmail(enteredEmail);
                 newAccount.setUsername(enteredUsername);
                 newAccount.setPassword(enteredPassword);
-                newAccount.setRoleId(2);
-                newAccount.setRestaurantId(1);
+                newAccount.setRoleId(4);
+                newAccount.setRestaurantId(null);
                 newAccount.setStatus(true);
                 newAccount.setFullname(enteredUsername);
                 newAccount.setAvatar("https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png");

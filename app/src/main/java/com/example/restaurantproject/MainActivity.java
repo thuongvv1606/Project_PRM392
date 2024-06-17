@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ import com.example.restaurantproject.repository.RoleRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
-
+    private Context context = null;
     private AccountRepository accountRepository = null;
     private CategoryRepository categoryRepository = null;
     private DeliveryRepository deliveryRepository = null;
@@ -66,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
         reservationRepository = new ReservationRepository(this);
         restaurantRepository = new RestaurantRepository(this);
         roleRepository = new RoleRepository(this);
+        context = this;
 
         Button database = findViewById(R.id.database);
+        Button deleteDatabase = findViewById(R.id.deletedatabase);
         database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
                 restaurantRepository.getAllRestaurants();
                 roleRepository.getAllRoles();
                 Toast.makeText(MainActivity.this,"Database successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        deleteDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.deleteDatabase("DemoDatabase");
+                Toast.makeText(MainActivity.this,"Delete Database successfully", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -9,7 +9,7 @@ public class AccountDTO {
     private String phoneNumber;
     private String address;
     private int roleId;
-    private int restaurantId;
+    private Integer restaurantId;
     private boolean status;
     private String avatar;
     private String roleName;

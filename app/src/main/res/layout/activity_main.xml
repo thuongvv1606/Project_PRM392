@@ -18,6 +18,12 @@
         android:layout_height="wrap_content"
         android:text="Database"/>
 
+    <Button
+        android:id="@+id/deletedatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DeleteDatabase"/>
+
     <!-- Username TextView -->
     <TextView
         android:id="@+id/usernameTextView"

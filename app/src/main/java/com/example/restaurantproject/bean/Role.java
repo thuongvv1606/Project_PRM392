@@ -18,6 +18,20 @@ public class Role {
     @ColumnInfo(name = "role_description")
     private String roleDescription;
 
+    public Role() {
+    }
+
+    public Role(int roleId, String roleName, String roleDescription) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
+    }
+
+    public Role(String roleName, String roleDescription) {
+        this.roleName = roleName;
+        this.roleDescription = roleDescription;
+    }
+
     public int getRoleId() {
         return roleId;
     }

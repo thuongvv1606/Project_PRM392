@@ -39,9 +39,10 @@ public interface AccountDao {
             "a.status AS status, a.avatar AS avatar, r.role_name AS roleName, rt.restaurant_name AS restaurantName " +
             "FROM Account a " +
             "JOIN Role r ON a.role_id = r.role_id " +
-            "JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id " +
+            "LEFT JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id " +
             "WHERE a.username = :username AND a.password = :password")
     AccountDTO checkLogin(String username, String password);
+
 
 
     // Register
