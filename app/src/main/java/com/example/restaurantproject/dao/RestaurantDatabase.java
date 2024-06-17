@@ -18,7 +18,7 @@ import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.bean.Role;
 
 @Database(entities = {Category.class, Product.class, Role.class, Account.class, Restaurant.class,
-        Order.class, OrderDetails.class, Reservation.class, Delivery.class, Menu.class}, version = 1)
+        Order.class, OrderDetails.class, Reservation.class, Delivery.class, Menu.class}, version = 2)
 public abstract class RestaurantDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "DemoDatabase";

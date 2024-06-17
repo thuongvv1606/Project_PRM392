@@ -18,6 +18,9 @@ public class Category {
     @ColumnInfo(name = "category_description")
     private String categoryDescription;
 
+    @ColumnInfo(name = "category_image")
+    private String categoryImage;
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -40,6 +43,14 @@ public class Category {
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
+    }
+
+    public String getCategoryImage() {
+        return categoryImage;
+    }
+
+    public void setCategoryImage(String categoryImage) {
+        this.categoryImage = categoryImage;
     }
 }
 

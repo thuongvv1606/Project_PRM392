@@ -27,16 +27,18 @@ public class CategoryRepository {
         return categoryDao.select(categoryId);
     }
 
+    public Category getByName(String name, int id) {
+        return categoryDao.getByName(name, id);
+    }
+
     public List<Category> getAllCategories() {
         return categoryDao.selectAll();
     }
 
-    public void deleteCategory(int categoryId) {
-        categoryDao.delete(categoryId);
-    }
+    public List<Category> searchCategories(String searchStr) { return categoryDao.search("%" + searchStr + "%");}
 
-    public void deleteAllCategories() {
-        categoryDao.deleteAll();
-    }
+    public void deleteCategory(int categoryId) { categoryDao.delete(categoryId); }
+
+    public void deleteAllCategories() { categoryDao.deleteAll(); }
 }
 

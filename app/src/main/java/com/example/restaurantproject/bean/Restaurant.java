@@ -27,6 +27,9 @@ public class Restaurant {
     @ColumnInfo(name = "address")
     private String address;
 
+    @ColumnInfo(name = "restaurant_image")
+    private String restaurantImage;
+
     public int getRestaurantId() {
         return restaurantId;
     }
@@ -75,6 +78,11 @@ public class Restaurant {
         this.address = address;
     }
 
-    // Getters and setters
-    // ...
+    public String getRestaurantImage() {
+        return restaurantImage;
+    }
+
+    public void setRestaurantImage(String restaurantImage) {
+        this.restaurantImage = restaurantImage;
+    }
 }

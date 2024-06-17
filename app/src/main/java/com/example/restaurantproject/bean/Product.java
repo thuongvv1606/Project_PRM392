@@ -32,6 +32,9 @@ public class Product {
     @ColumnInfo(name = "price")
     private double price;
 
+    @ColumnInfo(name = "product_image")
+    private String productImage;
+
     @ColumnInfo(name = "category_id")
     private int categoryId;
 
@@ -84,5 +87,13 @@ public class Product {
 
     public void setMenuId(int menuId) {
         this.menuId = menuId;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 }

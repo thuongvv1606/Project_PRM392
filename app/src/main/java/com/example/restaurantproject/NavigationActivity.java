@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -76,11 +77,15 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             // Redirect to login page (for now display a toast).
             drawer.closeDrawer(GravityCompat.START);
             displayToast("Go to login page successfully!");
+            Intent intent = new Intent(NavigationActivity.this, UserLoginActivity.class);
+            startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.nav_register) {
             // Redirect to register page (for now display a toast).
             drawer.closeDrawer(GravityCompat.START);
             displayToast("Go to register page successfully!");
+            Intent intent = new Intent(NavigationActivity.this, UserRegisterActivity.class);
+            startActivity(intent);
             return true;
         } else {
             return false;

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_background"
+    tools:context=".CategoryListItemActivity">
+
+    <TextView
+        android:id="@+id/tv_category_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_weight="1"
+        android:textColor="@color/link_blue"
+        />
+
+    <TextView
+        android:id="@+id/tv_category_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_weight="3"
+        />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_edit_category"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:layout_weight="0.5"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/light_green"
+            android:src="@drawable/editbutton" />
+
+        <ImageButton
+            android:id="@+id/btn_delete_category"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:layout_weight="0.5"
+            android:scaleType="centerInside"
+            android:backgroundTint="@color/light_green"
+            android:src="@drawable/deletebtn"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

@@ -42,6 +42,7 @@ public class Account {
     @ColumnInfo(name = "address")
     private String address;
 
+    @Nullable
     @ColumnInfo(name = "role_id")
     private int roleId;
 
@@ -126,13 +127,9 @@ public class Account {
         this.address = address;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
+    public int getRoleId() { return roleId; }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
+    public void setRoleId(@Nullable int roleId) { this.roleId = roleId; }
 
     public int getRestaurantId() {
         return restaurantId;

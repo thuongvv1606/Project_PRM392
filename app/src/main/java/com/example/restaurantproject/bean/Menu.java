@@ -23,6 +23,9 @@ public class Menu {
     @ColumnInfo(name = "menu_description")
     private String menuDescription;
 
+    @ColumnInfo(name = "menu_image")
+    private String menuImage;
+
     @ColumnInfo(name = "restaurant_id")
     private int restaurantId;
 
@@ -56,5 +59,13 @@ public class Menu {
 
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(String menuImage) {
+        this.menuImage = menuImage;
     }
 }
