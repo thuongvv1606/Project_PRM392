@@ -1,9 +1,12 @@
 package com.example.restaurantproject;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +28,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class CategoryUpdateActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -59,6 +65,11 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         txt_name.setText(name);
         String description = intent.getStringExtra("category_description");
         txt_description.setText(description);
+        String imageUriString = intent.getStringExtra("category_image");
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            loadImageFromUri(imageUri);
+        }
 
         Button btnSelectImage = findViewById(R.id.button_select_image_update_category);
 
@@ -71,37 +82,6 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Show an explanation to the user asynchronously
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission Needed")
-                    .setMessage("This permission is needed to load images from your device")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Request the permission again
-                            ActivityCompat.requestPermissions(CategoryUpdateActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create()
-                    .show();
-        } else {
-            // Request the permission
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-        }
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-        } else {
-            loadImageFromIntent();
-        }
 
         Button updateBtn = findViewById(R.id.btn_update_category);
         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +100,8 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                 }
                 category.setCategoryName(name);
                 category.setCategoryDescription(txt_description.getText().toString());
-                if (imageUri != null) {
-                    category.setCategoryImage(imageUri.toString());
+                if (imageUriString != null) {
+                    category.setCategoryImage(imageUriString);
                 } else {
                     category.setCategoryImage("");
                 }
@@ -150,32 +130,33 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         });
     }
 
-    private void loadImageFromIntent() {
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("category_image");
-        Uri imageUri = Uri.parse(image);
-        txt_image.setImageURI(imageUri);
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                loadImageFromIntent();
-            } else {
-                Toast.makeText(this, "Permission denied to read external storage", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
+
+            final int takeFlags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
+
             txt_image.setImageURI(imageUri);
+        }
+    }
+
+    private void loadImageFromUri(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            txt_image.setImageBitmap(bitmap);
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

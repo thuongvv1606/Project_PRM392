@@ -3,6 +3,8 @@ package com.example.restaurantproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +24,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import android.Manifest;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class CategoryDetailsActivity extends AppCompatActivity {
 
@@ -52,36 +57,10 @@ public class CategoryDetailsActivity extends AppCompatActivity {
         txt_name.setText(name);
         String description = intent.getStringExtra("category_description");
         txt_description.setText(description);
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Show an explanation to the user asynchronously
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission Needed")
-                    .setMessage("This permission is needed to load images from your device")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Request the permission again
-                            ActivityCompat.requestPermissions(CategoryDetailsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create()
-                    .show();
-        } else {
-            // Request the permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-        }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE);
-        } else {
-            loadImageFromIntent();
+        String imageUriString = intent.getStringExtra("category_image");
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            loadImageFromUri(imageUri);
         }
 
         Button toUpdateBtn = findViewById(R.id.btn_toupdate_category);
@@ -92,8 +71,7 @@ public class CategoryDetailsActivity extends AppCompatActivity {
                 intent.putExtra("category_id", id);
                 intent.putExtra("category_name", name);
                 intent.putExtra("category_description", description);
-                String image = intent.getStringExtra("category_image");
-                intent.putExtra("category_image", image);
+                intent.putExtra("category_image", imageUriString);
                 startActivity(intent);
             }
         });
@@ -108,22 +86,16 @@ public class CategoryDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void loadImageFromIntent() {
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("category_image");
-        Uri imageUri = Uri.parse(image);
-        txt_image.setImageURI(imageUri);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                loadImageFromIntent();
-            } else {
-                Toast.makeText(this, "Permission denied to read external storage", Toast.LENGTH_SHORT).show();
+    private void loadImageFromUri(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            txt_image.setImageBitmap(bitmap);
+            if (inputStream != null) {
+                inputStream.close();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -65,6 +65,7 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
                 intent.putExtra("category_name", category.getCategoryName());
                 intent.putExtra("category_description", category.getCategoryDescription());
                 intent.putExtra("category_image", category.getCategoryImage());
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
             }
         });
@@ -77,6 +78,7 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
                 intent.putExtra("category_name", category.getCategoryName());
                 intent.putExtra("category_description", category.getCategoryDescription());
                 intent.putExtra("category_image", category.getCategoryImage());
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
             }
         });
