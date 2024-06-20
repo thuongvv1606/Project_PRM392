@@ -53,19 +53,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         ImageView backArrow = findViewById(R.id.imv_back);
 
         // Get accountDTO data from session
-        AccountDTO account = sessionManager.getAccountFromSession();
-        if (account != null) {
-            tvFullName.setText(account.getUsername());
-            tvEmail.setText(account.getEmail());
-            tvPhone.setText(account.getPhoneNumber());
-            tvAddress.setText(account.getAddress());
-            tvRole.setText(account.getRoleName());
-
-            // Load avatar image from URL valid
-            Glide.with(this).load(account.getAvatar()).into(profileImage);
-        }else {
-            Toast.makeText(this, "No account data found", Toast.LENGTH_SHORT).show();
-        }
+        updateProfileData();
 
         // Back arrow click listener
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +81,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         tvEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ViewProfileActivity.this, EditProfileActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ViewProfileActivity.this, UpdateProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -102,9 +90,28 @@ public class ViewProfileActivity extends AppCompatActivity {
         tvChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ViewProfileActivity.this, ChangePasswordActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ViewProfileActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
             }
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        updateProfileData();
+    }
+
+    private void updateProfileData() {
+        AccountDTO account = sessionManager.getAccountFromSession();
+        if (account != null) {
+            tvFullName.setText(account.getFullname());
+            tvEmail.setText(account.getEmail());
+            tvPhone.setText(account.getPhoneNumber());
+            tvAddress.setText(account.getAddress());
+            tvRole.setText(account.getRoleName().toUpperCase());
+
+            Glide.with(this).load(account.getAvatar()).into(profileImage);
+
+        }
     }
 }

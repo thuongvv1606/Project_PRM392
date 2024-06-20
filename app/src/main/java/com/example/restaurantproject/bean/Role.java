@@ -55,4 +55,9 @@ public class Role {
     public void setRoleDescription(String roleDescription) {
         this.roleDescription = roleDescription;
     }
+
+    @Override
+    public String toString() {
+        return roleName;
+    }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_background"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_account_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Id" />
+
+    <TextView
+        android:id="@+id/tv_account_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Username" />
+
+    <TextView
+        android:id="@+id/tv_account_role"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Role" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_edit_icon"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:layout_weight="0.5"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pen_edit" />
+
+        <ImageView
+            android:id="@+id/iv_delete_icon"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:layout_weight="0.5"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/iv_lock_icon"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:layout_weight="0.5"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_lock" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

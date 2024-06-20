@@ -56,5 +56,26 @@ public interface AccountDao {
     // Forgot Pass
     @Query("SELECT * FROM Account WHERE email = :email")
     Account findAccountByEmail(String email);
+
+
+    // AccountList -> List<AccountDTO>
+    @Query("SELECT a.account_id AS accountId, a.username AS username, a.password AS password, " +
+            "a.fullname AS fullname, a.email AS email, a.phone_number AS phoneNumber, " +
+            "a.address AS address, a.role_id AS roleId, a.restaurant_id AS restaurantId, " +
+            "a.status AS status, a.avatar AS avatar, r.role_name AS roleName, rt.restaurant_name AS restaurantName " +
+            "FROM Account a " +
+            "JOIN Role r ON a.role_id = r.role_id " +
+            "LEFT JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id")
+    List<AccountDTO> selectAllAccountDTO();
+
+    @Query("SELECT a.account_id AS accountId, a.username AS username, a.password AS password, " +
+            "a.fullname AS fullname, a.email AS email, a.phone_number AS phoneNumber, " +
+            "a.address AS address, a.role_id AS roleId, a.restaurant_id AS restaurantId, " +
+            "a.status AS status, a.avatar AS avatar, r.role_name AS roleName, rt.restaurant_name AS restaurantName " +
+            "FROM Account a " +
+            "JOIN Role r ON a.role_id = r.role_id " +
+            "LEFT JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id " +
+            "WHERE username like :searchStr")
+    List<AccountDTO> searchAccountByUserName(String searchStr);
 }
 

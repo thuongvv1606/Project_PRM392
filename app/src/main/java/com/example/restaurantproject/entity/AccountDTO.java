@@ -34,6 +34,20 @@ public class AccountDTO {
         this.restaurantName = restaurantName;
     }
 
+    public AccountDTO(int accountId, String username, String password, String fullname, String email, String phoneNumber, String address, int roleId, int restaurantId, boolean status, String avatar) {
+        this.accountId = accountId;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.roleId = roleId;
+        this.restaurantId = restaurantId;
+        this.status = status;
+        this.avatar = avatar;
+    }
+
     public int getAccountId() {
         return accountId;
     }

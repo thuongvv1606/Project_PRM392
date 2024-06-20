@@ -78,8 +78,9 @@ public abstract class RestaurantDatabase extends RoomDatabase {
 
                 AccountDao accountDao = database.accountDao();
                 List<Account> accounts = new ArrayList<>();
-                accounts.add(new Account("admin", "123", "Admin", "admin@gmail.com","0123456789","FPT",1, true, "admin.png"));
-                accounts.add(new Account("thuong", "123", "Vu Thuong", "thuongvv16@gmail.com","0888160699","FPT",2, true, "thuong.png"));
+                accounts.add(new Account("admin", "1234567", "Admin", "admin@gmail.com","0123456789","FPT",1, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("thuong", "1234567", "Vu Thuong", "thuongvv16@gmail.com","0888160699","FPT",4, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("tiendat320", "1234567", "Nguyễn Tiến Đạt", "tiendat320@gmail.com","0912123345","FPT",4, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
                 for (Account a : accounts) {
                     accountDao.insert(a);
                 }

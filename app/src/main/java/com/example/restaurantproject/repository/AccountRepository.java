@@ -72,6 +72,22 @@ public class AccountRepository {
         return newPassword;
     }
 
+    public List<AccountDTO> getAllAccountDTOs() {
+        return accountDao.selectAllAccountDTO();
+    }
+
+    public List<AccountDTO> searchAccounts(String searchStr) {
+        return accountDao.searchAccountByUserName("%" + searchStr + "%");
+    }
+
+    public void updateAccountStatus(int accountId, boolean newStatus) {
+        Account account = accountDao.select(accountId);
+        if (account != null) {
+            account.setStatus(newStatus);
+            accountDao.update(account);
+        }
+    }
+
     private String generateNewPassword() {
         String uuid = UUID.randomUUID().toString();
         return uuid.substring(0, 8);
@@ -79,6 +95,11 @@ public class AccountRepository {
 
     public boolean checkEmailExists(String email) {
         int count = accountDao.checkEmailExists(email);
+        return count > 0;
+    }
+
+    public boolean checkUsernameExists(String username) {
+        int count = accountDao.checkUsernameExists(username);
         return count > 0;
     }
 }
