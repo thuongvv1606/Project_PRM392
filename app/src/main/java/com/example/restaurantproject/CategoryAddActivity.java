@@ -2,11 +2,14 @@ package com.example.restaurantproject;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,13 +31,33 @@ import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
 import com.example.restaurantproject.repository.ProductRepository;
 
-public class CategoryAddActivity extends AppCompatActivity {
+import java.io.IOException;
 
-    private static final int PICK_IMAGE_REQUEST = 1;
+public class CategoryAddActivity extends AppCompatActivity {
     private ImageView imageView;
     private CategoryRepository categoryRepository = null;
     private EditText edtName, edtDescription;
     private Uri imageUri;
+
+    // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
+    private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    // Nếu hình ảnh được chọn thành công, lấy URI của hình ảnh
+                    Uri selectedImageUri = result.getData().getData();
+                    if (selectedImageUri != null) {
+                        imageUri = selectedImageUri;
+                        try {
+                            // Load hình ảnh được chọn lên ImageView
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +73,10 @@ public class CategoryAddActivity extends AppCompatActivity {
         categoryRepository = new CategoryRepository(this);
         edtName = findViewById(R.id.edt_category_name);
         edtDescription = findViewById(R.id.edt_category_description);
-        Button btnSelectImage = findViewById(R.id.btn_select_image_add_category);
         imageView = findViewById(R.id.edt_category_image);
 
-        btnSelectImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            }
-        });
+        // Sự kiện chọn ảnh đại diện
+        imageView.setOnClickListener(v -> openImageChooser());
 
         Button addBtn = findViewById(R.id.btn_add_category);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,26 +116,14 @@ public class CategoryAddActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategoryAddActivity.this, CategoryListActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
 
-    @SuppressLint("WrongConstant")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-
-            final int takeFlags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
-
-            imageView.setImageURI(imageUri);
-            imageView.setVisibility(View.VISIBLE); // Make ImageView visible after image selection
-        }
+    private void openImageChooser() {
+        // Mở activity để chọn hình ảnh từ bộ nhớ ngoài
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        imageChooserLauncher.launch(intent);
     }
-
 }

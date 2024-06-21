@@ -21,26 +21,9 @@
             android:layout_height="wrap_content"
             android:text="Category Details"
             android:textColor="@color/dark_green"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-        android:id="@+id/tv_category_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Category Id"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_category_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edittext_border"
-        android:paddingTop="20dp"
-        android:textSize="20sp"
-        android:paddingBottom="20dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -54,19 +37,24 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Image"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/txt_category_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:contentDescription="Selected Image"
-                android:scaleType="centerCrop"/> <!-- Initially hidden, visible after image selection -->
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:background="@drawable/edittext_border"
+                android:src="@drawable/choose_image"
+                />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -76,7 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Category Name"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_category_name"
@@ -86,7 +75,8 @@
             android:background="@drawable/edittext_border"
             android:paddingTop="20dp"
             android:textSize="20sp"
-            android:paddingBottom="20dp" />
+            android:paddingBottom="20dp"
+            android:hint="Category Name"/>
 
         <TextView
             android:id="@+id/tv_category_description"
@@ -94,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Description"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_category_description"
@@ -103,6 +94,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_border"
             android:textSize="20sp"
+            android:hint="Description"
             />
 
         <androidx.appcompat.widget.LinearLayoutCompat

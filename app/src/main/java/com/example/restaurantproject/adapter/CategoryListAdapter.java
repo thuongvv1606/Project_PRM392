@@ -62,10 +62,6 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryDetailsActivity.class);
                 intent.putExtra("category_id", category.getCategoryId());
-                intent.putExtra("category_name", category.getCategoryName());
-                intent.putExtra("category_description", category.getCategoryDescription());
-                intent.putExtra("category_image", category.getCategoryImage());
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
             }
         });
@@ -75,10 +71,6 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
             public void onClick(View v) {
                 Intent intent = new Intent(context, CategoryUpdateActivity.class);
                 intent.putExtra("category_id", category.getCategoryId());
-                intent.putExtra("category_name", category.getCategoryName());
-                intent.putExtra("category_description", category.getCategoryDescription());
-                intent.putExtra("category_image", category.getCategoryImage());
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
             }
         });
@@ -86,13 +78,14 @@ public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapt
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CategoryRepository categoryRepository = new CategoryRepository(context);
+                Category cate = categoryRepository.getCategory(Integer.parseInt(id));
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Delete Category");
-                builder.setMessage("Are you sure you want to delete this category?")
+                builder.setMessage("Are you sure you want to delete category " + cate.getCategoryName() + "?")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                CategoryRepository categoryRepository = new CategoryRepository(context);
                                 categoryRepository.deleteCategory(Integer.parseInt(id));
                                 Toast.makeText(context, "Delete Category successfully!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, CategoryListActivity.class);

@@ -2,6 +2,7 @@ package com.example.restaurantproject;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +30,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
 
@@ -34,11 +39,31 @@ import java.io.InputStream;
 
 public class CategoryUpdateActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private CategoryRepository categoryRepository = null;
-    private TextView txt_id, txt_name, txt_description;
+    private TextView txt_name, txt_description;
     private ImageView txt_image;
     private Uri imageUri;
-    private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 101;
+
+    // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
+    private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    // Nếu hình ảnh được chọn thành công, lấy URI của hình ảnh
+                    Uri selectedImageUri = result.getData().getData();
+                    if (selectedImageUri != null) {
+                        imageUri = selectedImageUri;
+                        try {
+                            // Load hình ảnh được chọn lên ImageView
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            txt_image.setImageBitmap(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +78,25 @@ public class CategoryUpdateActivity extends AppCompatActivity {
 
         categoryRepository = new CategoryRepository(this);
 
-        txt_id = findViewById(R.id.edit_category_id);
         txt_name = findViewById(R.id.edit_category_name);
         txt_image = findViewById(R.id.edit_category_image);
         txt_description = findViewById(R.id.edit_category_description);
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("category_id", -1);
-        txt_id.setText(String.valueOf(id));
-        String name = intent.getStringExtra("category_name");
-        txt_name.setText(name);
-        String description = intent.getStringExtra("category_description");
-        txt_description.setText(description);
-        String imageUriString = intent.getStringExtra("category_image");
-        if (imageUriString != null) {
-            Uri imageUri = Uri.parse(imageUriString);
-            loadImageFromUri(imageUri);
+        Category category = categoryRepository.getCategory(id);
+        txt_name.setText(category.getCategoryName());
+        txt_description.setText(category.getCategoryDescription());
+        // Sự kiện chọn ảnh đại diện
+        txt_image.setOnClickListener(v -> openImageChooser());
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         }
-
-        Button btnSelectImage = findViewById(R.id.button_select_image_update_category);
-
-        btnSelectImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            }
-        });
+        if (category.getCategoryImage() != null) {
+            imageUri = Uri.parse(category.getCategoryImage());
+            Glide.with(this).load(imageUri).into(txt_image);
+        }
 
         Button updateBtn = findViewById(R.id.btn_update_category);
         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +115,9 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                 }
                 category.setCategoryName(name);
                 category.setCategoryDescription(txt_description.getText().toString());
-                if (imageUriString != null) {
-                    category.setCategoryImage(imageUriString);
+
+                if (imageUri != null) {
+                    category.setCategoryImage(imageUri.toString());
                 } else {
                     category.setCategoryImage("");
                 }
@@ -124,27 +140,9 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         toListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategoryUpdateActivity.this, CategoryListActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
-    }
-
-
-
-    @SuppressLint("WrongConstant")
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-
-            final int takeFlags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
-
-            txt_image.setImageURI(imageUri);
-        }
     }
 
     private void loadImageFromUri(Uri uri) {
@@ -158,5 +156,11 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void openImageChooser() {
+        // Mở activity để chọn hình ảnh từ bộ nhớ ngoài
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        imageChooserLauncher.launch(intent);
     }
 }

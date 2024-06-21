@@ -21,26 +21,9 @@
             android:layout_height="wrap_content"
             android:text="Update Category"
             android:textColor="@color/dark_green"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-        android:id="@+id/tv_category_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Category Id"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/edit_category_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edittext_border"
-        android:paddingTop="20dp"
-        android:textSize="20sp"
-        android:paddingBottom="20dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -53,28 +36,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Image"
-            android:textSize="20sp" />
+            android:text="Choose Image"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_select_image_update_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:backgroundTint="@color/navbar_green"
-                android:text="Select Image" />
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/edit_category_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:contentDescription="Selected Image"
-                android:scaleType="centerCrop"/> <!-- Initially hidden, visible after image selection -->
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:background="@drawable/edittext_border"
+                android:src="@drawable/choose_image"
+                />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -83,8 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Category Name"
-            android:textSize="20sp" />
+            android:text="Category Name (*)"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edit_category_name"
@@ -102,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Description"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edit_category_description"

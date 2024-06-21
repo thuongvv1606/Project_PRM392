@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category List"
-            android:padding="30px"/>
+            android:padding="30px"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -76,7 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="ID" />
+            android:text="ID"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/category_name"
@@ -84,7 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:padding="10dp"
-            android:text="Category Name" />
+            android:text="Category Name"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/category_action"
@@ -92,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Action" />
+            android:text="Actions"
+            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

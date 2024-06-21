@@ -20,42 +20,40 @@
             android:textColor="@color/dark_green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Category"/>
+            android:text="Add Category"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_category_image"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Image"
-            />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_select_image_add_category"
+            <TextView
+                android:id="@+id/tv_category_image"
+                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/navbar_green"
-                android:layout_marginRight="10dp"
-                android:text="Select Image"/>
+                android:layout_marginBottom="10dp"
+                android:text="Choose image"
+                android:textStyle="bold"
+                />
 
             <ImageView
                 android:id="@+id/edt_category_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:contentDescription="Selected Image"
                 android:scaleType="centerCrop"
-                android:visibility="gone"/> <!-- Initially hidden, visible after image selection -->
+                android:layout_gravity="center"
+                android:background="@drawable/edittext_border"
+                android:src="@drawable/choose_image"
+                />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -65,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Category Name"
+            android:text="Category Name (*)"
+            android:textStyle="bold"
             />
         <EditText
             android:id="@+id/edt_category_name"
@@ -84,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Description"
+            android:textStyle="bold"
             />
         <EditText
             android:id="@+id/edt_category_description"

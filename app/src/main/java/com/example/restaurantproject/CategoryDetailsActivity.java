@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -25,14 +27,17 @@ import androidx.core.view.WindowInsetsCompat;
 import android.Manifest;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.restaurantproject.bean.Category;
+import com.example.restaurantproject.repository.CategoryRepository;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 public class CategoryDetailsActivity extends AppCompatActivity {
-
-    private TextView txt_id, txt_name, txt_description;
+    private TextView txt_name, txt_description;
     private ImageView txt_image;
-    private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 101;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +50,20 @@ public class CategoryDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
-        txt_id = findViewById(R.id.txt_category_id);
         txt_name = findViewById(R.id.txt_category_name);
         txt_image = findViewById(R.id.txt_category_image);
         txt_description = findViewById(R.id.txt_category_description);
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("category_id", -1);
-        txt_id.setText(String.valueOf(id));
-        String name = intent.getStringExtra("category_name");
-        txt_name.setText(name);
-        String description = intent.getStringExtra("category_description");
-        txt_description.setText(description);
-        String imageUriString = intent.getStringExtra("category_image");
-        if (imageUriString != null) {
-            Uri imageUri = Uri.parse(imageUriString);
-            loadImageFromUri(imageUri);
+        CategoryRepository categoryRepository = new CategoryRepository(this);
+        Category category = categoryRepository.getCategory(id);
+        txt_name.setText(category.getCategoryName());
+        txt_description.setText(category.getCategoryDescription());
+
+        if (category.getCategoryImage() != null) {
+            imageUri = Uri.parse(category.getCategoryImage());
+            Glide.with(this).load(imageUri).into(txt_image);
         }
 
         Button toUpdateBtn = findViewById(R.id.btn_toupdate_category);
@@ -69,9 +72,6 @@ public class CategoryDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryDetailsActivity.this, CategoryUpdateActivity.class);
                 intent.putExtra("category_id", id);
-                intent.putExtra("category_name", name);
-                intent.putExtra("category_description", description);
-                intent.putExtra("category_image", imageUriString);
                 startActivity(intent);
             }
         });
@@ -84,18 +84,5 @@ public class CategoryDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void loadImageFromUri(Uri uri) {
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            txt_image.setImageBitmap(bitmap);
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
