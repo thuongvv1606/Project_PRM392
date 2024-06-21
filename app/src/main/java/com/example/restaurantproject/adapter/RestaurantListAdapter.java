@@ -61,12 +61,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             public void onClick(View v) {
                 Intent intent = new Intent(context, RestaurantDetailActivity.class);
                 intent.putExtra("restaurant_id", restaurant.getRestaurantId());
-                intent.putExtra("restaurant_name", restaurant.getRestaurantName());
-                intent.putExtra("restaurant_description", restaurant.getRestaurantDescription());
-                intent.putExtra("restaurant_email", restaurant.getEmail());
-                intent.putExtra("restaurant_phone_number", restaurant.getPhoneNumber());
-                intent.putExtra("restaurant_address", restaurant.getAddress());
-                intent.putExtra("restaurant_image", restaurant.getRestaurantImage());
                 context.startActivity(intent);
             }
         });
@@ -76,12 +70,6 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             public void onClick(View v) {
                 Intent intent = new Intent(context, RestaurantUpdateActivity.class);
                 intent.putExtra("restaurant_id", restaurant.getRestaurantId());
-                intent.putExtra("restaurant_name", restaurant.getRestaurantName());
-                intent.putExtra("restaurant_description", restaurant.getRestaurantDescription());
-                intent.putExtra("restaurant_email", restaurant.getEmail());
-                intent.putExtra("restaurant_phone_number", restaurant.getPhoneNumber());
-                intent.putExtra("restaurant_address", restaurant.getAddress());
-                intent.putExtra("restaurant_image", restaurant.getRestaurantImage());
                 context.startActivity(intent);
             }
         });

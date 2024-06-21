@@ -52,10 +52,14 @@
 
                     <ImageView
                         android:id="@+id/img_restaurant_detail_image"
-                        android:layout_width="300dp"
-                        android:layout_height="120dp"
+                        android:layout_width="350dp"
+                        android:layout_height="150dp"
                         android:contentDescription="Selected Image"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edittext_border"
+                        android:src="@drawable/choose_image"
+                        />
                 </LinearLayout>
 
                 <TextView
