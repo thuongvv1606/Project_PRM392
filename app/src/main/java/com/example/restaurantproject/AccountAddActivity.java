@@ -75,6 +75,7 @@ public class AccountAddActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Khởi tạo các view
         addAccountImage = findViewById(R.id.add_account_image);
         edtUsername = findViewById(R.id.edt_username);
         edtPassword = findViewById(R.id.edt_password);
@@ -92,6 +93,7 @@ public class AccountAddActivity extends AppCompatActivity {
         // Sự kiện chọn ảnh đại diện
         addAccountImage.setOnClickListener(v -> openImageChooser());
 
+        // Sự kiện khi nhấn nút "Add Account"
         btnAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,28 +101,30 @@ public class AccountAddActivity extends AppCompatActivity {
             }
         });
 
+        // Sự kiện khi nhấn nút "Cancel"
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
+            } // Close Activity
         });
 
 
-        // Load Role to spinner
+        // Load danh sách vai trò vào spinner
         roles = roleRepository.getAllRoles();
         // Tạo Adapter tùy chỉnh và đặt cho Spinner
         roleSpinnerAdapter = new RoleSpinnerAdapter(this, roles);
         spinnerRole.setAdapter(roleSpinnerAdapter);
     }
 
+    // Mở activity để chọn hình ảnh từ bộ nhớ ngoài
     private void openImageChooser() {
-        // Mở activity để chọn hình ảnh từ bộ nhớ ngoài
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         imageChooserLauncher.launch(intent);
     }
 
 
+    // FUnction thêm tài khoản mới
     private void addAccount() {
         String username = edtUsername.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
@@ -137,23 +141,25 @@ public class AccountAddActivity extends AppCompatActivity {
         int roleId = selectedRole.getRoleId();
 
 
+        // Kiểm tra các trường bắt buộc
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields (*) required.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra độ dài của username
+        // Kiểm tra độ dài của username >= 6
         if (username.length() < 6) {
             Toast.makeText(this, "Username must be at least 6 characters long", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Kiểm tra ký tự hợp lệ của username bao gom chu va so
         if (!username.matches("[a-zA-Z0-9]+")) {
             Toast.makeText(this, "Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra độ dài của password
+        // Kiểm tra độ dài của password >=7
         if (password.length() <= 6) {
             Toast.makeText(this, "Password must be longer than 6 characters", Toast.LENGTH_SHORT).show();
             return;
@@ -165,7 +171,7 @@ public class AccountAddActivity extends AppCompatActivity {
             return;
         }
 
-        // Add account logic (save to database)
+        // Tạo đối tượng Account mới và gán giá trị
         Account newAccount = new Account();
         newAccount.setEmail(email);
         newAccount.setUsername(username);
@@ -179,7 +185,7 @@ public class AccountAddActivity extends AppCompatActivity {
         if (!fullname.isEmpty()) {
             newAccount.setFullname(fullname);
         } else {
-            newAccount.setFullname(username);
+            newAccount.setFullname(username); // Nếu fullname trống thì gán username làm fullname
         }
 
         if (imageUri != null) {
@@ -188,8 +194,10 @@ public class AccountAddActivity extends AppCompatActivity {
             newAccount.setAvatar("https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"); // Cập nhật URI ảnh đại diện mặc định
         }
 
+        // Lưu tài khoản mới vào cơ sở dữ liệu
         long accountId = accountRepository.register(newAccount);
 
+        // Kiểm tra kết quả add tài khoản
         if (accountId == -1) {
             Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
         } else if (accountId == -2) {
@@ -206,6 +214,7 @@ public class AccountAddActivity extends AppCompatActivity {
 
     }
 
+    // kiểm tra định dạng email hợp lệ
     private boolean isValidEmail(String emailAddress) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches();
     }

@@ -20,11 +20,13 @@ import com.example.restaurantproject.ultils.session.SessionManager;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class ChangePasswordActivity extends AppCompatActivity {
+    // Khai báo các biến thành phần giao diện
     private EditText edtCurrentPassword, edtNewPassword, edtConfirmPassword;
     private CircularImageView profileImage;
     private TextView tvRole;
     private AccountDTO currentAccount;
 
+    // Khai báo các biến liên quan đến quản lý phiên và repository
     private SessionManager sessionManager;
     private AccountRepository accountRepository;
     @Override
@@ -38,6 +40,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Khởi tạo session manager và account repository
         sessionManager = new SessionManager(this);
         accountRepository = new AccountRepository(this);
 

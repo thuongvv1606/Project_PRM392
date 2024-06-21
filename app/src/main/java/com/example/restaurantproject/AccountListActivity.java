@@ -23,6 +23,7 @@ import java.util.List;
 
 public class AccountListActivity extends AppCompatActivity {
 
+    // Khai báo các biến cho các thành phần UI
     private RecyclerView recyclerView;
     private AccountListAdapter adapter;
     private List<AccountDTO> accountList;
@@ -40,39 +41,44 @@ public class AccountListActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Khởi tạo đối tượng AccountRepository
         accountRepository = new AccountRepository(this);
-        // Initialize RecyclerView and set layout manager
+        // Khởi tạo RecyclerView và thiết lập layout manager
         recyclerView = findViewById(R.id.account_list_recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize account list
+        // Lấy danh sách tài khoản từ DB
         accountList = accountRepository.getAllAccountDTOs();
 
-        // Initialize adapter
+        // Khởi tạo adapter và thiết lập cho RecyclerView
         setAccountList(accountList);
 
+        // Hiển thị số lượng tài khoản tìm thấy
         TextView txtCount = findViewById(R.id.tv_category_count);
         txtCount.setText("Found " + accountList.size() + " account(s)");
 
-        // Initialize search views
+        // Khởi tạo các thành phần search
         edtSearchAccount = findViewById(R.id.edt_search_account);
         btnSearchAccount = findViewById(R.id.btn_search_account);
 
+        // Thiết lập sự kiện click cho nút search
         btnSearchAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Tìm kiếm tài khoản và cập nhật danh sách theo username
                 accountList = accountRepository.searchAccounts(edtSearchAccount.getText().toString().trim().toLowerCase());
                 setAccountList(accountList);
             }
         });
 
-        // Initialize add button
+        // Khởi tạo nút Add account và thiết lập sự kiện click
         Button btnAddAccount = findViewById(R.id.btn_add_account);
         btnAddAccount.setOnClickListener(v -> {
             Intent intent = new Intent(AccountListActivity.this, AccountAddActivity.class);
             startActivity(intent);
         });
     }
+    // Phương thức thiết lập danh sách tài khoản cho RecyclerView
     private void setAccountList(List<AccountDTO> accountList) {
         adapter = new AccountListAdapter(accountList, this);
         recyclerView.setAdapter(adapter);

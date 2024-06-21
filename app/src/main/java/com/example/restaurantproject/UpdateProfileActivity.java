@@ -31,6 +31,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
+    // Khai báo các biến thành phần giao diện
     private ImageView editProfileImage;
     private TextView tvRole;
     private EditText edtFullName, edtEmail, edtPhone, edtAddress;
@@ -38,6 +39,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private Uri imageUri;
     private AccountDTO currentAccount;
 
+    // Khai báo các biến liên quan đến quản lý phiên và repository
     private SessionManager sessionManager;
     private AccountRepository accountRepository;
 
@@ -195,6 +197,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         finish();
     }
 
+    // Kiem tra dinh dang email
     private boolean isValidEmail(String emailAddress) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches();
     }
