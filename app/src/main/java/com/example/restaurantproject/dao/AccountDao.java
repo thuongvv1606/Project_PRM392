@@ -68,6 +68,7 @@ public interface AccountDao {
             "LEFT JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id")
     List<AccountDTO> selectAllAccountDTO();
 
+    // Search for account list by username -> List<AccountDTO>
     @Query("SELECT a.account_id AS accountId, a.username AS username, a.password AS password, " +
             "a.fullname AS fullname, a.email AS email, a.phone_number AS phoneNumber, " +
             "a.address AS address, a.role_id AS roleId, a.restaurant_id AS restaurantId, " +

@@ -25,6 +25,7 @@ import com.example.restaurantproject.repository.AccountRepository;
 
 import java.util.List;
 
+// Adapter cho RecyclerView để hiển thị danh sách tài khoản
 public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.AccountViewHolder> {
 
     private List<AccountDTO> accounts = null;
@@ -40,14 +41,17 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
     @NonNull
     @Override
     public AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate layout cho từng item trong danh sách
         View view = LayoutInflater.from(context).inflate(R.layout.account_item, parent, false);
         return new AccountViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
+        // Lấy thông tin tài khoản tại vị trí "position"
         AccountDTO account = accounts.get(position);
 
+        // Hiển thị ID của tài khoản và gạch chân
         String id = "" + account.getAccountId();
         SpannableString spannableString = new SpannableString(id);
         spannableString.setSpan(new UnderlineSpan(), 0, id.length(), 0);
@@ -56,26 +60,26 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
         holder.tvAccountUsername.setText(account.getUsername());
         holder.tvAccountRole.setText(String.valueOf(account.getRoleName()));
 
-        // Hide delete and block icons for admin
+        // Ẩn icon xóa và khóa đối với tài khoản admin
         if ("admin".equalsIgnoreCase(account.getRoleName())) {
             holder.ivDeleteIcon.setImageResource(R.drawable.ic_none);
             holder.ivLockIcon.setImageResource(R.drawable.ic_none);
         } else {
 
-            // Set lock/unlock icon based on account status
+            // Đặt biểu tượng lock/unlock dựa trên trạng thái của tài khoản
             if (account.isStatus()) {
                 holder.ivLockIcon.setImageResource(R.drawable.ic_lock);
             } else {
                 holder.ivLockIcon.setImageResource(R.drawable.ic_unlock);
             }
 
-            // Handle lock/unlock icon click
+            // Xử lý sự kiện khi nhấn vào biểu tượng lock/unlock
             holder.ivLockIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean newStatus = !account.isStatus();
                     accountRepository.updateAccountStatus(Integer.parseInt(id), newStatus);
-                    // Update account status locally
+                    // Cập nhật trạng thái tài khoản
                     account.setStatus(newStatus);
                     notifyDataSetChanged();
                     String message = newStatus ? "Account Unlocked" : "Account Locked";
@@ -83,7 +87,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
                 }
             });
 
-            // Handle delete icon click
+            // Xử lý sự kiện khi nhấn vào icon xóa
             holder.ivDeleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -112,6 +116,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
             });
         }
 
+        // Xử lý sự kiện khi nhấn vào ID tài khoản
         holder.tvAccountId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,6 +137,8 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
                 context.startActivity(intent);
             }
         });
+
+        // Xử lý sự kiện khi nhấn vào icon edit
         holder.ivEditIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,10 +162,11 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.
 
     }
 
+    // ViewHolder để giữ các thành phần UI cho từng item
     @Override
     public int getItemCount() {
         return accounts.size();
-    }
+    } // Trả về số lượng tài khoản
 
     public class AccountViewHolder extends RecyclerView.ViewHolder {
         TextView tvAccountId, tvAccountUsername, tvAccountRole;

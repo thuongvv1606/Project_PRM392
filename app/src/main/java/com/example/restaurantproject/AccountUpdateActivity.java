@@ -35,6 +35,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 100;
     private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 101;
 
+    // Khai báo các biến cho các thành phần UI
     private ImageView updateAccountImage;
     private EditText edtUsername, edtPassword, edtEmail, edtFullname, edtPhone, edtAddress;
     private Spinner spinnerRole;
@@ -80,6 +81,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Khởi tạo các thành phần giao diện
         updateAccountImage = findViewById(R.id.update_account_image);
         edtUsername = findViewById(R.id.edt_username);
         edtPassword = findViewById(R.id.edt_password);
@@ -91,6 +93,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
         btnUpdateAccount = findViewById(R.id.btn_update_account);
         btnCancel = findViewById(R.id.btn_cancel);
 
+        // Khởi tạo repository
         roleRepository = new RoleRepository(this);
         accountRepository = new AccountRepository(this);
 
@@ -129,6 +132,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
             }
         }
 
+        // Lấy danh sách các roles từ repository
         roles = roleRepository.getAllRoles();
         // Tạo Adapter tùy chỉnh và đặt cho Spinner
         roleSpinnerAdapter = new RoleSpinnerAdapter(this, roles);
@@ -141,10 +145,10 @@ public class AccountUpdateActivity extends AppCompatActivity {
         // Sự kiện khi click vào ảnh để chọn hình mới
         updateAccountImage.setOnClickListener(v -> chooseImage());
 
-        // Sự kiện khi click vào nút cập nhật tài khoản
+        // Sự kiện khi click vào nút update account
         btnUpdateAccount.setOnClickListener(v -> updateAccount());
 
-        // Sự kiện khi click vào nút hủy bỏ
+        // Sự kiện khi click vào nút cancel
         btnCancel.setOnClickListener(v -> finish());
         btnCancel.setOnClickListener(v -> finish());
     }
@@ -159,12 +163,13 @@ public class AccountUpdateActivity extends AppCompatActivity {
         }
     }
 
-
+    // Phương thức chọn hình ảnh từ bộ nhớ ngoài
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         imageChooserLauncher.launch(intent);
     }
 
+    // Phương thức cập nhật thông tin tài khoản
     private void updateAccount() {
         String usernameEnter = edtUsername.getText().toString().trim();
         String passwordEnter = edtPassword.getText().toString().trim();
@@ -182,29 +187,31 @@ public class AccountUpdateActivity extends AppCompatActivity {
         int roleIdEnter = selectedRole.getRoleId();
 
 
+        // Kiểm tra các trường bắt buộc
         if (usernameEnter.isEmpty() || passwordEnter.isEmpty() || emailEnter.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields (*) required.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra độ dài của username
+        // Kiểm tra độ dài của username >= 6
         if (usernameEnter.length() < 6) {
             Toast.makeText(this, "Username must be at least 6 characters long", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Kiểm tra ký tự hợp lệ của username bao gom chu va so
         if (!usernameEnter.matches("[a-zA-Z0-9]+")) {
             Toast.makeText(this, "Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra email không được trùng
+        // Kiểm tra username không được trùng
         if (!usernameEnter.equals(username) && accountRepository.checkUsernameExists(usernameEnter)) {
             Toast.makeText(AccountUpdateActivity.this, "This username is already in use", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Kiểm tra độ dài của password
+        // Kiểm tra độ dài của password >=7
         if (passwordEnter.length() <= 6) {
             Toast.makeText(this, "Password must be longer than 6 characters", Toast.LENGTH_SHORT).show();
             return;
@@ -222,7 +229,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
             return;
         }
 
-        // Update account logic (save to database)
+        // Cập nhật thông tin tài khoản vào db
 
         Account newAccount = new Account();
         newAccount.setAccountId(accountId);
@@ -253,6 +260,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
 
     }
 
+    // kiểm tra định dạng email
     private boolean isValidEmail(String emailAddress) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches();
     }

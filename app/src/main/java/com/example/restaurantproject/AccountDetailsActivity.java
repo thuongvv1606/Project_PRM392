@@ -17,6 +17,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class AccountDetailsActivity extends AppCompatActivity {
 
+    // Khai báo các biến cho các thành phần UI
     private CircularImageView detailAccountImage;
     private TextView tvUserName, tvFullName, tvEmail, tvPhone, tvAddress, tvRole, tvStatus;
     private TextView btnGoToUpdate, btnCancel;
@@ -31,7 +32,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Bind data to TextViews
+        // Liên kết các thành phần UI với các biến
         tvUserName = findViewById(R.id.tv_username);
         tvEmail = findViewById(R.id.tv_email);
         tvFullName = findViewById(R.id.tv_fullname);
@@ -44,6 +45,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         btnGoToUpdate = findViewById(R.id.btn_update);
         btnCancel = findViewById(R.id.btn_cancel);
 
+        // Nhận Intent và lấy các dữ liệu được truyền từ adapter khi click id
         Intent intent = getIntent();
 
         // Assuming you have serialized data or extras from categoryList
@@ -70,6 +72,8 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 Glide.with(this).load(avatar).into(detailAccountImage);
             }
         }
+
+        // Gán dữ liệu cho các TextView
         tvUserName.setText(username);
         tvEmail.setText(email);
         tvFullName.setText(fullname);
@@ -79,6 +83,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
         tvStatus.setText(status ? "active" : "locked");
 
 
+        // Thiết lập sự kiện cho nút GoToUpdate
         btnGoToUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,11 +104,13 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Thiết lập sự kiện cho nút Cancel
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
+            } // Dong activity
         });
     }
 }
