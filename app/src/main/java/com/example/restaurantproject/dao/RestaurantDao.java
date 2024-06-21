@@ -24,6 +24,12 @@ public interface RestaurantDao {
     @Query("SELECT * FROM Restaurant")
     List<Restaurant> selectAll();
 
+    @Query("SELECT * FROM Restaurant WHERE restaurant_name LIKE '%' || :searchStr || '%' OR address LIKE '%' || :searchStr || '%'")
+    List<Restaurant> selectAll(String searchStr);
+
+    @Query("SELECT * FROM Restaurant r WHERE r.restaurant_name = :restaurantName AND r.address = :restaurantAddress")
+    Restaurant checkDouble( String restaurantName, String restaurantAddress);
+
     @Query("DELETE FROM Restaurant")
     void deleteAll();
 

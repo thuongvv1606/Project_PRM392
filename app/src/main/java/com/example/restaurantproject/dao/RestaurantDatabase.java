@@ -85,6 +85,26 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                     accountDao.insert(a);
                 }
 
+                RestaurantDao restaurantDao = database.restaurantDao();
+                List<Restaurant> restaurants = new ArrayList<>();
+
+                restaurants.add(new Restaurant("KFC", "KFC stands for \"Kentucky Fried Chicken.\" " +
+                        "It is a globally renowned fast-food restaurant chain " +
+                        "specializing in fried chicken and various chicken-related " +
+                        "products.", "kfc@gmail.com", "0123456789", "HCM",
+                        "kfc"));
+
+                restaurants.add(new Restaurant("McDonald's", "McDonald's is one of the world's largest and most well-known fast-food restaurant chains.",
+                        "mcdonalds@gmail.com", "0123456789", "HaNoi",
+                        "mcdonalds"));
+
+                restaurants.add(new Restaurant("Lotte", "Lotte is a well-known South Korean conglomerate that also operates a chain of fast-food restaurants.",
+                        "lotte@gmail.com", "0123456789", "DaNang",
+                        "lotte"));
+                for (Restaurant r : restaurants) {
+                    restaurantDao.insert(r);
+                }
+
 
             }).start();
         }

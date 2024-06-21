@@ -30,6 +30,28 @@ public class Restaurant {
     @ColumnInfo(name = "restaurant_image")
     private String restaurantImage;
 
+    public Restaurant() {
+    }
+
+    public Restaurant(int restaurantId, String restaurantName, String restaurantDescription, String email, String phoneNumber, String address, String restaurantImage) {
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
+        this.restaurantDescription = restaurantDescription;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.restaurantImage = restaurantImage;
+    }
+
+    public Restaurant(String restaurantName, String restaurantDescription, String email, String phoneNumber, String address, String restaurantImage) {
+        this.restaurantName = restaurantName;
+        this.restaurantDescription = restaurantDescription;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.restaurantImage = restaurantImage;
+    }
+
     public int getRestaurantId() {
         return restaurantId;
     }

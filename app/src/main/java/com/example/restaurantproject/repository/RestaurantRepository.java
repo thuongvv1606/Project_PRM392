@@ -30,6 +30,13 @@ public class RestaurantRepository {
     public List<Restaurant> getAllRestaurants() {
         return restaurantDao.selectAll();
     }
+    public List<Restaurant> getAllBySearch(String searchStr) {
+        return restaurantDao.selectAll(searchStr);
+    }
+
+    public  Restaurant checkDouble(String restaurantName, String restaurantAddress){
+        return restaurantDao.checkDouble(restaurantName,restaurantAddress);
+    }
 
     public void deleteRestaurant(int restaurantId) {
         restaurantDao.delete(restaurantId);
