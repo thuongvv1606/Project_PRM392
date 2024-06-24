@@ -1,56 +1,33 @@
 package com.example.restaurantproject;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.restaurantproject.R;
 import com.example.restaurantproject.adapter.CategoryListAdapter;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
 
 import java.util.List;
 
-public class CategoryListActivity extends AppCompatActivity {
-
-    private CategoryListAdapter categoryListAdapter = null;
+public class CategoryListActivity extends NavigationActivity {
     private CategoryRepository categoryRepository = null;
-    private List<Category> categoryList = null;
-    private ActivityResultLauncher activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult o) {
-                    categoryList = categoryRepository.getAllCategories();
-                    categoryListAdapter.notifyDataSetChanged();
-                }
-            }
-    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_category_list);
+        setupContentLayout(R.layout.activity_category_list); // Gọi hàm này để chèn layout vào container
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

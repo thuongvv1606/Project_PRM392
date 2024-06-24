@@ -64,7 +64,6 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                 // Lấy đối tượng cơ sở dữ liệu
                 RestaurantDatabase database = INSTANCE;
 
-
                 RoleDao roleDao = database.roleDao();
                 List<Role> roles = new ArrayList<>();
                 roles.add(new Role("Admin", "Administrator with full access"));
@@ -103,6 +102,19 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                         "https://vir.com.vn/stores/news_dataimages/luuhuong/042021/16/17/in_article/3841_Lotteria.jpg"));
                 for (Restaurant r : restaurants) {
                     restaurantDao.insert(r);
+                }
+
+                CategoryDao cateDao = database.categoryDao();
+                List<Category> categories = new ArrayList<>();
+                categories.add(new Category("Appetizers", "Appetizer (or starter) is a small dish served before the main course of a meal.", "https://static.vecteezy.com/system/resources/previews/025/730/094/non_2x/appetizer-icon-in-illustration-vector.jpg"));
+                categories.add(new Category("Breakfast", "Breakfast is the first meal of the day, typically eaten in the morning.", "https://icon-library.com/images/breakfast-icon/breakfast-icon-29.jpg"));
+                categories.add(new Category("Desserts", "Dessert is a sweet course typically served at the end of a meal.", "https://static.vecteezy.com/system/resources/previews/001/401/710/non_2x/chocolate-desserts-icon-set-free-vector.jpg"));
+                categories.add(new Category("Drinks", "Drink (or beverage) is any liquid intended for human consumption.", "https://www.designer-daily.com/wp-content/uploads/2019/11/drinks-icon-set.jpg"));
+                categories.add(new Category("Lunch", "Lunch is the meal eaten in the middle of the day, typically between breakfast and dinner.", "https://static.vecteezy.com/system/resources/previews/000/111/864/non_2x/free-food-tray-icon-vector.jpg"));
+                categories.add(new Category("Mains", "Main course (or main dish) is the primary and most substantial dish of a meal, typically following the appetizer and preceding the dessert.", "https://img.freepik.com/premium-vector/main-dish-icon-simple-main-dish-colored-flat-icon-isolated-white-background_176841-91672.jpg"));
+                categories.add(new Category("Speacials", "A special refers to a dish or menu item that is offered for a limited time or is unique in some way compared to the regular menu items.", "https://img.freepik.com/premium-vector/christmas-family-dinner-table-holiday-food-set-festive-dishes-winter-holiday-meal-drinks-treats-xmas-party-new-year-eve-dinner-merry-christmas-greeting-card-flat-vector-illustration_160450-736.jpg"));
+                for (Category c : categories) {
+                    cateDao.insert(c);
                 }
 
 

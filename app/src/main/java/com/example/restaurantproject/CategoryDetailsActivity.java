@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -37,7 +38,6 @@ import java.io.InputStream;
 public class CategoryDetailsActivity extends AppCompatActivity {
     private TextView txt_name, txt_description;
     private ImageView txt_image;
-    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,16 @@ public class CategoryDetailsActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        Toolbar toolbar = findViewById(R.id.toolbar_category_list);
+        // Set the navigation icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryDetailsActivity.this, CategoryListActivity.class);
+                startActivity(intent);
+            }
         });
 
         txt_name = findViewById(R.id.txt_category_name);
@@ -62,8 +72,7 @@ public class CategoryDetailsActivity extends AppCompatActivity {
         txt_description.setText(category.getCategoryDescription());
 
         if (category.getCategoryImage() != null) {
-            imageUri = Uri.parse(category.getCategoryImage());
-            Glide.with(this).load(imageUri).into(txt_image);
+            Glide.with(this).load(category.getCategoryImage()).into(txt_image);
         }
 
         Button toUpdateBtn = findViewById(R.id.btn_toupdate_category);

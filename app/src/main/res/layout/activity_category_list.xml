@@ -6,8 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp"
     tools:context=".CategoryListActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -104,5 +109,7 @@
         android:id="@+id/category_list_recyle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

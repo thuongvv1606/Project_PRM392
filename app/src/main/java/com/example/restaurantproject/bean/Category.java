@@ -52,5 +52,18 @@ public class Category {
     public void setCategoryImage(String categoryImage) {
         this.categoryImage = categoryImage;
     }
+
+    public Category(int categoryId, String categoryName, String categoryDescription, String categoryImage) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.categoryDescription = categoryDescription;
+        this.categoryImage = categoryImage;
+    }
+
+    public Category(String categoryName, String categoryDescription, String categoryImage) {
+        this.categoryName = categoryName;
+        this.categoryDescription = categoryDescription;
+        this.categoryImage = categoryImage;
+    }
 }
 

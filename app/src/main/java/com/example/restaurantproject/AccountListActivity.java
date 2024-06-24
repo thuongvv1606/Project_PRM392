@@ -21,7 +21,7 @@ import com.example.restaurantproject.repository.AccountRepository;
 
 import java.util.List;
 
-public class AccountListActivity extends AppCompatActivity {
+public class AccountListActivity extends NavigationActivity {
 
     // Khai báo các biến cho các thành phần UI
     private RecyclerView recyclerView;
@@ -34,7 +34,7 @@ public class AccountListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_account_list);
+        setupContentLayout(R.layout.activity_account_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

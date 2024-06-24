@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -30,6 +31,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
 import com.example.restaurantproject.repository.ProductRepository;
+import com.example.restaurantproject.ultils.helper.SaveImageToStorage;
 
 import java.io.IOException;
 
@@ -38,6 +40,7 @@ public class CategoryAddActivity extends AppCompatActivity {
     private CategoryRepository categoryRepository = null;
     private EditText edtName, edtDescription;
     private Uri imageUri;
+    private SaveImageToStorage saveImageToStorage;
 
     // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
     private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
@@ -70,7 +73,18 @@ public class CategoryAddActivity extends AppCompatActivity {
             return insets;
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar_category_list);
+        // Set the navigation icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryAddActivity.this, CategoryListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         categoryRepository = new CategoryRepository(this);
+        saveImageToStorage = new SaveImageToStorage(this);
         edtName = findViewById(R.id.edt_category_name);
         edtDescription = findViewById(R.id.edt_category_description);
         imageView = findViewById(R.id.edt_category_image);
@@ -95,7 +109,15 @@ public class CategoryAddActivity extends AppCompatActivity {
                 category.setCategoryName(name);
                 category.setCategoryDescription(edtDescription.getText().toString());
                 if (imageUri != null) {
-                    category.setCategoryImage(imageUri.toString());
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                        category.setCategoryImage(imagePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(CategoryAddActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 } else {
                     category.setCategoryImage("");
                 }

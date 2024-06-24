@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -33,17 +34,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.bumptech.glide.Glide;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
+import com.example.restaurantproject.ultils.helper.SaveImageToStorage;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class CategoryUpdateActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private CategoryRepository categoryRepository = null;
     private TextView txt_name, txt_description;
     private ImageView txt_image;
     private Uri imageUri;
+    private SaveImageToStorage saveImageToStorage;
 
     // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
     private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
@@ -76,8 +78,18 @@ public class CategoryUpdateActivity extends AppCompatActivity {
             return insets;
         });
 
-        categoryRepository = new CategoryRepository(this);
+        Toolbar toolbar = findViewById(R.id.toolbar_category_list);
+        // Set the navigation icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoryUpdateActivity.this, CategoryListActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        categoryRepository = new CategoryRepository(this);
+        saveImageToStorage = new SaveImageToStorage(this);
         txt_name = findViewById(R.id.edit_category_name);
         txt_image = findViewById(R.id.edit_category_image);
         txt_description = findViewById(R.id.edit_category_description);
@@ -95,7 +107,7 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         }
         if (category.getCategoryImage() != null) {
             imageUri = Uri.parse(category.getCategoryImage());
-            Glide.with(this).load(imageUri).into(txt_image);
+            Glide.with(this).load(category.getCategoryImage()).into(txt_image);
         }
 
         Button updateBtn = findViewById(R.id.btn_update_category);
@@ -117,7 +129,15 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                 category.setCategoryDescription(txt_description.getText().toString());
 
                 if (imageUri != null) {
-                    category.setCategoryImage(imageUri.toString());
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                        category.setCategoryImage(imagePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(CategoryUpdateActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 } else {
                     category.setCategoryImage("");
                 }
