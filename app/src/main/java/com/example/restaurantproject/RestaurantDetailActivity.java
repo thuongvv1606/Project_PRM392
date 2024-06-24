@@ -52,9 +52,14 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         txt_phone.setText(restaurant.getPhoneNumber());
         txt_address.setText(restaurant.getAddress());
         txt_description.setText(restaurant.getRestaurantDescription());
-        if (restaurant.getRestaurantImage() != null) {
-            imageUri = Uri.parse(restaurant.getRestaurantImage());
-            Glide.with(this).load(imageUri).into(imageView);
+
+        // Load ảnh đại diện từ URL
+        if (restaurant.getRestaurantImage()  != null && !restaurant.getRestaurantImage() .isEmpty()) {
+            if (restaurant.getRestaurantImage() .startsWith("content://")) {
+                Glide.with(this).load(Uri.parse(restaurant.getRestaurantImage())).into(imageView);
+            } else {
+                Glide.with(this).load(restaurant.getRestaurantImage()).into(imageView);
+            }
         }
 
         Button btnGotoUpdate = findViewById(R.id.btn_goto_update_restaurant);

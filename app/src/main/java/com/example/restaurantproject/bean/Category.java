@@ -53,6 +53,9 @@ public class Category {
         this.categoryImage = categoryImage;
     }
 
+    public Category() {
+    }
+
     public Category(int categoryId, String categoryName, String categoryDescription, String categoryImage) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
