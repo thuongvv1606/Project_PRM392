@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.entity.AccountDTO;
 import com.example.restaurantproject.repository.AccountRepository;
+import com.example.restaurantproject.ultils.helper.SaveImageToStorage;
 import com.example.restaurantproject.ultils.session.SessionManager;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
     // Khai báo các biến liên quan đến quản lý phiên và repository
     private SessionManager sessionManager;
     private AccountRepository accountRepository;
+
+    private SaveImageToStorage saveImageToStorage;
 
     // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
     private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
@@ -70,6 +73,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         accountRepository = new AccountRepository(this);
+
+        saveImageToStorage = new SaveImageToStorage(this);
 
         // Khởi tạo các view
         tvRole = findViewById(R.id.tv_role);
@@ -157,8 +162,19 @@ public class UpdateProfileActivity extends AppCompatActivity {
             account.setEmail(email);
             account.setPhoneNumber(phone);
             account.setAddress(address);
+
             if (imageUri != null) {
-                account.setAvatar(imageUri.toString()); // Cập nhật URI ảnh đại diện mới
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                    account.setAvatar(imagePath); // Cập nhật URI ảnh đại diện mới
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                account.setAvatar(currentAccount.getAvatar()); // Cập nhật ảnh đại diện cũ khi không có thay đổi
             }
 
             // Cập nhật account trong DB
@@ -170,7 +186,17 @@ public class UpdateProfileActivity extends AppCompatActivity {
             currentAccount.setPhoneNumber(phone);
             currentAccount.setAddress(address);
             if (imageUri != null) {
-                currentAccount.setAvatar(imageUri.toString()); // Cập nhật session với URI ảnh đại diện mới
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                    currentAccount.setAvatar(imagePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                currentAccount.setAvatar(currentAccount.getAvatar());
             }
             sessionManager.saveAccountToSession(currentAccount);
 

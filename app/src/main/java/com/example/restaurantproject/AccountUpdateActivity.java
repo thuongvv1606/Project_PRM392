@@ -27,6 +27,7 @@ import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Role;
 import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.repository.RoleRepository;
+import com.example.restaurantproject.ultils.helper.SaveImageToStorage;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +44,7 @@ public class AccountUpdateActivity extends AppCompatActivity {
     private Uri imageUri;
     private RoleRepository roleRepository;
     private AccountRepository accountRepository;
+    private SaveImageToStorage saveImageToStorage;
 
     private RoleSpinnerAdapter roleSpinnerAdapter;
     private List<Role> roles;
@@ -96,6 +98,8 @@ public class AccountUpdateActivity extends AppCompatActivity {
         // Khởi tạo repository
         roleRepository = new RoleRepository(this);
         accountRepository = new AccountRepository(this);
+
+        saveImageToStorage = new SaveImageToStorage(this);
 
 
         // Nhận dữ liệu từ Intent
@@ -242,7 +246,20 @@ public class AccountUpdateActivity extends AppCompatActivity {
         newAccount.setFullname(fullnameEnter);
         newAccount.setPhoneNumber(phoneEnter);
         newAccount.setAddress(addressEnter);
-        newAccount.setAvatar(imageUri != null ? imageUri.toString() : avatar);
+
+        if (imageUri != null) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                newAccount.setAvatar(imagePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            newAccount.setAvatar(avatar);
+        }
 
         // Gọi phương thức cập nhật từ repository
         try {

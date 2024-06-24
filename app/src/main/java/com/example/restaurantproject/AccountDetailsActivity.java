@@ -66,11 +66,7 @@ public class AccountDetailsActivity extends AppCompatActivity {
 
 
         if (avatar != null && !avatar.isEmpty()) {
-            if (avatar.startsWith("content://")) {
-                Glide.with(this).load(Uri.parse(avatar)).into(detailAccountImage);
-            } else {
-                Glide.with(this).load(avatar).into(detailAccountImage);
-            }
+            Glide.with(this).load(avatar).into(detailAccountImage);
         }
 
         // Gán dữ liệu cho các TextView

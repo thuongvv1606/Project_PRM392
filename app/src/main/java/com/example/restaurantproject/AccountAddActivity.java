@@ -25,6 +25,7 @@ import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Role;
 import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.repository.RoleRepository;
+import com.example.restaurantproject.ultils.helper.SaveImageToStorage;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class AccountAddActivity extends AppCompatActivity {
     private Uri imageUri;
     private RoleRepository roleRepository;
     private AccountRepository accountRepository;
+    private SaveImageToStorage saveImageToStorage;
 
     private RoleSpinnerAdapter roleSpinnerAdapter;
     private List<Role> roles;
@@ -89,6 +91,7 @@ public class AccountAddActivity extends AppCompatActivity {
 
         roleRepository = new RoleRepository(this);
         accountRepository = new AccountRepository(this);
+        saveImageToStorage = new SaveImageToStorage(this);
 
         // Sự kiện chọn ảnh đại diện
         addAccountImage.setOnClickListener(v -> openImageChooser());
@@ -189,9 +192,17 @@ public class AccountAddActivity extends AppCompatActivity {
         }
 
         if (imageUri != null) {
-            newAccount.setAvatar(imageUri.toString()); // Cập nhật URI ảnh đại diện mới
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
+                newAccount.setAvatar(imagePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+                return;
+            }
         } else {
-            newAccount.setAvatar("https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"); // Cập nhật URI ảnh đại diện mặc định
+            newAccount.setAvatar("https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png");
         }
 
         // Lưu tài khoản mới vào cơ sở dữ liệu
