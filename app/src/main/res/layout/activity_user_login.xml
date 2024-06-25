@@ -5,10 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login_1"
+    android:background="@drawable/background"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".UserLoginActivity">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/logo_login"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/logo" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -132,9 +140,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:padding="8dp"
-        android:text="Dont'have an account? Register"
+        android:text="Don't have an account? Register"
         android:textAlignment="center"
-        android:textColor="@color/brown"
+        android:textColor="@color/light_brown"
         android:textSize="14sp"
         android:textStyle="bold" />
 

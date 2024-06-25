@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class AccountAddActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 1;
 
     private CircularImageView addAccountImage;
     private EditText edtUsername, edtPassword, edtEmail, edtFullname, edtPhone, edtAddress;

@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_background"
-    tools:context=".CategoryListItemActivity">
+    android:background="@drawable/border_background">
 
     <TextView
         android:id="@+id/tv_category_id"

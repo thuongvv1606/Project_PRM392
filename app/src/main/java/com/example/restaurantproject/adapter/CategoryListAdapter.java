@@ -29,7 +29,7 @@ import com.example.restaurantproject.repository.CategoryRepository;
 
 import java.util.List;
 
-public class CategoryListAdapter  extends RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder>{
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder>{
     private List<Category> categories = null;
     private Context context;
     public  CategoryListAdapter(List<Category> categories, Context context){

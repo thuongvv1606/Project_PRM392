@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class CategoryUpdateActivity extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private CategoryRepository categoryRepository = null;
     private TextView txt_name, txt_description;
     private ImageView txt_image;
@@ -102,9 +101,6 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         // Sự kiện chọn ảnh đại diện
         txt_image.setOnClickListener(v -> openImageChooser());
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-        }
         if (category.getCategoryImage() != null) {
             imageUri = Uri.parse(category.getCategoryImage());
             Glide.with(this).load(category.getCategoryImage()).into(txt_image);

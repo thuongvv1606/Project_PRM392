@@ -106,17 +106,16 @@ public abstract class RestaurantDatabase extends RoomDatabase {
 
                 CategoryDao cateDao = database.categoryDao();
                 List<Category> categories = new ArrayList<>();
-                categories.add(new Category("Appetizers", "Appetizer (or starter) is a small dish served before the main course of a meal.", "https://static.vecteezy.com/system/resources/previews/025/730/094/non_2x/appetizer-icon-in-illustration-vector.jpg"));
-                categories.add(new Category("Breakfast", "Breakfast is the first meal of the day, typically eaten in the morning.", "https://icon-library.com/images/breakfast-icon/breakfast-icon-29.jpg"));
-                categories.add(new Category("Desserts", "Dessert is a sweet course typically served at the end of a meal.", "https://static.vecteezy.com/system/resources/previews/001/401/710/non_2x/chocolate-desserts-icon-set-free-vector.jpg"));
-                categories.add(new Category("Drinks", "Drink (or beverage) is any liquid intended for human consumption.", "https://www.designer-daily.com/wp-content/uploads/2019/11/drinks-icon-set.jpg"));
-                categories.add(new Category("Lunch", "Lunch is the meal eaten in the middle of the day, typically between breakfast and dinner.", "https://static.vecteezy.com/system/resources/previews/000/111/864/non_2x/free-food-tray-icon-vector.jpg"));
-                categories.add(new Category("Mains", "Main course (or main dish) is the primary and most substantial dish of a meal, typically following the appetizer and preceding the dessert.", "https://img.freepik.com/premium-vector/main-dish-icon-simple-main-dish-colored-flat-icon-isolated-white-background_176841-91672.jpg"));
-                categories.add(new Category("Speacials", "A special refers to a dish or menu item that is offered for a limited time or is unique in some way compared to the regular menu items.", "https://img.freepik.com/premium-vector/christmas-family-dinner-table-holiday-food-set-festive-dishes-winter-holiday-meal-drinks-treats-xmas-party-new-year-eve-dinner-merry-christmas-greeting-card-flat-vector-illustration_160450-736.jpg"));
+                categories.add(new Category("Appetizers", "Appetizer (or starter) is a small dish served before the main course of a meal.", "https://www.onceuponapumpkinrd.com/wp-content/uploads/2020/11/pumpkin-appetizer-puffs-scaled.jpg"));
+                categories.add(new Category("Breakfast", "Breakfast is the first meal of the day, typically eaten in the morning.", "https://www.kateskitchenkc.com/wp-content/uploads/2023/10/traditional-full-american-breakfast-eggs-pancakes-with-bacon-and-toast.jpg_s1024x1024wisk20cz03ui5Oqyz8Ys_pG0bVWsgoz_v_E5Oct4x-0C-sAjME.jpg"));
+                categories.add(new Category("Desserts", "Dessert is a sweet course typically served at the end of a meal.", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Desserts.jpg/800px-Desserts.jpg"));
+                categories.add(new Category("Drinks", "Drink (or beverage) is any liquid intended for human consumption.", "https://www.acouplecooks.com/wp-content/uploads/2021/06/Strawberry-Water-006.jpg"));
+                categories.add(new Category("Lunch", "Lunch is the meal eaten in the middle of the day, typically between breakfast and dinner.", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyYlwAjSh5kKfR_EgB_H6BmZEN9xYqsDzIQ&s"));
+                categories.add(new Category("Mains", "Main course (or main dish) is the primary and most substantial dish of a meal, typically following the appetizer and preceding the dessert.", "https://www.southernliving.com/thmb/TiGXc2JsEJpsioS_TA-LDzRFPEc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/27531_ST_TENDERLOINS_13-7442687e434e4c4c95609ff0262773a2.jpg"));
+                categories.add(new Category("Speacials", "A special refers to a dish or menu item that is offered for a limited time or is unique in some way compared to the regular menu items.", "https://static.toiimg.com/thumb/msid-79891769,width-960,height-1280,resizemode-6.cms"));
                 for (Category c : categories) {
                     cateDao.insert(c);
                 }
-
 
             }).start();
         }

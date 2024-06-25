@@ -26,8 +26,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private AccountRepository accountRepository;
 
-    private SendEmail sendEmail;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

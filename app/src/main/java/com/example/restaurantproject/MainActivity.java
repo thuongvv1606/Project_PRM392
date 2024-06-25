@@ -3,8 +3,11 @@ package com.example.restaurantproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.restaurantproject.adapter.BannerAdapter;
+import com.example.restaurantproject.adapter.CategoryListAdapter;
+import com.example.restaurantproject.adapter.MainCategoryAdapter;
+import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Delivery;
 import com.example.restaurantproject.entity.AccountDTO;
 import com.example.restaurantproject.repository.AccountRepository;
@@ -28,7 +38,9 @@ import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.repository.RoleRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MainActivity extends NavigationActivity {
     private Context context = null;
     private AccountRepository accountRepository = null;
     private CategoryRepository categoryRepository = null;
@@ -45,12 +57,18 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private TextView usernameTextView, emailTextView;
     private Button logoutButton, editProfileButton, loginButton, registerButton;
+    private ViewPager viewPager;
+    private LinearLayout dotsLayout;
+    private int[] images = {R.drawable.banner_image1, R.drawable.banner_image2, R.drawable.banner_image3};
+    private int currentPage = 0;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setupContentLayout(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -68,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         restaurantRepository = new RestaurantRepository(this);
         roleRepository = new RoleRepository(this);
         context = this;
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.dots_layout);
 
         Button database = findViewById(R.id.database);
         Button deleteDatabase = findViewById(R.id.deletedatabase);
@@ -168,5 +188,74 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        BannerAdapter bannerAdapter = new BannerAdapter(this, images);
+        viewPager.setAdapter(bannerAdapter);
+
+        addDotsIndicator(0);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                addDotsIndicator(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                if (currentPage == images.length) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+                handler.postDelayed(this, 3000); // Chuyển đổi ảnh mỗi 3 giây
+            }
+        };
+
+        List<Category> categoryList = categoryRepository.getAllCategories();
+        setCategoryList(categoryList);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.postDelayed(runnable, 3000); // Khởi động chuyển đổi ảnh ban đầu
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable); // Dừng chuyển đổi ảnh khi Activity không còn hoạt động
+    }
+
+    private void addDotsIndicator(int position) {
+        ImageView[] dots = new ImageView[images.length];
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new ImageView(this);
+            dots[i].setImageResource(R.drawable.dot_inactive);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(8, 0, 8, 0);
+            dotsLayout.addView(dots[i], params);
+        }
+        dots[position].setImageResource(R.drawable.dot_active);
+    }
+
+    private void setCategoryList(List<Category> categoryList) {
+        RecyclerView recyclerView = findViewById(R.id.category_list_main);
+        LinearLayoutManager horizontalLayoutManager =
+                new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(horizontalLayoutManager);
+        MainCategoryAdapter categoryListAdapter = new MainCategoryAdapter(categoryList, this);
+        recyclerView.setAdapter(categoryListAdapter);
     }
 }

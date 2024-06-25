@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.restaurantproject.entity.AccountDTO;
 import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private TextView tvRegister, tvForgotPass;
 
     private AccountRepository accountRepository;
+    private CircularImageView logo;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +40,18 @@ public class UserLoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.btn_login);
         tvRegister = findViewById(R.id.tv_not_have_account_register);
         tvForgotPass = findViewById(R.id.tv_forgot_password);
+        logo = findViewById(R.id.logo_login);
 
         accountRepository = new AccountRepository(this);
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserLoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

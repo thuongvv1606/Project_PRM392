@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,15 +17,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.repository.AccountRepository;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class UserRegisterActivity extends AppCompatActivity {
 
     private EditText email, username, password;
     private Button registerButton;
     private TextView tvLogin;
-
+    private CircularImageView logo;
     private AccountRepository accountRepository;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +38,17 @@ public class UserRegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.edt_password);
         registerButton = findViewById(R.id.btn_register);
         tvLogin = findViewById(R.id.tv_have_account_login);
+        logo = findViewById(R.id.logo_register);
 
         accountRepository = new AccountRepository(this);
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserRegisterActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

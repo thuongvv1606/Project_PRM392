@@ -8,6 +8,80 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Banner -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/home_green">
+
+    <LinearLayout
+        android:id="@+id/dots_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/view_pager"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"/>
+
+        <!-- Thanh tìm kiếm -->
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@color/home_green">
+
+            <EditText
+                android:id="@+id/edt_home_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_border"
+                android:layout_marginRight="5dp"
+                android:hint="Search"
+                android:layout_weight="3"
+                />
+
+            <Button
+                android:id="@+id/btn_search_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/navbar_green"
+                android:text="Search"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/tv_category_image"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Categories"
+        android:textColor="@color/home_green"
+        android:textStyle="bold"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_list_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,4 +148,5 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:visibility="visible" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

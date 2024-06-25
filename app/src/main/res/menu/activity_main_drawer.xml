@@ -28,6 +28,14 @@
                 android:id="@+id/nav_register"
                 android:icon="@drawable/ic_register_foreground"
                 android:title="Register" />
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/person_icon"
+                android:title="My Account" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout_foreground"
+                android:title="Logout" />
         </menu>
     </item>
 

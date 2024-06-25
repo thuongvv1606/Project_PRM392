@@ -33,8 +33,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class AccountUpdateActivity extends AppCompatActivity {
-    private static final int PICK_IMAGE_REQUEST = 100;
-    private static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL_STORAGE = 101;
 
     // Khai báo các biến cho các thành phần UI
     private ImageView updateAccountImage;
