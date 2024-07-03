@@ -21,10 +21,12 @@ public interface MenuDao {
 
     @Query("SELECT * FROM Menu WHERE menu_id = :menuId")
     Menu select(int menuId);
-
+    @Query("SELECT * FROM Menu WHERE menu_name = :name AND menu_id != :id")
+    Menu getByName(String name, int id);
     @Query("SELECT * FROM Menu")
     List<Menu> selectAll();
-
+    @Query("SELECT * FROM Menu WHERE menu_name LIKE '%' || :searchStr || '%' OR restaurant_id LIKE '%' || :searchStr || '%'")
+    List<Menu> search(String searchStr);
     @Query("DELETE FROM Menu")
     void deleteAll();
 

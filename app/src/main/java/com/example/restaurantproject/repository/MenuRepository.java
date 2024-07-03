@@ -27,10 +27,13 @@ public class MenuRepository {
         return menuDao.select(menuId);
     }
 
+    public Menu getByName(String name, int id) {
+        return menuDao.getByName(name, id);
+    }
     public List<Menu> getAllMenus() {
         return menuDao.selectAll();
     }
-
+    public List<Menu> searchMenus(String searchStr) { return menuDao.search("%" + searchStr + "%");}
     public void deleteMenu(int menuId) {
         menuDao.delete(menuId);
     }

@@ -2,6 +2,7 @@ package com.example.restaurantproject.repository;
 
 import android.content.Context;
 
+import com.example.restaurantproject.bean.Menu;
 import com.example.restaurantproject.bean.Product;
 import com.example.restaurantproject.dao.ProductDao;
 import com.example.restaurantproject.dao.RestaurantDatabase;
@@ -38,5 +39,12 @@ public class ProductRepository {
     public void deleteAllProducts() {
         productDao.deleteAll();
     }
+
+    public Product getByName(String name, int id) {
+        return productDao.getByName(name, id);
+    }
+
+    public List<Product> searchProduct(String searchStr) { return productDao.search("%" + searchStr + "%");}
+
 }
 

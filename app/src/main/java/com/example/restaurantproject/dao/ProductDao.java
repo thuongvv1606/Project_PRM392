@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.restaurantproject.bean.Menu;
 import com.example.restaurantproject.bean.Product;
 
 import java.util.List;
@@ -29,5 +30,11 @@ public interface ProductDao {
 
     @Query("DELETE FROM Product WHERE product_id = :productId")
     void delete(int productId);
+
+    @Query("SELECT * FROM Product WHERE product_name = :name AND product_id != :id")
+    Product getByName(String name, int id);
+
+    @Query("SELECT * FROM Product WHERE product_name LIKE '%' || :searchStr || '%'")
+    List<Product> search(String searchStr);
 }
 
