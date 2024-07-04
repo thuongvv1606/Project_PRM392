@@ -23,8 +23,27 @@
         android:theme="@style/Theme.RestaurantProject"
         tools:targetApi="31">
         <activity
+            android:name=".MenuOrderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrderAddMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrderDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OrderAddActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".OrderListActivity"
+            android:exported="true" />
+        <activity
             android:name=".ProductUpdateActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:exported="true" />
         <activity
             android:name=".ProductDetailsActivity"
             android:exported="true" />
@@ -75,9 +94,6 @@
             android:exported="true" />
         <activity
             android:name=".UpdateProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CategoryListItemActivity"
             android:exported="true" />
         <activity
             android:name=".CategoryDetailsActivity"

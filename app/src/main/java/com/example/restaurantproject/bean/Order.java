@@ -7,10 +7,17 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Order",
-        foreignKeys = @ForeignKey(entity = Account.class,
-                parentColumns = "account_id",
-                childColumns = "customer_id",
-                onDelete = ForeignKey.CASCADE))
+        foreignKeys = {
+                @ForeignKey(entity = Account.class,
+                        parentColumns = "account_id",
+                        childColumns = "customer_id",
+                        onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = Table.class,
+                        parentColumns = "table_id",
+                        childColumns = "table_id",
+                        onDelete = ForeignKey.CASCADE)
+        }
+)
 public class Order {
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -18,22 +25,34 @@ public class Order {
     private int orderId;
 
     @ColumnInfo(name = "totalprice")
-    private double totalPrice;
+    private Double totalPrice;
 
     @ColumnInfo(name = "order_date")
     private String orderDate;
 
     @ColumnInfo(name = "customer_id")
-    private int customerId;
+    private Integer customerId;
 
     @ColumnInfo(name = "status")
-    private int status;
+    private Integer status;
 
     @ColumnInfo(name = "payment")
-    private boolean payment;
+    private Boolean payment;
 
     @ColumnInfo(name = "address")
     private String address;
+
+    @ColumnInfo(name = "table_id")
+    private Integer tableID;
+
+    @ColumnInfo(name = "no_of_people")
+    private Integer noOfPeople;
+
+    @ColumnInfo(name = "reservation_date")
+    private String reservationDate;
+
+    @ColumnInfo(name = "note")
+    private String note;
 
     public int getOrderId() {
         return orderId;
@@ -89,5 +108,37 @@ public class Order {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getTableID() {
+        return tableID;
+    }
+
+    public void setTableID(int tableID) {
+        this.tableID = tableID;
+    }
+
+    public int getNoOfPeople() {
+        return noOfPeople;
+    }
+
+    public void setNoOfPeople(int noOfPeople) {
+        this.noOfPeople = noOfPeople;
+    }
+
+    public String getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(String reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

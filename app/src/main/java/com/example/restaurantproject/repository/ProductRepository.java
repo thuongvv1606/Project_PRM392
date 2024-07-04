@@ -46,5 +46,6 @@ public class ProductRepository {
 
     public List<Product> searchProduct(String searchStr) { return productDao.search("%" + searchStr + "%");}
 
+    public List<Product> getProductByMenu(int menuId) { return productDao.getProductByMenu(menuId);}
 }
 

@@ -18,8 +18,8 @@ public interface OrderDetailsDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(OrderDetails orderDetails);
 
-    @Query("SELECT * FROM OrderDetails WHERE orderdetails_id = :orderDetailsId")
-    OrderDetails select(int orderDetailsId);
+//    @Query("SELECT * FROM OrderDetails WHERE orderdetails_id = :orderDetailsId")
+//    OrderDetails select(int orderDetailsId);
 
     @Query("SELECT * FROM OrderDetails")
     List<OrderDetails> selectAll();
@@ -27,7 +27,7 @@ public interface OrderDetailsDao {
     @Query("DELETE FROM OrderDetails")
     void deleteAll();
 
-    @Query("DELETE FROM OrderDetails WHERE orderdetails_id = :orderDetailsId")
-    void delete(int orderDetailsId);
+//    @Query("DELETE FROM OrderDetails WHERE orderdetails_id = :orderDetailsId")
+//    void delete(int orderDetailsId);
 }
 

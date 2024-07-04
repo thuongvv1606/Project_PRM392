@@ -23,17 +23,17 @@ public class OrderDetailsRepository {
         orderDetailsDao.update(orderDetails);
     }
 
-    public OrderDetails getOrderDetails(int orderDetailsId) {
-        return orderDetailsDao.select(orderDetailsId);
-    }
+//    public OrderDetails getOrderDetails(int orderDetailsId) {
+//        return orderDetailsDao.select(orderDetailsId);
+//    }
 
     public List<OrderDetails> getAllOrderDetails() {
         return orderDetailsDao.selectAll();
     }
 
-    public void deleteOrderDetails(int orderDetailsId) {
-        orderDetailsDao.delete(orderDetailsId);
-    }
+//    public void deleteOrderDetails(int orderDetailsId) {
+//        orderDetailsDao.delete(orderDetailsId);
+//    }
 
     public void deleteAllOrderDetails() {
         orderDetailsDao.deleteAll();

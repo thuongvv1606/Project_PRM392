@@ -16,12 +16,14 @@ import androidx.room.PrimaryKey;
                         parentColumns = "order_id",
                         childColumns = "order_id",
                         onDelete = ForeignKey.CASCADE)
-        })
+        },
+        primaryKeys = { "product_id", "order_id" }
+)
 public class OrderDetails {
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "orderdetails_id")
-    private int orderDetailsId;
+//    @PrimaryKey(autoGenerate = true)
+//    @NonNull
+//    @ColumnInfo(name = "orderdetails_id")
+//    private int orderDetailsId;
 
     @ColumnInfo(name = "product_id")
     private int productId;
@@ -38,13 +40,13 @@ public class OrderDetails {
     // Getters and setters
     // ...
 
-    public int getOrderDetailsId() {
-        return orderDetailsId;
-    }
-
-    public void setOrderDetailsId(int orderDetailsId) {
-        this.orderDetailsId = orderDetailsId;
-    }
+//    public int getOrderDetailsId() {
+//        return orderDetailsId;
+//    }
+//
+//    public void setOrderDetailsId(int orderDetailsId) {
+//        this.orderDetailsId = orderDetailsId;
+//    }
 
     public int getProductId() {
         return productId;

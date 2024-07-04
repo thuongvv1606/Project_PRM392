@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderAddMainActivity"
+    android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_back_page"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/navbar_green"
+            app:navigationIcon="@drawable/icon_back_arrow"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="List Order"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_create_product"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="New Order"-->
+<!--            android:textColor="@color/dark_green"-->
+<!--            android:textSize="30sp"/>-->
+<!--    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="80dp">
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="Order"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/btn_order_delivery"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="Order delivery"
+            android:textSize="30dp"/>
+
+        <Button
+            android:id="@+id/btn_reservation"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="Reservation"
+            android:textSize="30dp"/>
+    </LinearLayout>
+</LinearLayout>

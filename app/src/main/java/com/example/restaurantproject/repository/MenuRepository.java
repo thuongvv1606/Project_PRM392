@@ -41,5 +41,8 @@ public class MenuRepository {
     public void deleteAllMenus() {
         menuDao.deleteAll();
     }
+    public List<Menu> getMenusByRestaurant(int resId) {
+        return menuDao.getByRestaurant(resId);
+    }
 }
 

@@ -96,4 +96,16 @@ public class Product {
     public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
+
+    public Product() {
+    }
+
+    public Product(String productName, String productDescription, double price, String productImage, int categoryId, int menuId) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.productImage = productImage;
+        this.categoryId = categoryId;
+        this.menuId = menuId;
+    }
 }

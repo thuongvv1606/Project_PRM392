@@ -68,4 +68,13 @@ public class Menu {
     public void setMenuImage(String menuImage) {
         this.menuImage = menuImage;
     }
+
+    public Menu() {
+    }
+    public Menu(String menuName, String menuDescription, String menuImage, int restaurantId) {
+        this.menuName = menuName;
+        this.menuDescription = menuDescription;
+        this.menuImage = menuImage;
+        this.restaurantId = restaurantId;
+    }
 }
