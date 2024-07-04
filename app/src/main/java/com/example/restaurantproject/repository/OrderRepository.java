@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.restaurantproject.bean.Order;
 import com.example.restaurantproject.dao.OrderDao;
 import com.example.restaurantproject.dao.RestaurantDatabase;
+import com.example.restaurantproject.entity.OrderDTO;
 
 import java.util.List;
 
@@ -26,8 +27,11 @@ public class OrderRepository {
     public Order getOrder(int orderId) {
         return orderDao.select(orderId);
     }
+    public Order getOrderNewest() {
+        return orderDao.selectNewest();
+    }
 
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return orderDao.selectAll();
     }
 

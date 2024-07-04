@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderAddActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_back_order_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/navbar_green"
+            app:navigationIcon="@drawable/icon_back_arrow"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_create_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order"
+            android:textColor="@color/dark_green"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_customer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Customer Name"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edt_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:hint="Customer Name"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Restaurant (*)"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spn_restaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_number_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Table"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spn_number_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_order_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="List dish"
+                    android:textSize="20sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_dish_ordered_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/btn_add_more_order_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/navbar_green"
+                    android:text="Add more"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="20dp">
+                    <TextView
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Total price"
+                        android:layout_weight="1"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/view_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="2"
+                        android:textSize="20sp"
+                        android:text="1.000.000"
+                        android:gravity="end"
+                        android:paddingRight="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="VNĐ"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_order_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Note"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edt_order_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:hint="Note"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:maxLines="5"
+                    android:gravity="top"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_add_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="@color/navbar_green_2"
+                        android:text="Order" />
+
+                    <Button
+                        android:id="@+id/btn_cancel_add_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/dark_green"
+                        android:text="Cancel" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+</LinearLayout>

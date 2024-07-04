@@ -15,15 +15,15 @@ import com.example.restaurantproject.bean.Menu;
 import com.example.restaurantproject.bean.Order;
 import com.example.restaurantproject.bean.OrderDetails;
 import com.example.restaurantproject.bean.Product;
-import com.example.restaurantproject.bean.Reservation;
 import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.bean.Role;
+import com.example.restaurantproject.bean.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Database(entities = {Category.class, Product.class, Role.class, Account.class, Restaurant.class,
-        Order.class, OrderDetails.class, Reservation.class, Delivery.class, Menu.class}, version = 6)
+        Order.class, OrderDetails.class, Delivery.class, Menu.class, Table.class}, version = 10)
 public abstract class RestaurantDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "DemoDatabase";
@@ -37,9 +37,9 @@ public abstract class RestaurantDatabase extends RoomDatabase {
     public abstract RestaurantDao restaurantDao();
     public abstract OrderDao orderDao();
     public abstract OrderDetailsDao orderDetailsDao();
-    public abstract ReservationDao reservationDao();
     public abstract DeliveryDao deliveryDao();
     public abstract MenuDao menuDao();
+    public abstract TableDao tableDao();
 
     // Static method to get the instance of the database
     public static synchronized RestaurantDatabase getInstance(Context context) {
@@ -117,6 +117,40 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                     cateDao.insert(c);
                 }
 
+                MenuDao menuDao = database.menuDao();
+                List<Menu> menus = new ArrayList<>();
+                menus.add(new Menu("Đồ ăn", "Đồ ăn", "", 1));
+                menus.add(new Menu("Đồ uống", "Đồ uống", "", 1));
+                for (Menu m : menus) {
+                    menuDao.insert(m);
+                }
+
+                ProductDao productDao = database.productDao();
+                List<Product> products = new ArrayList<>();
+                products.add(new Product("Bánh", "Bánh", 100000, "", 1, 1));
+                products.add(new Product("Phở", "Bánh", 60000, "", 1, 1));
+                products.add(new Product("Bún", "Bánh", 50000, "", 1, 1));
+                products.add(new Product("Mì", "Bánh", 30000, "", 1, 1));
+                products.add(new Product("Cơm", "Bánh", 120000, "", 1, 1));
+                products.add(new Product("Nước lọc", "Nước", 10000, "", 4, 2));
+                products.add(new Product("Nước Coca", "Nước", 20000, "", 4, 2));
+                products.add(new Product("Nước Pesi", "Nước", 20000, "", 4, 2));
+                products.add(new Product("Nước ép", "Nước", 50000, "", 4, 2));
+                for (Product p : products){
+                    productDao.insert(p);
+                }
+
+                TableDao tableDao = database.tableDao();
+                List<Table> tables = new ArrayList<>();
+                tables.add(new Table("Table 1", 6, false, 1, 1));
+                tables.add(new Table("Table 2", 6, false, 1, 1));
+                tables.add(new Table("Table 3", 6, true, 1, 1));
+                tables.add(new Table("Table 4", 6, false, 1, 1));
+                tables.add(new Table("Table 5", 6, false, 1, 1));
+                tables.add(new Table("Table 6", 6, true, 1, 1));
+                for (Table t : tables){
+                    tableDao.insert(t);
+                }
             }).start();
         }
     };

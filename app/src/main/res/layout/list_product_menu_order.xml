@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:padding="8dp">
+    <ImageView
+        android:id="@+id/image_product"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/text_product_name_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:text="Food Name" />
+
+    <TextView
+        android:id="@+id/text_price_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:text="1.000.000" />
+    <Button
+        android:id="@+id/btn_add_order_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add"
+        android:backgroundTint="@color/navbar_green_2"/>
+</LinearLayout>

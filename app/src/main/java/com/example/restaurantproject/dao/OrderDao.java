@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.restaurantproject.bean.Order;
+import com.example.restaurantproject.entity.OrderDTO;
 
 import java.util.List;
 
@@ -18,11 +19,25 @@ public interface OrderDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(Order order);
 
-    @Query("SELECT * FROM `Order` WHERE order_id = :orderId")
-    Order select(int orderId);
+    @Query("SELECT " +
+            "*" +
+            " FROM `Order`" +
+            " ORDER BY order_id DESC" +
+            " LIMIT 1")
+    Order selectNewest();
 
-    @Query("SELECT * FROM `Order`")
-    List<Order> selectAll();
+    @Query("SELECT " +
+            "`Order`.*, fullname" +
+            " FROM `Order` " +
+            "JOIN `Account` ON customer_id = account_id " +
+            "WHERE order_id = :orderId")
+    OrderDTO select(int orderId);
+
+    @Query("SELECT " +
+            "`Order`.*, fullname" +
+            " FROM `Order` " +
+            "JOIN `Account` ON customer_id = account_id ")
+    List<OrderDTO> selectAll();
 
     @Query("DELETE FROM `Order`")
     void deleteAll();

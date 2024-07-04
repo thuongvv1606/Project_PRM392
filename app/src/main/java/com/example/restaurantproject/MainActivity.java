@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,10 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.restaurantproject.adapter.BannerAdapter;
-import com.example.restaurantproject.adapter.CategoryListAdapter;
 import com.example.restaurantproject.adapter.MainCategoryAdapter;
 import com.example.restaurantproject.bean.Category;
-import com.example.restaurantproject.bean.Delivery;
 import com.example.restaurantproject.entity.AccountDTO;
 import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.repository.CategoryRepository;
@@ -33,7 +30,6 @@ import com.example.restaurantproject.repository.MenuRepository;
 import com.example.restaurantproject.repository.OrderDetailsRepository;
 import com.example.restaurantproject.repository.OrderRepository;
 import com.example.restaurantproject.repository.ProductRepository;
-import com.example.restaurantproject.repository.ReservationRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.repository.RoleRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
@@ -49,7 +45,6 @@ public class MainActivity extends NavigationActivity {
     private OrderDetailsRepository orderDetailsRepository = null;
     private OrderRepository orderRepository = null;
     private ProductRepository productRepository = null;
-    private ReservationRepository reservationRepository = null;
     private RestaurantRepository restaurantRepository = null;
     private RoleRepository roleRepository = null;
 
@@ -82,7 +77,6 @@ public class MainActivity extends NavigationActivity {
         orderRepository = new OrderRepository(this);
         orderDetailsRepository = new OrderDetailsRepository(this);
         productRepository = new ProductRepository(this);
-        reservationRepository = new ReservationRepository(this);
         restaurantRepository = new RestaurantRepository(this);
         roleRepository = new RoleRepository(this);
         context = this;
@@ -101,7 +95,7 @@ public class MainActivity extends NavigationActivity {
                 orderRepository.getAllOrders();
                 orderDetailsRepository.getAllOrderDetails();
                 productRepository.getAllProducts();
-                reservationRepository.getAllReservations();
+//                bookingRepository.getAllReservations();
                 restaurantRepository.getAllRestaurants();
                 roleRepository.getAllRoles();
                 Toast.makeText(MainActivity.this,"Database successfully", Toast.LENGTH_SHORT).show();
