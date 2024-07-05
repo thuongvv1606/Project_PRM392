@@ -27,7 +27,7 @@
             android:exported="false" />
         <activity
             android:name=".TableDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".TableAddActivity"
             android:exported="false" />
