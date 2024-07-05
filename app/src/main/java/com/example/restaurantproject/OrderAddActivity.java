@@ -39,6 +39,7 @@ import com.example.restaurantproject.repository.ProductRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.repository.TableRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +71,7 @@ public class OrderAddActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult o) {
                     if(o.getResultCode() == 2){
                         Intent data = o.getData();
+                        orderItemList.clear();
                         orderItemList = (HashMap<Integer, Integer>) data.getSerializableExtra("orderItemList");
                         viewListOrderItem();
                     }
@@ -143,6 +145,7 @@ public class OrderAddActivity extends AppCompatActivity {
     }
     private void viewListOrderItem() {
         rcvOrderItem = findViewById(R.id.list_dish_ordered_recycler_view);
+        orderDTOList.clear();
         if (orderItemList != null){
             orderItemList.forEach((productId, quantity) -> {
                 Product p = productRepository.getProduct(productId);
@@ -163,28 +166,36 @@ public class OrderAddActivity extends AppCompatActivity {
 
         return restaurantMap.get(selectedRestaurantName);
     }
+    private Integer getTableId(){
+        String selectedTableName = (String) spnTable.getSelectedItem();
+        if (selectedTableName == null || selectedTableName.isEmpty()){
+            return null;
+        }
+        return tableMap.get(selectedTableName);
+    }
     private void addMoreItem() {
         int selectedRestaurantId = getRestaurantId();
-        Intent intent = new Intent(OrderAddActivity.this, MenuOrderActivity.class);
-        intent.putExtra("restaurant_id", selectedRestaurantId);
-        if (orderItemList != null || !orderItemList.isEmpty()){
-            intent.putExtra("orderItemList", orderItemList);
+        if (selectedRestaurantId > 0){
+            Intent intent = new Intent(OrderAddActivity.this, MenuOrderActivity.class);
+            intent.putExtra("restaurant_id", selectedRestaurantId);
+            if (orderItemList != null || !orderItemList.isEmpty()){
+                intent.putExtra("orderItemList", orderItemList);
+            }
+            activityResultLauncher.launch(intent);
         }
-        activityResultLauncher.launch(intent);
+
     }
 
     private void addOrder() {
         Order order = new Order();
 
         order.setTotalPrice(getTotalPrice());
-        order.setOrderDate(LocalDateTime.now()+"");
+        order.setOrderDate(LocalDate.now()+"");
         order.setCustomerId(1);
         order.setStatus(1);
         order.setPayment(false);
-        order.setAddress("HaNoi");
-        order.setTableID(1);
-        order.setNoOfPeople(3);
-        order.setReservationDate(LocalDateTime.now()+"");
+        order.setTableID(getTableId());
+        order.setReservationDate(LocalDate.now()+"");
         order.setNote(edtNote.getText().toString());
 
         if (orderRepository != null && orderDetailsRepository != null){

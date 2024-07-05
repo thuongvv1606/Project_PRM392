@@ -36,7 +36,7 @@ public interface OrderDao {
     @Query("SELECT " +
             "`Order`.*, fullname" +
             " FROM `Order` " +
-            "JOIN `Account` ON customer_id = account_id ")
+            " LEFT JOIN `Account` ON customer_id = account_id ")
     List<OrderDTO> selectAll();
 
     @Query("DELETE FROM `Order`")

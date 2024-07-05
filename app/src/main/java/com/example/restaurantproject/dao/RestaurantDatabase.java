@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Database(entities = {Category.class, Product.class, Role.class, Account.class, Restaurant.class,
-        Order.class, OrderDetails.class, Delivery.class, Menu.class, Table.class}, version = 10)
+        Order.class, OrderDetails.class, Delivery.class, Menu.class, Table.class}, version = 11)
 public abstract class RestaurantDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "DemoDatabase";
@@ -142,12 +142,12 @@ public abstract class RestaurantDatabase extends RoomDatabase {
 
                 TableDao tableDao = database.tableDao();
                 List<Table> tables = new ArrayList<>();
-                tables.add(new Table("Table 1", 6, false, 1, 1));
-                tables.add(new Table("Table 2", 6, false, 1, 1));
-                tables.add(new Table("Table 3", 6, true, 1, 1));
-                tables.add(new Table("Table 4", 6, false, 1, 1));
-                tables.add(new Table("Table 5", 6, false, 1, 1));
-                tables.add(new Table("Table 6", 6, true, 1, 1));
+                tables.add(new Table("Table 1", 6, "", 1, 1));
+                tables.add(new Table("Table 2", 6, "", 1, 1));
+                tables.add(new Table("Table 3", 6, "", 1, 1));
+                tables.add(new Table("Table 4", 6, "", 1, 1));
+                tables.add(new Table("Table 5", 6, "", 1, 1));
+                tables.add(new Table("Table 6", 6, "", 1, 1));
                 for (Table t : tables){
                     tableDao.insert(t);
                 }
