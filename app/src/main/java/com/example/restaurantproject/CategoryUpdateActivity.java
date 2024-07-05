@@ -101,9 +101,13 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         // Sự kiện chọn ảnh đại diện
         txt_image.setOnClickListener(v -> openImageChooser());
 
-        if (category.getCategoryImage() != null) {
-            imageUri = Uri.parse(category.getCategoryImage());
-            Glide.with(this).load(category.getCategoryImage()).into(txt_image);
+        // Load ảnh đại diện từ URL
+        if (category.getCategoryImage()  != null && !category.getCategoryImage().isEmpty()) {
+            if (category.getCategoryImage().startsWith("content://")) {
+                Glide.with(this).load(Uri.parse(category.getCategoryImage())).into(txt_image);
+            } else {
+                Glide.with(this).load(category.getCategoryImage()).into(txt_image);
+            }
         }
 
         Button updateBtn = findViewById(R.id.btn_update_category);
@@ -135,7 +139,7 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
-                    category.setCategoryImage("");
+                    category.setCategoryImage(category.getCategoryImage());
                 }
 
                 if (categoryRepository != null) {

@@ -30,6 +30,11 @@ public class RestaurantRepository {
     public List<Restaurant> getAllRestaurants() {
         return restaurantDao.selectAll();
     }
+
+    public List<Restaurant> getTopRestaurants() {
+        return restaurantDao.selectTop();
+    }
+
     public List<Restaurant> getAllBySearch(String searchStr) {
         return restaurantDao.selectAll(searchStr);
     }

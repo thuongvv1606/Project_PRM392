@@ -1,28 +1,30 @@
 package com.example.restaurantproject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.restaurantproject.adapter.BannerAdapter;
 import com.example.restaurantproject.adapter.MainCategoryAdapter;
+import com.example.restaurantproject.adapter.MainMenuAdapter;
+import com.example.restaurantproject.adapter.MainProductAdapter;
+import com.example.restaurantproject.adapter.MainRestaurantAdapter;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.entity.AccountDTO;
+import com.example.restaurantproject.bean.Menu;
+import com.example.restaurantproject.bean.Product;
+import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.repository.CategoryRepository;
 import com.example.restaurantproject.repository.DeliveryRepository;
@@ -50,8 +52,6 @@ public class MainActivity extends NavigationActivity {
 
     // Test
     private SessionManager sessionManager;
-    private TextView usernameTextView, emailTextView;
-    private Button logoutButton, editProfileButton, loginButton, registerButton;
     private ViewPager viewPager;
     private LinearLayout dotsLayout;
     private int[] images = {R.drawable.banner_image1, R.drawable.banner_image2, R.drawable.banner_image3};
@@ -83,105 +83,7 @@ public class MainActivity extends NavigationActivity {
         viewPager = findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.dots_layout);
 
-        Button database = findViewById(R.id.database);
-        Button deleteDatabase = findViewById(R.id.deletedatabase);
-        database.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accountRepository.getAllAccounts();
-                categoryRepository.getAllCategories();
-                deliveryRepository.getAllDeliveries();
-                menuRepository.getAllMenus();
-                orderRepository.getAllOrders();
-                orderDetailsRepository.getAllOrderDetails();
-                productRepository.getAllProducts();
-//                bookingRepository.getAllReservations();
-                restaurantRepository.getAllRestaurants();
-                roleRepository.getAllRoles();
-                Toast.makeText(MainActivity.this,"Database successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        deleteDatabase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.deleteDatabase("DemoDatabase");
-                Toast.makeText(MainActivity.this,"Delete Database successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         sessionManager = new SessionManager(this);
-        // Find views
-        usernameTextView = findViewById(R.id.usernameTextView);
-        emailTextView = findViewById(R.id.emailTextView);
-        logoutButton = findViewById(R.id.logoutButton);
-        editProfileButton = findViewById(R.id.editProfileButton);
-        loginButton = findViewById(R.id.loginButton);
-        registerButton = findViewById(R.id.registerButton);
-
-        // Check if user is logged in
-        if (sessionManager.isLoggedIn()) {
-            // User is logged in, show user info and logout/edit buttons
-            AccountDTO loggedInAccount = sessionManager.getAccountFromSession();
-            if (loggedInAccount != null) {
-                usernameTextView.setText(loggedInAccount.getUsername());
-                emailTextView.setText(loggedInAccount.getEmail());
-            }
-            usernameTextView.setVisibility(View.VISIBLE);
-            emailTextView.setVisibility(View.VISIBLE);
-            logoutButton.setVisibility(View.VISIBLE);
-            editProfileButton.setVisibility(View.VISIBLE);
-            loginButton.setVisibility(View.GONE);
-            registerButton.setVisibility(View.GONE);
-        } else {
-            // User is not logged in, hide user info and logout/edit buttons
-            usernameTextView.setVisibility(View.GONE);
-            emailTextView.setVisibility(View.GONE);
-            logoutButton.setVisibility(View.GONE);
-            editProfileButton.setVisibility(View.GONE);
-            loginButton.setVisibility(View.VISIBLE);
-            registerButton.setVisibility(View.VISIBLE);
-        }
-
-        // Set click listeners
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Logout user
-                sessionManager.deleteAccountFromSession();
-                // Reload MainActivity to reflect changes
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to ViewProfileActivity
-                Intent intent = new Intent(MainActivity.this, ViewProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to LoginActivity
-                Intent intent = new Intent(MainActivity.this, UserLoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to RegisterActivity
-                Intent intent = new Intent(MainActivity.this, UserRegisterActivity.class);
-                startActivity(intent);
-            }
-        });
 
         BannerAdapter bannerAdapter = new BannerAdapter(this, images);
         viewPager.setAdapter(bannerAdapter);
@@ -214,6 +116,15 @@ public class MainActivity extends NavigationActivity {
 
         List<Category> categoryList = categoryRepository.getAllCategories();
         setCategoryList(categoryList);
+
+        List<Restaurant> restaurantList = restaurantRepository.getTopRestaurants();
+        setRestaurantList(restaurantList);
+
+        List<Menu> menuList = menuRepository.getTopMenus();
+        setMenuList(menuList);
+
+        List<Product> productList = productRepository.getTopProducts();
+        setProductList(productList);
     }
 
     @Override
@@ -251,5 +162,29 @@ public class MainActivity extends NavigationActivity {
         recyclerView.setLayoutManager(horizontalLayoutManager);
         MainCategoryAdapter categoryListAdapter = new MainCategoryAdapter(categoryList, this);
         recyclerView.setAdapter(categoryListAdapter);
+    }
+
+    private void setRestaurantList(List<Restaurant> restaurantList) {
+        RecyclerView recyclerView = findViewById(R.id.restaurant_list_main);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager);
+        MainRestaurantAdapter mainMenuAdapter = new MainRestaurantAdapter(restaurantList, this);
+        recyclerView.setAdapter(mainMenuAdapter);
+    }
+
+    private void setMenuList(List<Menu> menuList) {
+        RecyclerView recyclerView = findViewById(R.id.menu_list_main);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager);
+        MainMenuAdapter mainMenuAdapter = new MainMenuAdapter(menuList, this);
+        recyclerView.setAdapter(mainMenuAdapter);
+    }
+
+    private void setProductList(List<Product> productList) {
+        RecyclerView recyclerView = findViewById(R.id.product_list_main);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        MainProductAdapter mainProductAdapter = new MainProductAdapter(productList, this);
+        recyclerView.setAdapter(mainProductAdapter);
     }
 }

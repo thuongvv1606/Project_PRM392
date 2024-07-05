@@ -107,7 +107,7 @@ public class RestaurantAddActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
-                    restaurant.setRestaurantImage(""); // Cập nhật ảnh đại diện cũ khi không có thay đổi
+                    restaurant.setRestaurantImage(null); // Cập nhật ảnh đại diện cũ khi không có thay đổi
                 }
 
                 if (restaurantRepository != null){

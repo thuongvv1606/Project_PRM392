@@ -113,29 +113,35 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                 categories.add(new Category("Lunch", "Lunch is the meal eaten in the middle of the day, typically between breakfast and dinner.", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyYlwAjSh5kKfR_EgB_H6BmZEN9xYqsDzIQ&s"));
                 categories.add(new Category("Mains", "Main course (or main dish) is the primary and most substantial dish of a meal, typically following the appetizer and preceding the dessert.", "https://www.southernliving.com/thmb/TiGXc2JsEJpsioS_TA-LDzRFPEc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/27531_ST_TENDERLOINS_13-7442687e434e4c4c95609ff0262773a2.jpg"));
                 categories.add(new Category("Speacials", "A special refers to a dish or menu item that is offered for a limited time or is unique in some way compared to the regular menu items.", "https://static.toiimg.com/thumb/msid-79891769,width-960,height-1280,resizemode-6.cms"));
+                categories.add(new Category("Combos", "A food combo, also known as a meal deal, is a package that includes multiple food items sold together at a discounted price.", "https://www.google.com/url?sa=i&url=https%3A%2F%2Ftexaschickenvn.com%2Fvn%2Fcombo-nhom-b&psig=AOvVaw1rwIfkWAy2QOoB7aSBjLCz&ust=1720273926255000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiCgveFkIcDFQAAAAAdAAAAABAJ"));
                 for (Category c : categories) {
                     cateDao.insert(c);
                 }
 
                 MenuDao menuDao = database.menuDao();
                 List<Menu> menus = new ArrayList<>();
-                menus.add(new Menu("Đồ ăn", "Đồ ăn", "", 1));
-                menus.add(new Menu("Đồ uống", "Đồ uống", "", 1));
+                menus.add(new Menu("Đồ ăn", "Đồ ăn", "https://congthanh.vn/uploads/images/menu%20nh%C3%A0%20h%C3%A0ng%20sang%20tr%E1%BB%8Dng/menu-nha-hang-sang-trong30-min.jpg", 1));
+                menus.add(new Menu("Đồ uống", "Đồ uống", "https://bizweb.dktcdn.net/thumb/1024x1024/100/438/465/products/z3514167835312-f4655cad5695442ab0a33b5b9bcb2e72.jpg?v=1655969268750", 1));
+                menus.add(new Menu("Menu KFC", "", "https://danhgiasao.com/wp-content/uploads/2024/01/menu-hap-dan-cua-ga-ran-kfc-danhgiasao.jpg", 1));
+                menus.add(new Menu("Menu McDonals", "", "https://i.pinimg.com/736x/df/dc/0b/dfdc0b8c50c95c2a3ee86e21ae0f22b7.jpg", 2));
+                menus.add(new Menu("Menu Lotteria", "", "https://aeonmall-hadong.com.vn/wp-content/uploads/2020/04/lotteria-4-360x573.jpg", 3));
+
                 for (Menu m : menus) {
                     menuDao.insert(m);
                 }
 
                 ProductDao productDao = database.productDao();
                 List<Product> products = new ArrayList<>();
-                products.add(new Product("Bánh", "Bánh", 100000, "", 1, 1));
-                products.add(new Product("Phở", "Bánh", 60000, "", 1, 1));
-                products.add(new Product("Bún", "Bánh", 50000, "", 1, 1));
-                products.add(new Product("Mì", "Bánh", 30000, "", 1, 1));
-                products.add(new Product("Cơm", "Bánh", 120000, "", 1, 1));
-                products.add(new Product("Nước lọc", "Nước", 10000, "", 4, 2));
-                products.add(new Product("Nước Coca", "Nước", 20000, "", 4, 2));
-                products.add(new Product("Nước Pesi", "Nước", 20000, "", 4, 2));
-                products.add(new Product("Nước ép", "Nước", 50000, "", 4, 2));
+
+                products.add(new Product("Bánh", "Bánh", 100000, "https://cdn.tgdd.vn/Files/2021/07/28/1371385/2-cach-lam-banh-donut-nuong-va-chien-ngon-don-gian-tai-nha-202206031611571875.jpg", 6, 1));
+                products.add(new Product("Phở", "Phở", 60000, "https://cdn.tgdd.vn/Files/2022/01/25/1412805/cach-nau-pho-bo-nam-dinh-chuan-vi-thom-ngon-nhu-hang-quan-202201250230038502.jpg", 6, 1));
+                products.add(new Product("Bún", "Bún", 50000, "https://bepxua.vn/wp-content/uploads/2020/12/bun-bo-hue2.jpg", 6, 1));
+                products.add(new Product("Mì", "Mì", 30000, "https://cdn.tgdd.vn/Files/2019/10/23/1211482/cac-loai-mi-tom-duoc-ua-chuong-nhat-viet-nam-202206041405267719.jpeg", 6, 1));
+                products.add(new Product("Cơm", "Cơm", 120000, "https://cdn.tgdd.vn/2021/07/CookProduct/2-1200x676-2-1200x676-3.jpg", 6, 1));
+                products.add(new Product("Nước lọc", "Nước", 10000, "https://web.hn.ss.bfcplatform.vn/mkmart/product/202201/3686905571-1674132732-m.jpg", 4, 2));
+                products.add(new Product("Nước Coca", "Nước", 20000, "https://www.coca-cola.com/content/dam/onexp/vn/home-image/coca-cola/Coca-Cola_OT%20320ml_VN-EX_Desktop.png", 4, 2));
+                products.add(new Product("Nước Pesi", "Nước", 20000, "https://minhcaumart.vn/media/com_eshop/products/8934588012228%201.jpg", 4, 2));
+                products.add(new Product("Nước ép", "Nước", 50000, "https://vinut.vn/wp-content/uploads/2024/03/nuoc-ep-trai-cay.jpeg", 4, 2));
                 for (Product p : products){
                     productDao.insert(p);
                 }
@@ -151,6 +157,27 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                 for (Table t : tables){
                     tableDao.insert(t);
                 }
+
+                products.add(new Product("Combo Fried Chicken", "- 2 pieces of chicken\\n- 1 fries (M) / 1 coleslaw (M) & 1 mashed potato\\n- 1 Pepsi (M)", 87000, "https://static.kfcvietnam.com.vn/images/items/lg/D-CBO-CHICKEN-2.jpg?v=LWkXxL", 8, 1));
+                products.add(new Product("Combo Shrimp Burger", "- 1 shrimp burger\\n- 1 fries (M)\\n- 1 Pepsi (M)", 67000, "https://static.kfcvietnam.com.vn/images/items/lg/D-CBO-B-Shrimp.jpg?v=LWkXxL", 8, 1));
+                products.add(new Product("Box Meal Pasta Cob", "- 1 Spaghetti with Fried Chicken\\n- 3 Chicken Nuggets\\n- 1 Pepsi (L)", 97000, "https://static.kfcvietnam.com.vn/images/items/lg/Pasta-Nuggets.jpg?v=LWnGY3", 8, 1));
+                products.add(new Product("Combo 3A", "- 1 portion of chicken nuggets\\n- 2 servings of fries\\n- 5 pieces of chicken\\n- 3 Cokes", 279000, "https://mcdonalds.vn/uploads/2018/food/Combo/xcombo3A.png.pagespeed.ic.oKw89faUi5.webp", 8, 2));
+                products.add(new Product("Combo 2A", "- 2 pieces of chicken\\n- 2 burgers\\n- 1 Coke", 131000, "https://mcdonalds.vn/uploads/2018/food/Combo/x02,281,29.png.pagespeed.ic.WyEPwqCChI.webp", 8, 2));
+                products.add(new Product("Matcha Latte", "", 30000, "https://www.lotteria.vn/media/catalog/product/l/_/l_coffee_matcha_latte-16.png", 4, 3));
+                products.add(new Product("Combo Burger Bulgogi", "- 01 Bulgogi Burger\\n- 01 Fries (M)", 82000, "https://www.lotteria.vn/media/catalog/product/c/o/combo_bulgogi_6.png", 8, 3));
+                products.add(new Product("Pie Chicken", "", 44000, "https://www.lotteria.vn/media/catalog/product/g/_/g_pie_1.png", 7, 3));
+                products.add(new Product("Apple Pie", "", 20000, "https://www.lotteria.vn/media/catalog/product/l/s/ls0007_5.png", 3, 3));
+                products.add(new Product("Kimchi-filled Fried Bread + Milkis", "- 1 Kimchi-filled Fried Bread\\n- 1 Milkis", 55000, "https://www.lotteria.vn/media/catalog/product/d/e/dessert_b_nh_chi_n_kim_chi_milkis.png", 3, 3));
+                products.add(new Product("L4 Set", "- 04 Fried Chicken Pieces\\n- 01 Bulgogi Burger", 280000, "https://www.lotteria.vn/media/catalog/product/p/a/pack_l4_set_2_.png", 8, 3));
+                products.add(new Product("Value Burger Double Double", "- 01 Double Double Burger\\n- 01 Fried Chicken Piece", 119000, "https://www.lotteria.vn/media/catalog/product/v/a/value_d-double.png", 8, 3));
+                products.add(new Product("Combo Roast Chicken", "- 1 Flava Roast Chicken Leg\\n- 1 Seed Salad\\n- 1 Large Lipton Tea", 117000, "https://www.lotteria.vn/media/catalog/product/d/e/dessert_b_nh_chi_n_kim_chi_milkis.png", 8, 1));
+                products.add(new Product("Combo Teriyaki", "- 1 Teriyaki Rice\\n- 1 Seaweed Soup\\n- 1 Large Pepsi", 69000, "https://static.kfcvietnam.com.vn/images/items/lg/D-CBO-Rice-Teri.jpg?v=LWnGY3", 8, 1));
+                products.add(new Product("Milo", "110 Kcal", 22000, "https://mcdonalds.vn/uploads/2018/food/beverage/xmilo.png.pagespeed.ic.owUoRzA7-9.webp", 4, 2));
+                products.add(new Product("Special Cheese Beef Burger", "", 56000, "https://mcdonalds.vn/uploads/2018/food/burgers/xcheesedlx_bb.png.pagespeed.ic.T9fdYoxRFN.webp", 6, 2));
+                for (Product p : products) {
+                    productDao.insert(p);
+                }
+
             }).start();
         }
     };

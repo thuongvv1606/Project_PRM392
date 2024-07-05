@@ -29,7 +29,8 @@
                     android:textColor="@color/dark_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Restaurant"/>
+                    android:text="Add Restaurant"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -43,7 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Image"/>
+                    android:text="Image"
+                    android:textStyle="bold"/>
 
                 <com.mikhaellopez.circularimageview.CircularImageView
                     android:id="@+id/img_restaurant_add_image"
@@ -61,7 +63,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Name"/>
+                    android:text="Restaurant Name"
+                    android:textStyle="bold"/>
                 <EditText
                     android:id="@+id/edt_restaurant_add_name"
                     android:layout_width="match_parent"
@@ -77,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Email"/>
+                    android:text="Restaurant Email"
+                    android:textStyle="bold"/>
                 <EditText
                     android:id="@+id/edt_restaurant_add_email"
                     android:layout_width="match_parent"
@@ -94,7 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Phone"/>
+                    android:text="Restaurant Phone"
+                    android:textStyle="bold"/>
                 <EditText
                     android:id="@+id/edt_restaurant_add_phone"
                     android:layout_width="match_parent"
@@ -111,7 +116,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Address"/>
+                    android:text="Restaurant Address"
+                    android:textStyle="bold"/>
                 <EditText
                     android:id="@+id/edt_restaurant_add_address"
                     android:layout_width="match_parent"
@@ -128,7 +134,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Description"/>
+                    android:text="Description"
+                    android:textStyle="bold"/>
                 <EditText
                     android:id="@+id/edt_restaurant_add_description"
                     android:layout_width="match_parent"

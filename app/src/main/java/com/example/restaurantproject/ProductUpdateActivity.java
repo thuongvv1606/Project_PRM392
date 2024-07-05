@@ -152,9 +152,13 @@ public class ProductUpdateActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         }
 
-        if (product.getProductImage() != null) {
-            imageUri = Uri.parse(product.getProductImage());
-            Glide.with(this).load(product.getProductImage()).into(txt_image);
+        // Load ảnh đại diện từ URL
+        if (product.getProductImage()  != null && !product.getProductImage().isEmpty()) {
+            if (product.getProductImage().startsWith("content://")) {
+                Glide.with(this).load(Uri.parse(product.getProductImage())).into(txt_image);
+            } else {
+                Glide.with(this).load(product.getProductImage()).into(txt_image);
+            }
         }
 
         Button updateBtn = findViewById(R.id.btn_update_product);
@@ -191,7 +195,7 @@ public class ProductUpdateActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
-                    product.setProductImage("");
+                    product.setProductImage(null);
                 }
 
                 // Update categoryId based on spinner selection

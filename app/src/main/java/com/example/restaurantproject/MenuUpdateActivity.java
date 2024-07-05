@@ -128,9 +128,13 @@ public class MenuUpdateActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         }
 
-        if (menu.getMenuImage() != null) {
-            imageUri = Uri.parse(menu.getMenuImage());
-            Glide.with(this).load(menu.getMenuImage()).into(txt_image);
+        // Load ảnh đại diện từ URL
+        if (menu.getMenuImage()  != null && !menu.getMenuImage().isEmpty()) {
+            if (menu.getMenuImage().startsWith("content://")) {
+                Glide.with(this).load(Uri.parse(menu.getMenuImage())).into(txt_image);
+            } else {
+                Glide.with(this).load(menu.getMenuImage()).into(txt_image);
+            }
         }
 
         Button updateBtn = findViewById(R.id.btn_update_menu);
@@ -162,7 +166,7 @@ public class MenuUpdateActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
-                    menu.setMenuImage("");
+                    menu.setMenuImage(null);
                 }
 
                 // Update restaurantId based on spinner selection

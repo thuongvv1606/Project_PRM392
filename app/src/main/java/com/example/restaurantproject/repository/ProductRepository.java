@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.restaurantproject.bean.Menu;
 import com.example.restaurantproject.bean.Product;
+import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.dao.ProductDao;
 import com.example.restaurantproject.dao.RestaurantDatabase;
 
@@ -45,6 +46,9 @@ public class ProductRepository {
     }
 
     public List<Product> searchProduct(String searchStr) { return productDao.search("%" + searchStr + "%");}
+    public List<Product> getTopProducts() {
+        return productDao.selectTop();
+    }
 
     public List<Product> getProductByMenu(int menuId) { return productDao.getProductByMenu(menuId);}
 }

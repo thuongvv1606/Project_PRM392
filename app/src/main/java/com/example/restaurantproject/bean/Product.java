@@ -100,6 +100,16 @@ public class Product {
     public Product() {
     }
 
+    public Product(int productId, String productName, String productDescription, double price, String productImage, int categoryId, int menuId) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.price = price;
+        this.productImage = productImage;
+        this.categoryId = categoryId;
+        this.menuId = menuId;
+    }
+
     public Product(String productName, String productDescription, double price, String productImage, int categoryId, int menuId) {
         this.productName = productName;
         this.productDescription = productDescription;

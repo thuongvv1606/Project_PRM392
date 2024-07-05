@@ -39,9 +39,10 @@ public class CategoryAddActivity extends AppCompatActivity {
     private ImageView imageView;
     private CategoryRepository categoryRepository = null;
     private EditText edtName, edtDescription;
-    private Uri imageUri;
-    private SaveImageToStorage saveImageToStorage;
 
+    private Uri imageUri;
+
+    private SaveImageToStorage saveImageToStorage;
     // Biến launcher để chọn hình ảnh từ bộ nhớ ngoài và xử lý kết quả trả về
     private final ActivityResultLauncher<Intent> imageChooserLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -119,7 +120,7 @@ public class CategoryAddActivity extends AppCompatActivity {
                         return;
                     }
                 } else {
-                    category.setCategoryImage("");
+                    category.setCategoryImage(null);
                 }
 
                 if (categoryRepository != null) {

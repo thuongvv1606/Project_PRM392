@@ -42,7 +42,7 @@ public class MenuListActivity extends NavigationActivity {
         List<Menu> menuList = menuRepository.getAllMenus();
         setMenuList(menuList);
         TextView txtCount = findViewById(R.id.tv_menu_count);
-        txtCount.setText("Found " + menuList.size() + " category(ies)");
+        txtCount.setText("Found " + menuList.size() + " menu(s)");
 
         Button btnCreateProduct = findViewById(R.id.btn_create_menu);
         btnCreateProduct.setOnClickListener(new View.OnClickListener() {

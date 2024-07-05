@@ -202,7 +202,7 @@ public class ProductAddActivity extends NavigationActivity {
         if (imageUri != null) {
             product.setProductImage(imageUri.toString());
         } else {
-            product.setProductImage("");
+            product.setProductImage(null);
         }
 
         // Add menu to database

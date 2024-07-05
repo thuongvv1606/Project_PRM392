@@ -71,6 +71,15 @@ public class Menu {
 
     public Menu() {
     }
+
+    public Menu(int menuId, String menuName, String menuDescription, String menuImage, int restaurantId) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.menuDescription = menuDescription;
+        this.menuImage = menuImage;
+        this.restaurantId = restaurantId;
+    }
+
     public Menu(String menuName, String menuDescription, String menuImage, int restaurantId) {
         this.menuName = menuName;
         this.menuDescription = menuDescription;

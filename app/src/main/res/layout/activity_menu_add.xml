@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Restaurant Name"
+                android:text="From Restaurant"
                 android:textStyle="bold"
                 />
             <Spinner

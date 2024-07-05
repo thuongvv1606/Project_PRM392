@@ -41,7 +41,7 @@ public class RestaurantListActivity extends NavigationActivity {
         restaurantList = restaurantRepository.getAllRestaurants();
         setRestaurantList(restaurantList);
         TextView txtCount = findViewById(R.id.tv_restaurant_count);
-        txtCount.setText("Found " + restaurantList.size() + " restaurant(ies)");
+        txtCount.setText("Found " + restaurantList.size() + " restaurant(s)");
 
         Button btnCreate = findViewById(R.id.btn_create_restaurant);
         btnCreate.setOnClickListener(new View.OnClickListener() {

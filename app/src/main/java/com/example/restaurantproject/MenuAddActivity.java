@@ -152,7 +152,7 @@ public class MenuAddActivity extends NavigationActivity {
         if (imageUri != null) {
             menu.setMenuImage(imageUri.toString());
         } else {
-            menu.setMenuImage("");
+            menu.setMenuImage(null);
         }
 
         // Add menu to database

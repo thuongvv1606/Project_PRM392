@@ -24,6 +24,8 @@ public interface ProductDao {
 
     @Query("SELECT * FROM Product")
     List<Product> selectAll();
+    @Query("SELECT * FROM Product LIMIT 8")
+    List<Product> selectTop();
 
     @Query("DELETE FROM Product")
     void deleteAll();

@@ -90,7 +90,7 @@ public class RestaurantUpdateActivity extends AppCompatActivity {
         txt_description.setText(restaurant.getRestaurantDescription());
 
         // Load ảnh đại diện từ URL
-        if (restaurant.getRestaurantImage()  != null && !restaurant.getRestaurantImage() .isEmpty()) {
+        if (restaurant.getRestaurantImage() != null && !restaurant.getRestaurantImage().isEmpty()) {
             if (restaurant.getRestaurantImage() .startsWith("content://")) {
                 Glide.with(this).load(Uri.parse(restaurant.getRestaurantImage())).into(imageView);
             } else {

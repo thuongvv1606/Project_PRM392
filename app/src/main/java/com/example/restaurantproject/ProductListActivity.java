@@ -36,7 +36,7 @@ public class ProductListActivity extends NavigationActivity  {
         List<Product> productList = productRepository.getAllProducts();
         setProductList(productList);
         TextView txtCount = findViewById(R.id.tv_product_count);
-        txtCount.setText("Found " + productList.size() + " product(ies)");
+        txtCount.setText("Found " + productList.size() + " product(s)");
 
         Button btnCreateProduct = findViewById(R.id.btn_create_product);
         btnCreateProduct.setOnClickListener(new View.OnClickListener() {

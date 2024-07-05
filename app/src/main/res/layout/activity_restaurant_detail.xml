@@ -28,7 +28,8 @@
                     android:textColor="@color/dark_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restaurant Detail "/>
+                    android:text="Restaurant Detail "
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -42,7 +43,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Image"/>
+                    android:text="Image"
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +70,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Name"/>
+                    android:text="Restaurant Name"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txt_restaurant_detail_name"
                     android:layout_width="match_parent"
@@ -83,7 +86,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Email"/>
+                    android:text="Restaurant Email"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txt_restaurant_detail_email"
                     android:layout_width="match_parent"
@@ -100,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Phone"/>
+                    android:text="Restaurant Phone"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txt_restaurant_detail_phone"
                     android:layout_width="match_parent"
@@ -117,7 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant Address"/>
+                    android:text="Restaurant Address"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txt_restaurant_detail_address"
                     android:layout_width="match_parent"
@@ -134,7 +140,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Description"/>
+                    android:text="Description"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txt_restaurant_detail_description"
                     android:layout_width="match_parent"
