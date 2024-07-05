@@ -22,8 +22,8 @@ public class Table {
     private String name;
     @ColumnInfo(name = "seat_number")
     private int seatNum;
-    @ColumnInfo(name = "isVIP")
-    private boolean isVIP ;
+    @ColumnInfo(name = "table_image")
+    private String tableImage ;
     @ColumnInfo(name = "status")
     private int status ;
     @ColumnInfo(name = "restaurant_id")
@@ -53,12 +53,12 @@ public class Table {
         this.seatNum = seatNum;
     }
 
-    public boolean isVIP() {
-        return isVIP;
+    public String getTableImage() {
+        return tableImage;
     }
 
-    public void setVIP(boolean VIP) {
-        isVIP = VIP;
+    public void setTableImage(String tableImage) {
+        this.tableImage = tableImage;
     }
 
     public int getStatus() {
@@ -80,10 +80,10 @@ public class Table {
     public Table() {
     }
 
-    public Table(String name, int seatNum, boolean isVIP, int status, int restaurantId) {
+    public Table(String name, int seatNum, String tableImage, int status, int restaurantId) {
         this.name = name;
         this.seatNum = seatNum;
-        this.isVIP = isVIP;
+        this.tableImage = tableImage;
         this.status = status;
         this.restaurantId = restaurantId;
     }

@@ -56,6 +56,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         // Set the spannableString to the TextView
         holder.tvOrderID.setText(spannableString);
         holder.tvCustomerName.setText("" + order.getCustomerId());
+        holder.tvOrderDate.setText("" + order.getOrderDate());
+        holder.tvStatus.setText("" + order.getStatus());
 
         holder.tvOrderID.setOnClickListener(new View.OnClickListener() {
             @Override

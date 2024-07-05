@@ -6,17 +6,18 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Order",
-        foreignKeys = {
-                @ForeignKey(entity = Account.class,
-                        parentColumns = "account_id",
-                        childColumns = "customer_id",
-                        onDelete = ForeignKey.CASCADE),
-                @ForeignKey(entity = Table.class,
-                        parentColumns = "table_id",
-                        childColumns = "table_id",
-                        onDelete = ForeignKey.CASCADE)
-        }
+@Entity(tableName = "Order"
+//        ,
+//        foreignKeys = {
+//                @ForeignKey(entity = Account.class,
+//                        parentColumns = "account_id",
+//                        childColumns = "customer_id",
+//                        onDelete = ForeignKey.CASCADE),
+//                @ForeignKey(entity = Table.class,
+//                        parentColumns = "table_id",
+//                        childColumns = "table_id",
+//                        onDelete = ForeignKey.CASCADE)
+//        }
 )
 public class Order {
     @PrimaryKey(autoGenerate = true)
@@ -62,11 +63,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -78,27 +79,27 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public boolean isPayment() {
+    public Boolean isPayment() {
         return payment;
     }
 
-    public void setPayment(boolean payment) {
+    public void setPayment(Boolean payment) {
         this.payment = payment;
     }
 
@@ -110,19 +111,19 @@ public class Order {
         this.address = address;
     }
 
-    public int getTableID() {
+    public Integer getTableID() {
         return tableID;
     }
 
-    public void setTableID(int tableID) {
+    public void setTableID(Integer tableID) {
         this.tableID = tableID;
     }
 
-    public int getNoOfPeople() {
+    public Integer getNoOfPeople() {
         return noOfPeople;
     }
 
-    public void setNoOfPeople(int noOfPeople) {
+    public void setNoOfPeople(Integer noOfPeople) {
         this.noOfPeople = noOfPeople;
     }
 
