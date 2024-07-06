@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,18 +22,28 @@ import com.bumptech.glide.Glide;
 import com.example.restaurantproject.adapter.MainProductAdapter;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Menu;
+import com.example.restaurantproject.bean.Order;
+import com.example.restaurantproject.bean.OrderDetails;
 import com.example.restaurantproject.bean.Product;
 import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.repository.CategoryRepository;
 import com.example.restaurantproject.repository.MenuRepository;
+import com.example.restaurantproject.repository.OrderDetailsRepository;
+import com.example.restaurantproject.repository.OrderRepository;
 import com.example.restaurantproject.repository.ProductRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainProductDetail extends NavigationActivity {
+    private OrderDetailsRepository orderDetailsRepository = null;
+    private OrderRepository orderRepository = null;
     private CategoryRepository categoryRepository = null;
     private MenuRepository menuRepository = null;
     private ProductRepository productRepository = null;
@@ -55,6 +66,9 @@ public class MainProductDetail extends NavigationActivity {
         menuRepository = new MenuRepository(this);
         productRepository = new ProductRepository(this);
         restaurantRepository = new RestaurantRepository(this);
+        orderRepository = new OrderRepository(this);
+        orderDetailsRepository = new OrderDetailsRepository(this);
+
         sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
@@ -146,6 +160,49 @@ public class MainProductDetail extends NavigationActivity {
                 Intent intent = new Intent(MainProductDetail.this, ProductDetailsActivity.class);
                 intent.putExtra("product_id", product.getProductId());
                 startActivity(intent);
+            }
+        });
+
+        Button btnAddCart = findViewById(R.id.add_to_cart);
+        btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!sessionManager.isLoggedIn()) {
+                    Intent intent = new Intent(MainProductDetail.this, UserLoginActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(MainProductDetail.this, "You must login before order!", Toast.LENGTH_SHORT).show();
+                }
+
+                Order order = orderRepository.selectUserNewest(sessionManager.getAccountFromSession().getAccountId());
+                if (order == null) {
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+
+                    // Format date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    String currentDate = dateFormat.format(date);
+                    order = new Order(0.0, currentDate, sessionManager.getAccountFromSession().getAccountId(), 1, true);
+                    orderRepository.createOrder(order);
+                    order = orderRepository.selectUserNewest(sessionManager.getAccountFromSession().getAccountId());
+                }
+
+                OrderDetails orderDetails = orderDetailsRepository.selectAllByOrderIdAndProductId(order.getOrderId(), product.getProductId());
+                if (orderDetails == null) {
+                    OrderDetails od = new OrderDetails(product.getProductId(), order.getOrderId(), product.getPrice(), quantity);
+                    orderDetailsRepository.createOrderDetails(od);
+                } else {
+                    int quantity1 = orderDetails.getQuantity() + quantity;
+                    orderDetails.setQuantity(quantity1);
+                    orderDetailsRepository.updateOrderDetails(orderDetails);
+                }
+
+                double totalPrice = order.getTotalPrice() + product.getPrice() * quantity;
+                order.setTotalPrice(totalPrice);
+                orderRepository.updateOrder(order);
+
+                txt_quantity.setText("" + 1);
+
+                Toast.makeText(MainProductDetail.this, "Add to cart product " + product.getProductName() + " successfully!", Toast.LENGTH_SHORT).show();
             }
         });
     }
