@@ -36,5 +36,8 @@ public interface MenuDao {
 
     @Query("DELETE FROM Menu WHERE menu_id = :menuId")
     void delete(int menuId);
+
+    @Query("SELECT * FROM Menu WHERE restaurant_id == :restaurantId and menu_id != :menuId")
+    List<Menu> selectAllInRestaurant(int restaurantId, int menuId);
 }
 

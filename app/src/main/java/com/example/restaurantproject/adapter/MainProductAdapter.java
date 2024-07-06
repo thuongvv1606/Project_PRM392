@@ -37,7 +37,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
     public void onBindViewHolder(@NonNull MainProductAdapter.ProductViewHolder holder, int position) {
         Product product = products.get(position);
 
-        String id = "" + product.getProductId();
+        int id = product.getProductId();
 
         // Set the spannableString to the TextView
         holder.tvProductName.setText("" + product.getProductName());

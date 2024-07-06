@@ -165,8 +165,8 @@ public class ProductUpdateActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product product = new Product();
-                product.setMenuId(id);
+                Product product1 = new Product();
+                product1.setMenuId(id);
                 String name = txt_name.getText().toString();
                 if (name.trim().isEmpty()) {
                     txt_name.setError("Name cannot be empty!");
@@ -176,39 +176,39 @@ public class ProductUpdateActivity extends AppCompatActivity {
                     txt_name.setError("This name existed!");
                     return;
                 }
-                product.setProductName(name);
+                product1.setProductName(name);
 
                 String priceText = txt_price.getText().toString();
                 // Initialize the price variable
                 double price = Double.parseDouble(priceText);
-                product.setPrice(price);
-                product.setProductDescription(txt_description.getText().toString());
+                product1.setPrice(price);
+                product1.setProductDescription(txt_description.getText().toString());
 
                 if (imageUri != null) {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
-                        product.setProductImage(imagePath);
+                        product1.setProductImage(imagePath);
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(ProductUpdateActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } else {
-                    product.setProductImage(null);
+                    product1.setProductImage(product.getProductImage());
                 }
 
                 // Update categoryId based on spinner selection
                 int selectedPositionC = spinCategory.getSelectedItemPosition();
                 Category selectedCategory = categories.get(selectedPositionC);
-                product.setCategoryId(selectedCategory.getCategoryId());
+                product1.setCategoryId(selectedCategory.getCategoryId());
 
                 int selectedPositionM = spinMenu.getSelectedItemPosition();
                 Menu selectedMenu = menus.get(selectedPositionM);
-                product.setMenuId(selectedMenu.getMenuId());
+                product1.setMenuId(selectedMenu.getMenuId());
 
                 if (productRepository != null) {
-                    productRepository.updateProduct(product);
+                    productRepository.updateProduct(product1);
                     Toast.makeText(ProductUpdateActivity.this, "Update product successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ProductUpdateActivity.this, ProductListActivity.class);
                     startActivity(intent);

@@ -141,8 +141,8 @@ public class MenuUpdateActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Menu menu = new Menu();
-                menu.setMenuId(id);
+                Menu menu1 = new Menu();
+                menu1.setMenuId(id);
                 String name = txt_name.getText().toString();
                 if (name.trim().isEmpty()) {
                     txt_name.setError("Name cannot be empty!");
@@ -152,30 +152,30 @@ public class MenuUpdateActivity extends AppCompatActivity {
                     txt_name.setError("This name existed!");
                     return;
                 }
-                menu.setMenuName(name);
-                menu.setMenuDescription(txt_description.getText().toString());
+                menu1.setMenuName(name);
+                menu1.setMenuDescription(txt_description.getText().toString());
 
                 if (imageUri != null) {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
-                        menu.setMenuImage(imagePath);
+                        menu1.setMenuImage(imagePath);
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(MenuUpdateActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } else {
-                    menu.setMenuImage(null);
+                    menu1.setMenuImage(menu.getMenuImage());
                 }
 
                 // Update restaurantId based on spinner selection
                 int selectedPosition = spinRestaurant.getSelectedItemPosition();
                 Restaurant selectedRestaurant = restaurants.get(selectedPosition);
-                menu.setRestaurantId(selectedRestaurant.getRestaurantId());
+                menu1.setRestaurantId(selectedRestaurant.getRestaurantId());
 
                 if (menuRepository != null) {
-                    menuRepository.updateMenu(menu);
+                    menuRepository.updateMenu(menu1);
                     Toast.makeText(MenuUpdateActivity.this, "Update menu successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MenuUpdateActivity.this, MenuListActivity.class);
                     startActivity(intent);

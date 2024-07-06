@@ -36,6 +36,9 @@ public class MenuRepository {
     public List<Menu> getTopMenus() {
         return menuDao.selectTop();
     }
+    public List<Menu> getMenusInRestaurant(int restaurantId, int menuId) {
+        return menuDao.selectAllInRestaurant(restaurantId, menuId);
+    }
     public List<Menu> searchMenus(String searchStr) { return menuDao.search("%" + searchStr + "%");}
     public void deleteMenu(int menuId) {
         menuDao.delete(menuId);

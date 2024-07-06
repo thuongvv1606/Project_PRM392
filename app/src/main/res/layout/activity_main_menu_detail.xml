@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainMenuDetail">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/menu_image_detail"
+            android:layout_width="300dp"
+            android:layout_height="350dp"
+            android:src="@drawable/ic_search_foreground"
+            android:scaleType="centerCrop"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/menu_name_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu Name"
+            android:textColor="@color/navbar_green"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center">
+
+    <TextView
+        android:id="@+id/menu_description_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu Description"
+        android:textSize="15sp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+<androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/tv_product_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Products"
+        android:layout_weight="1"
+        android:textColor="@color/home_green"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_product_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:layout_weight="1"
+        android:textColor="@color/brown"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <include
+        android:id="@+id/main_product_list"
+        layout="@layout/activity_main_product_recycle_list" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/home_green">
+
+        <TextView
+            android:id="@+id/tv_restaurant_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From Restaurant"
+            android:layout_weight="1"
+            android:textColor="@color/teal_200"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/r_menu_image_detail"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_search_foreground"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/r_menu_name_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Restaurant Name"
+                    android:textStyle="bold"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:id="@+id/r_menu_address_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Restaurant Address"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/r_menu_description_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Restaurant Description"
+                    android:textSize="15sp"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/tv_restaurant_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/brown"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_menu_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Other menus of this restaurant"
+        android:layout_weight="1"
+        android:textColor="@color/home_green"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_menu_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:layout_weight="1"
+        android:textColor="@color/brown"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <include
+        android:id="@+id/main_menu_list"
+        layout="@layout/activity_main_menu_recycle_list" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

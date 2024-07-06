@@ -2,6 +2,7 @@ package com.example.restaurantproject.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.restaurantproject.MainCategoryList;
+import com.example.restaurantproject.MainMenuDetail;
+import com.example.restaurantproject.MainMenuList;
 import com.example.restaurantproject.R;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Menu;
@@ -38,13 +42,33 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.MenuVi
     public void onBindViewHolder(@NonNull MainMenuAdapter.MenuViewHolder holder, int position) {
         Menu menu = menus.get(position);
 
-        String id = "" + menu.getMenuId();
+        int id = menu.getMenuId();
 
         // Set the spannableString to the TextView
         holder.tvMenuName.setText("" + menu.getMenuName());
         if (menu.getMenuImage() != null && !menu.getMenuImage().isEmpty()) {
             Glide.with(context).load(menu.getMenuImage()).into(holder.tvMenuImage);
         }
+
+        holder.tvMenuName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                directToMainMenuListView(id);
+            }
+        });
+
+        holder.tvMenuImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                directToMainMenuListView(id);
+            }
+        });
+    }
+
+    public void directToMainMenuListView(int id) {
+        Intent intent = new Intent(context, MainMenuDetail.class);
+        intent.putExtra("Menu_ID", id);
+        context.startActivity(intent);
     }
 
     @Override

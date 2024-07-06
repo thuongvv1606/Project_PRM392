@@ -32,6 +32,9 @@ public class ProductRepository {
     public List<Product> getAllProducts() {
         return productDao.selectAll();
     }
+    public List<Product> getAllProductsInCategory(int id) {
+        return productDao.selectAllInCategory(id);
+    }
 
     public void deleteProduct(int productId) {
         productDao.delete(productId);
@@ -48,6 +51,10 @@ public class ProductRepository {
     public List<Product> searchProduct(String searchStr) { return productDao.search("%" + searchStr + "%");}
     public List<Product> getTopProducts() {
         return productDao.selectTop();
+    }
+
+    public List<Product> getProductsInMenu(int menuId) {
+        return productDao.selectAllInMenu(menuId);
     }
 
     public List<Product> getProductByMenu(int menuId) { return productDao.getProductByMenu(menuId);}

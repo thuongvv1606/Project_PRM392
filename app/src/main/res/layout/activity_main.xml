@@ -51,7 +51,7 @@
                 />
 
             <Button
-                android:id="@+id/btn_search_category"
+                android:id="@+id/btn_home_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/navbar_green"
@@ -71,33 +71,40 @@
             android:id="@+id/tv_category_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:text="Categories"
             android:textColor="@color/home_green"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_list_main"
+        <TextView
+            android:id="@+id/tv_category_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/brown"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/main_category_list"
+            layout="@layout/activity_main_category_recycle_list" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_restaurant_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Products"
+                android:text="Restaurants"
                 android:layout_weight="1"
                 android:textColor="@color/home_green"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -111,27 +118,35 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/restaurant_list_main"
+        <TextView
+            android:id="@+id/tv_restaurant_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/brown"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/main_restaurant_list"
+            layout="@layout/activity_main_restaurant_recycle_list" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_menu_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:text="Menus"
                 android:layout_weight="1"
                 android:textColor="@color/home_green"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -145,27 +160,35 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/menu_list_main"
+        <TextView
+            android:id="@+id/tv_menu_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/brown"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/main_menu_list"
+            layout="@layout/activity_main_menu_recycle_list" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_product_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:text="Products"
                 android:layout_weight="1"
                 android:textColor="@color/home_green"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -179,10 +202,20 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/product_list_main"
+        <TextView
+            android:id="@+id/tv_product_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/brown"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/main_product_list"
+            layout="@layout/activity_main_product_recycle_list" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

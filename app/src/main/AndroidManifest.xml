@@ -23,11 +23,23 @@
         android:theme="@style/Theme.RestaurantProject"
         tools:targetApi="31">
         <activity
+            android:name=".MainMenuDetail"
+            android:exported="true" />
+        <activity
+            android:name=".MainMenuList"
+            android:exported="true" />
+        <activity
+            android:name=".MainRestaurantList"
+            android:exported="true" />
+        <activity
+            android:name=".MainCategoryList"
+            android:exported="true" />
+        <activity
             android:name=".MainProductList"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ProductUpdateActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".TableDetailActivity"
             android:exported="true" />

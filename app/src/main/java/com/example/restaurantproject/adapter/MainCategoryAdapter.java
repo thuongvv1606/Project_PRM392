@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.restaurantproject.CategoryDetailsActivity;
 import com.example.restaurantproject.CategoryListActivity;
 import com.example.restaurantproject.CategoryUpdateActivity;
+import com.example.restaurantproject.MainCategoryList;
 import com.example.restaurantproject.R;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.repository.CategoryRepository;
@@ -47,7 +48,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
             Category category = categories.get(position);
 
-            String id = "" + category.getCategoryId();
+            int id = category.getCategoryId();
 
             // Set the spannableString to the TextView
             holder.tvCategoryName.setText("" + category.getCategoryName());
@@ -58,16 +59,22 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
             holder.tvCategoryImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    directToMainCategoryListView(id);
                 }
             });
 
             holder.tvCategoryName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    directToMainCategoryListView(id);
                 }
             });
+        }
+
+        public void directToMainCategoryListView(int id) {
+            Intent intent = new Intent(context, MainCategoryList.class);
+            intent.putExtra("Cate_ID", id);
+            context.startActivity(intent);
         }
 
         @Override

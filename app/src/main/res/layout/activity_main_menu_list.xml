@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainProductList">
+    tools:context=".MainMenuList">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_product_text"
+                android:id="@+id/tv_menu_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Products"
+                android:text="Menus"
                 android:textColor="@color/home_green"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
@@ -60,7 +60,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_product_count"
+            android:id="@+id/tv_menu_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -71,8 +71,8 @@
             android:textStyle="bold"/>
 
         <include
-            android:id="@+id/main_product_list"
-            layout="@layout/activity_main_product_recycle_list" />
+            android:id="@+id/main_menu_list"
+            layout="@layout/activity_main_menu_recycle_list" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

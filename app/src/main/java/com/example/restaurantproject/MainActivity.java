@@ -1,10 +1,15 @@
 package com.example.restaurantproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -52,6 +57,7 @@ public class MainActivity extends NavigationActivity {
 
     // Test
     private SessionManager sessionManager;
+
     private ViewPager viewPager;
     private LinearLayout dotsLayout;
     private int[] images = {R.drawable.banner_image1, R.drawable.banner_image2, R.drawable.banner_image3};
@@ -125,6 +131,64 @@ public class MainActivity extends NavigationActivity {
 
         List<Product> productList = productRepository.getTopProducts();
         setProductList(productList);
+
+        Button searchBtn = findViewById(R.id.btn_home_search);
+        EditText searchEdt = findViewById(R.id.edt_home_search);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Category> categoryList = categoryRepository.searchCategories(searchEdt.getText().toString());
+                setCategoryList(categoryList);
+                TextView txtCountCategory = findViewById(R.id.tv_category_count);
+                txtCountCategory.setVisibility(View.VISIBLE);
+                txtCountCategory.setText("Found " + categoryList.size() + " category(ies)");
+
+                List<Restaurant> restaurantList = restaurantRepository.getAllBySearch(searchEdt.getText().toString());
+                setRestaurantList(restaurantList);
+                TextView txtCountRestaurant = findViewById(R.id.tv_restaurant_count);
+                txtCountRestaurant.setVisibility(View.VISIBLE);
+                txtCountRestaurant.setText("Found " + restaurantList.size() + " restaurant(s)");
+
+                List<Menu> menuList = menuRepository.searchMenus(searchEdt.getText().toString());
+                setMenuList(menuList);
+                TextView txtCountMenu = findViewById(R.id.tv_menu_count);
+                txtCountMenu.setVisibility(View.VISIBLE);
+                txtCountMenu.setText("Found " + menuList.size() + " menu(s)");
+
+                List<Product> productList = productRepository.searchProduct(searchEdt.getText().toString());
+                setProductList(productList);
+                TextView txtCountProduct = findViewById(R.id.tv_product_count);
+                txtCountProduct.setVisibility(View.VISIBLE);
+                txtCountProduct.setText("Found " + productList.size() + " product(s)");
+            }
+        });
+
+        TextView seeMoreRestaunrants = findViewById(R.id.tv_restaurant_see_more);
+        seeMoreRestaunrants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRestaunrant = new Intent(MainActivity.this, MainRestaurantList.class);
+                startActivity(intentRestaunrant);
+            }
+        });
+
+        TextView seeMoreMenus = findViewById(R.id.tv_menu_see_more);
+        seeMoreMenus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMenu = new Intent(MainActivity.this, MainMenuList.class);
+                startActivity(intentMenu);
+            }
+        });
+
+        TextView seeMoreProducts = findViewById(R.id.tv_product_see_more);
+        seeMoreProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProduct = new Intent(MainActivity.this, MainProductList.class);
+                startActivity(intentProduct);
+            }
+        });
     }
 
     @Override
@@ -166,7 +230,7 @@ public class MainActivity extends NavigationActivity {
 
     private void setRestaurantList(List<Restaurant> restaurantList) {
         RecyclerView recyclerView = findViewById(R.id.restaurant_list_main);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         MainRestaurantAdapter mainMenuAdapter = new MainRestaurantAdapter(restaurantList, this);
         recyclerView.setAdapter(mainMenuAdapter);

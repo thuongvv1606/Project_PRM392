@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainProductList">
+    tools:context=".MainRestaurantList">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_product_text"
+                android:id="@+id/tv_restaurant_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Products"
+                android:text="Restaurants"
                 android:textColor="@color/home_green"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
@@ -59,20 +59,20 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_product_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text=""
-            android:layout_weight="1"
-            android:textColor="@color/brown"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tv_restaurant_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="@color/brown"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
 
-        <include
-            android:id="@+id/main_product_list"
-            layout="@layout/activity_main_product_recycle_list" />
+    <include
+        android:id="@+id/main_restaurant_list"
+        layout="@layout/activity_main_restaurant_recycle_list" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

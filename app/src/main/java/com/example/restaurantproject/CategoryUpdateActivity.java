@@ -114,8 +114,8 @@ public class CategoryUpdateActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Category category = new Category();
-                category.setCategoryId(id);
+                Category category1 = new Category();
+                category1.setCategoryId(id);
                 String name = txt_name.getText().toString();
                 if (name.trim().isEmpty()) {
                     txt_name.setError("Name cannot be empty!");
@@ -125,25 +125,25 @@ public class CategoryUpdateActivity extends AppCompatActivity {
                     txt_name.setError("This name existed!");
                     return;
                 }
-                category.setCategoryName(name);
-                category.setCategoryDescription(txt_description.getText().toString());
+                category1.setCategoryName(name);
+                category1.setCategoryDescription(txt_description.getText().toString());
 
                 if (imageUri != null) {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
-                        category.setCategoryImage(imagePath);
+                        category1.setCategoryImage(imagePath);
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(CategoryUpdateActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } else {
-                    category.setCategoryImage(category.getCategoryImage());
+                    category1.setCategoryImage(category.getCategoryImage());
                 }
 
                 if (categoryRepository != null) {
-                    categoryRepository.updateCategory(category);
+                    categoryRepository.updateCategory(category1);
                     Toast.makeText(CategoryUpdateActivity.this, "Update category successfully",
                             Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(CategoryUpdateActivity.this, CategoryListActivity.class);

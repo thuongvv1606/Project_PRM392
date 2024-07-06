@@ -29,7 +29,7 @@ public class MainRestaurantAdapter extends RecyclerView.Adapter<MainRestaurantAd
     @NonNull
     @Override
     public MainRestaurantAdapter.RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.main_category_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.main_restaurant_item, parent, false);
         return new MainRestaurantAdapter.RestaurantViewHolder(view);
     }
 
@@ -37,10 +37,11 @@ public class MainRestaurantAdapter extends RecyclerView.Adapter<MainRestaurantAd
     public void onBindViewHolder(@NonNull MainRestaurantAdapter.RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurants.get(position);
 
-        String id = "" + restaurant.getRestaurantId();
+        int id = restaurant.getRestaurantId();
 
         // Set the spannableString to the TextView
         holder.tvRestaurantName.setText("" + restaurant.getRestaurantName());
+        holder.tvRestaurantAddress.setText("" + restaurant.getAddress());
         if (restaurant.getRestaurantImage() != null && !restaurant.getRestaurantImage().isEmpty()) {
             Glide.with(context).load(restaurant.getRestaurantImage()).into(holder.tvRestaurantImage);
         }
@@ -66,14 +67,15 @@ public class MainRestaurantAdapter extends RecyclerView.Adapter<MainRestaurantAd
     }
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvRestaurantName;
+        private TextView tvRestaurantName, tvRestaurantAddress;
         private ImageView tvRestaurantImage;
 
         @SuppressLint("WrongViewCast")
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvRestaurantName = itemView.findViewById(R.id.category_name);
-            tvRestaurantImage = itemView.findViewById(R.id.category_image);
+            tvRestaurantName = itemView.findViewById(R.id.restaurant_name);
+            tvRestaurantImage = itemView.findViewById(R.id.restaurant_image);
+            tvRestaurantAddress = itemView.findViewById(R.id.restaurant_address);
         }
     }
 }

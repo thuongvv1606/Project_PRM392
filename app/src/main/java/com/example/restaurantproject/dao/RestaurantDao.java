@@ -24,7 +24,7 @@ public interface RestaurantDao {
     @Query("SELECT * FROM Restaurant")
     List<Restaurant> selectAll();
 
-    @Query("SELECT * FROM Restaurant LIMIT 5")
+    @Query("SELECT * FROM Restaurant LIMIT 2")
     List<Restaurant> selectTop();
 
     @Query("SELECT * FROM Restaurant WHERE restaurant_name LIKE '%' || :searchStr || '%' OR address LIKE '%' || :searchStr || '%'")
