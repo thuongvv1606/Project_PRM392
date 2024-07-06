@@ -26,6 +26,12 @@
             android:name=".OrderDeliveryActivity"
             android:exported="true" />
         <activity
+            android:name=".MainRestaurantDetail"
+            android:exported="true" />
+        <activity
+            android:name=".MainProductDetail"
+            android:exported="false" />
+        <activity
             android:name=".MainMenuDetail"
             android:exported="true" />
         <activity

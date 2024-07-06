@@ -53,8 +53,8 @@ public class ProductRepository {
         return productDao.selectTop();
     }
 
-    public List<Product> getProductsInMenu(int menuId) {
-        return productDao.selectAllInMenu(menuId);
+    public List<Product> getProductsInMenu(int menuId, int productId) {
+        return productDao.selectAllInMenu(menuId, productId);
     }
 
     public List<Product> getProductByMenu(int menuId) { return productDao.getProductByMenu(menuId);}

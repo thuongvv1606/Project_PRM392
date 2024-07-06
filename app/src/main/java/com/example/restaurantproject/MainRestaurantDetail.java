@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,17 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.restaurantproject.adapter.MainMenuAdapter;
 import com.example.restaurantproject.adapter.MainProductAdapter;
+import com.example.restaurantproject.adapter.MainRestaurantAdapter;
 import com.example.restaurantproject.bean.Menu;
 import com.example.restaurantproject.bean.Product;
 import com.example.restaurantproject.bean.Restaurant;
 import com.example.restaurantproject.repository.MenuRepository;
+import com.example.restaurantproject.repository.OrderDetailsRepository;
+import com.example.restaurantproject.repository.OrderRepository;
 import com.example.restaurantproject.repository.ProductRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.ultils.session.SessionManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenuDetail extends NavigationActivity {
+public class MainRestaurantDetail extends NavigationActivity {
     private MenuRepository menuRepository = null;
     private ProductRepository productRepository = null;
     private RestaurantRepository restaurantRepository = null;
@@ -38,7 +41,7 @@ public class MainMenuDetail extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setupContentLayout(R.layout.activity_main_menu_detail);
+        setupContentLayout(R.layout.activity_main_restaurant_detail);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -51,48 +54,43 @@ public class MainMenuDetail extends NavigationActivity {
         sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("Menu_ID", -1);
-        Menu menu = menuRepository.getMenu(id);
-        TextView txt_name = findViewById(R.id.menu_name_detail);
-        txt_name.setText(menu.getMenuName());
-        TextView txt_description = findViewById(R.id.menu_description_detail);
-        txt_description.setText(menu.getMenuDescription());
-        ImageView txt_image = findViewById(R.id.menu_image_detail);
-        if (menu.getMenuImage() != null) {
-            Glide.with(this).load(menu.getMenuImage()).into(txt_image);
-        }
-
-        Restaurant restaurant = restaurantRepository.getRestaurant(menu.getRestaurantId());
-        TextView r_name = findViewById(R.id.r_menu_name_detail);
-        r_name.setText(restaurant.getRestaurantName());
-        TextView r_address = findViewById(R.id.r_menu_address_detail);
-        r_address.setText(restaurant.getAddress());
-        TextView r_description = findViewById(R.id.r_menu_description_detail);
-        r_description.setText(restaurant.getRestaurantDescription());
-        ImageView r_image = findViewById(R.id.r_menu_image_detail);
+        int id = intent.getIntExtra("Restaurant_ID", -1);
+        Restaurant restaurant = restaurantRepository.getRestaurant(id);
+        TextView txt_name = findViewById(R.id.restaurant_name_detail);
+        txt_name.setText(restaurant.getRestaurantName());
+        TextView txt_description = findViewById(R.id.restaurant_description_detail);
+        txt_description.setText(restaurant.getRestaurantDescription());
+        TextView txt_address = findViewById(R.id.restaurant_address_detail);
+        txt_address.setText(restaurant.getAddress());
+        TextView txt_email = findViewById(R.id.restaurant_email_detail);
+        txt_email.setText(restaurant.getEmail());
+        TextView txt_phone = findViewById(R.id.restaurant_phone_detail);
+        txt_phone.setText(restaurant.getPhoneNumber());
+        ImageView txt_image = findViewById(R.id.restaurant_image_detail);
         if (restaurant.getRestaurantImage() != null) {
-            Glide.with(this).load(restaurant.getRestaurantImage()).into(r_image);
+            Glide.with(this).load(restaurant.getRestaurantImage()).into(txt_image);
         }
 
-        List<Menu> menuList = menuRepository.getMenusInRestaurant(menu.getRestaurantId(), id);
+        List<Restaurant> restaurantList = restaurantRepository.getOtherRestaurants(restaurant.getRestaurantId());
+        setRestaurantList(restaurantList);
+        TextView txtCountRestaurant = findViewById(R.id.tv_restaurant_count);
+        txtCountRestaurant.setText("Found " + restaurantList.size() + " restaurant(s)");
+
+        List<Menu> menuList = menuRepository.getMenusInRestaurant(restaurant.getRestaurantId(),-1);
         setMenuList(menuList);
         TextView txtCountMenu = findViewById(R.id.tv_menu_count);
         txtCountMenu.setText("Found " + menuList.size() + " menu(s)");
 
-        List<Product> productList = productRepository.getProductsInMenu(id, -1);
+        List<Product> productList = new ArrayList<>();
+        if (menuList.size() > 0) {
+            for (Menu menu: menuList) {
+                List<Product> products = productRepository.getProductsInMenu(menu.getMenuId(), -1);
+                productList.addAll(products);
+            }
+        }
         setProductList(productList);
         TextView txtCountProduct = findViewById(R.id.tv_product_count);
         txtCountProduct.setText("Found " + productList.size() + " product(s)");
-
-        LinearLayoutCompat linearLayoutCompat = findViewById(R.id.restaurant_detail);
-        linearLayoutCompat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(MainMenuDetail.this, MainRestaurantDetail.class);
-                intent1.putExtra("Restaurant_ID", restaurant.getRestaurantId());
-                startActivity(intent1);
-            }
-        });
 
         ImageView ic_edit = findViewById(R.id.iv_edit_icon);
         if (sessionManager.isLoggedIn() && (sessionManager.getAccountFromSession().getRoleId() == 1 ||
@@ -104,11 +102,19 @@ public class MainMenuDetail extends NavigationActivity {
         ic_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuDetail.this, MenuDetailsActivity.class);
-                intent.putExtra("menu_id", menu.getMenuId());
+                Intent intent = new Intent(MainRestaurantDetail.this, RestaurantDetailActivity.class);
+                intent.putExtra("restaurant_id", restaurant.getRestaurantId());
                 startActivity(intent);
             }
         });
+    }
+
+    private void setRestaurantList(List<Restaurant> restaurantList) {
+        RecyclerView recyclerView = findViewById(R.id.restaurant_list_main);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        MainRestaurantAdapter mainMenuAdapter = new MainRestaurantAdapter(restaurantList, this);
+        recyclerView.setAdapter(mainMenuAdapter);
     }
 
     private void setMenuList(List<Menu> menuList) {

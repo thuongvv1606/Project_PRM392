@@ -79,4 +79,14 @@ public class OrderDetails {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public OrderDetails() {
+    }
+
+    public OrderDetails(int productId, int orderId, double price, int quantity) {
+        this.productId = productId;
+        this.orderId = orderId;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

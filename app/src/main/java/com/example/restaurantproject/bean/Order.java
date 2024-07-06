@@ -142,4 +142,15 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Order() {
+    }
+
+    public Order(Double totalPrice, String orderDate, Integer customerId, Integer status, Boolean payment) {
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        this.customerId = customerId;
+        this.status = status;
+        this.payment = payment;
+    }
 }

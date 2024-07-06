@@ -38,4 +38,7 @@ public interface RestaurantDao {
 
     @Query("DELETE FROM Restaurant WHERE restaurant_id = :restaurantId")
     void delete(int restaurantId);
+
+    @Query("SELECT * FROM Restaurant WHERE restaurant_id != :id")
+    List<Restaurant> selectOtherRestaurants(int id);
 }

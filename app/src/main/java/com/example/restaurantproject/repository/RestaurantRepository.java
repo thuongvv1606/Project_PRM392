@@ -34,6 +34,9 @@ public class RestaurantRepository {
     public List<Restaurant> getTopRestaurants() {
         return restaurantDao.selectTop();
     }
+    public List<Restaurant> getOtherRestaurants(int id) {
+        return restaurantDao.selectOtherRestaurants(id);
+    }
 
     public List<Restaurant> getAllBySearch(String searchStr) {
         return restaurantDao.selectAll(searchStr);

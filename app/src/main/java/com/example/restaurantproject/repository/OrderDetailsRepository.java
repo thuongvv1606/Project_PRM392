@@ -2,6 +2,8 @@ package com.example.restaurantproject.repository;
 
 import android.content.Context;
 
+import androidx.room.Query;
+
 import com.example.restaurantproject.bean.OrderDetails;
 import com.example.restaurantproject.dao.OrderDetailsDao;
 import com.example.restaurantproject.dao.RestaurantDatabase;
@@ -37,6 +39,12 @@ public class OrderDetailsRepository {
 
     public void deleteAllOrderDetails() {
         orderDetailsDao.deleteAll();
+    }
+    public OrderDetails selectAllByOrderIdAndProductId(int oid, int pid) {
+        return orderDetailsDao.selectAllByOrderIdAndProductId(oid, pid);
+    }
+    public List<OrderDetails> selectAllByOrderId(int oid) {
+        return orderDetailsDao.selectAllByOrderId(oid);
     }
 }
 

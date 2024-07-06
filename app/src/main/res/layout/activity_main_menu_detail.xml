@@ -25,7 +25,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/menu_name_detail"
@@ -35,6 +36,14 @@
             android:textColor="@color/navbar_green"
             android:textSize="30sp"
             android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/iv_edit_icon"
+            android:layout_width="39.5dp"
+            android:layout_height="39.5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pen_edit"
+            android:visibility="gone"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -85,6 +94,7 @@
         layout="@layout/activity_main_product_recycle_list" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/restaurant_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -98,7 +108,7 @@
             android:text="From Restaurant"
             android:layout_weight="1"
             android:textColor="@color/teal_200"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -169,7 +179,7 @@
         android:text="Other menus of this restaurant"
         android:layout_weight="1"
         android:textColor="@color/home_green"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView

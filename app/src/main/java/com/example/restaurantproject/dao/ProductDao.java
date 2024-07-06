@@ -26,8 +26,8 @@ public interface ProductDao {
     List<Product> selectAll();
     @Query("SELECT * FROM Product P WHERE P.category_id = :id")
     List<Product> selectAllInCategory(int id);
-    @Query("SELECT * FROM Product P WHERE P.menu_id = :id")
-    List<Product> selectAllInMenu(int id);
+    @Query("SELECT * FROM Product P WHERE P.menu_id = :menuId AND P.product_id != :productId")
+    List<Product> selectAllInMenu(int menuId, int productId);
     @Query("SELECT * FROM Product LIMIT 8")
     List<Product> selectTop();
 

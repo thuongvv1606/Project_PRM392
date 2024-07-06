@@ -42,5 +42,8 @@ public class OrderRepository {
     public void deleteAllOrders() {
         orderDao.deleteAll();
     }
+    public Order selectUserNewest(int uid) {
+        return orderDao.selectUserNewest(uid);
+    }
 }
 

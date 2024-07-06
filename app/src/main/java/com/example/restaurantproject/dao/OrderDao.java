@@ -26,6 +26,9 @@ public interface OrderDao {
             " LIMIT 1")
     Order selectNewest();
 
+    @Query("SELECT * FROM `Order` O WHERE O.customer_id = :uid AND status = 1")
+    Order selectUserNewest(int uid);
+
     @Query("SELECT " +
             "`Order`.*, fullname" +
             " FROM `Order` " +

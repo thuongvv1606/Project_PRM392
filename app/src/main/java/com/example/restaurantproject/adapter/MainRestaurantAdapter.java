@@ -2,6 +2,7 @@ package com.example.restaurantproject.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.restaurantproject.MainProductDetail;
+import com.example.restaurantproject.MainRestaurantDetail;
 import com.example.restaurantproject.R;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Restaurant;
@@ -56,9 +59,29 @@ public class MainRestaurantAdapter extends RecyclerView.Adapter<MainRestaurantAd
         holder.tvRestaurantName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                directToMainRestaurantListView(id);
             }
         });
+
+        holder.tvRestaurantAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                directToMainRestaurantListView(id);
+            }
+        });
+
+        holder.tvRestaurantImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                directToMainRestaurantListView(id);
+            }
+        });
+    }
+
+    public void directToMainRestaurantListView(int id) {
+        Intent intent = new Intent(context, MainRestaurantDetail.class);
+        intent.putExtra("Restaurant_ID", id);
+        context.startActivity(intent);
     }
 
     @Override
