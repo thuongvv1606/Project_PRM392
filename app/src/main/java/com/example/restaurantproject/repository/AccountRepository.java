@@ -102,5 +102,9 @@ public class AccountRepository {
         int count = accountDao.checkUsernameExists(username);
         return count > 0;
     }
+
+    public Account getDelivery() {
+        return accountDao.selectRandomWithRoleId5();
+    }
 }
 

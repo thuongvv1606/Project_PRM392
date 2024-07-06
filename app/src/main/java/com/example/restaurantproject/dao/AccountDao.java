@@ -57,7 +57,6 @@ public interface AccountDao {
     @Query("SELECT * FROM Account WHERE email = :email")
     Account findAccountByEmail(String email);
 
-
     // AccountList -> List<AccountDTO>
     @Query("SELECT a.account_id AS accountId, a.username AS username, a.password AS password, " +
             "a.fullname AS fullname, a.email AS email, a.phone_number AS phoneNumber, " +
@@ -78,5 +77,9 @@ public interface AccountDao {
             "LEFT JOIN Restaurant rt ON a.restaurant_id = rt.restaurant_id " +
             "WHERE username like :searchStr")
     List<AccountDTO> searchAccountByUserName(String searchStr);
+
+    //Delivery
+    @Query("SELECT * FROM Account WHERE role_id = 5 ORDER BY RANDOM() LIMIT 1")
+    Account selectRandomWithRoleId5();
 }
 

@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class OrderAddMainActivity extends AppCompatActivity {
     private Button btnOrder, btnOrderDelivery, btnReservaiton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,16 @@ public class OrderAddMainActivity extends AppCompatActivity {
                 Intent intent = new Intent(OrderAddMainActivity.this, OrderAddActivity.class);
                 startActivity(intent);
             }
+        });
+
+        btnOrderDelivery = findViewById(R.id.btn_order_delivery);
+        btnOrderDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderAddMainActivity.this, OrderDeliveryActivity.class);
+                startActivity(intent);
+            }
+
         });
     }
 }
