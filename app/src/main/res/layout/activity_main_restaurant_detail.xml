@@ -40,43 +40,44 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center">
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
 
         <TextView
             android:id="@+id/restaurant_address_detail"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Address"
             android:textSize="18dp"
-            android:layout_weight="1"
+            android:padding="5dp"
             android:textStyle="bold"
             android:textColor="@color/home_green"/>
 
         <TextView
             android:id="@+id/restaurant_email_detail"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Email"
             android:textSize="18dp"
-            android:layout_weight="1"
+            android:padding="5dp"
             android:textStyle="bold"
             android:textColor="@color/home_green"/>
 
         <TextView
             android:id="@+id/restaurant_phone_detail"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Phone"
             android:textSize="18dp"
-            android:layout_weight="1"
             android:textStyle="bold"
+            android:padding="5dp"
             android:textColor="@color/home_green"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

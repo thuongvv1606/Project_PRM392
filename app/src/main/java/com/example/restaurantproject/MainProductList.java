@@ -59,7 +59,7 @@ public class MainProductList extends NavigationActivity {
 
     private void setProductList(List<Product> productList) {
         RecyclerView recyclerView = findViewById(R.id.product_list_main);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         MainProductAdapter mainProductAdapter = new MainProductAdapter(productList, this);
         recyclerView.setAdapter(mainProductAdapter);
