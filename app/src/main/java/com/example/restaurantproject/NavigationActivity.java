@@ -139,7 +139,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         } else if (item.getItemId() == R.id.nav_create_db) {
             accountRepository.getAllAccounts();
             categoryRepository.getAllCategories();
-            deliveryRepository.getAllDeliveries();
+            deliveryRepository.getAll();
             menuRepository.getAllMenus();
             orderRepository.getAllOrders();
             orderDetailsRepository.getAllOrderDetails();

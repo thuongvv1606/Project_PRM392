@@ -102,7 +102,7 @@ public class OrderDeliveryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderDeliveryActivity.this, OrderAddMainActivity.class);
+                Intent intent = new Intent(OrderDeliveryActivity.this, DeliveryListActivity.class);
                 startActivity(intent);
             }
         });
@@ -229,6 +229,7 @@ public class OrderDeliveryActivity extends AppCompatActivity {
 
             Delivery delivery = new Delivery();
             delivery.setOrderId(orderId);
+            delivery.setStatus(2);
             Account account = accountRepository.getDelivery();
             if (account != null) {
                 delivery.setDelivererId(account.getAccountId());
@@ -238,7 +239,7 @@ public class OrderDeliveryActivity extends AppCompatActivity {
 
             Toast.makeText(OrderDeliveryActivity.this, "Add Order Delivery successfully",
                     Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(OrderDeliveryActivity.this, OrderListActivity.class);
+            Intent intent = new Intent(OrderDeliveryActivity.this, DeliveryListActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(OrderDeliveryActivity.this, "Order/OrderDetail repository is not initialized", Toast.LENGTH_LONG).show();

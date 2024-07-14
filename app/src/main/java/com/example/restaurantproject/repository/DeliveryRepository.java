@@ -5,6 +5,9 @@ import android.content.Context;
 import com.example.restaurantproject.bean.Delivery;
 import com.example.restaurantproject.dao.DeliveryDao;
 import com.example.restaurantproject.dao.RestaurantDatabase;
+import com.example.restaurantproject.entity.DeliveryDTO;
+import com.example.restaurantproject.entity.DeliveryOrderInfo;
+import com.example.restaurantproject.entity.DeliveryProductDetail;
 
 import java.util.List;
 
@@ -27,8 +30,15 @@ public class DeliveryRepository {
         return deliveryDao.select(deliveryId);
     }
 
-    public List<Delivery> getAllDeliveries() {
+    public List<Delivery> getAll() {
         return deliveryDao.selectAll();
+    }
+    public List<DeliveryDTO> getAllDelivery() {
+        return deliveryDao.selectAllDelivery();
+    }
+
+    public List<DeliveryDTO> getAllDeliverySearch(String search) {
+        return deliveryDao.selectAllDelivery(search);
     }
 
     public void deleteDelivery(int deliveryId) {
@@ -38,5 +48,13 @@ public class DeliveryRepository {
     public void deleteAllDeliveries() {
         deliveryDao.deleteAll();
     }
+    public DeliveryOrderInfo orderInfo(int orderId) {
+        return deliveryDao.getOrderInfoByDeliveryId(orderId);
+    }
+
+    public List<DeliveryProductDetail> productDetail(int orderId) {
+        return deliveryDao.ProductDetails(orderId);
+    }
+
 }
 

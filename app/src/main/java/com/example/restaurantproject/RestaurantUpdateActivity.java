@@ -74,7 +74,8 @@ public class RestaurantUpdateActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(RestaurantUpdateActivity.this, RestaurantListActivity.class);
+                startActivity(intent);
             }
         });
 

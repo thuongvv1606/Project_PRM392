@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Database(entities = {Category.class, Product.class, Role.class, Account.class, Restaurant.class,
-        Order.class, OrderDetails.class, Delivery.class, Menu.class, Table.class}, version = 11)
+        Order.class, OrderDetails.class, Delivery.class, Menu.class, Table.class}, version = 12)
 public abstract class RestaurantDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "DemoDatabase";
@@ -80,6 +80,11 @@ public abstract class RestaurantDatabase extends RoomDatabase {
                 accounts.add(new Account("admin", "1234567", "Admin", "admin@gmail.com","0123456789","FPT",1, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
                 accounts.add(new Account("thuong", "1234567", "Vu Thuong", "thuongvv16@gmail.com","0888160699","FPT",4, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
                 accounts.add(new Account("tiendat320", "1234567", "Nguyễn Tiến Đạt", "tiendat320@gmail.com","0912123345","FPT",4, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("Deliver1", "1234567", "Deliver 1", "deliver1@gmail.com","0912123345","HaNoi",5, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("Deliver2", "1234567", "Deliver 2", "deliver2@gmail.com","0912123345","HaNoi",5, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("Deliver3", "1234567", "Deliver 3", "deliver3@gmail.com","0912123345","HaNoi",5, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("Deliver4", "1234567", "Deliver 4", "deliver4@gmail.com","0912123345","HaNoi",5, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
+                accounts.add(new Account("Deliver5", "1234567", "Deliver 5", "deliver5@gmail.com","0912123345","HaNoi",5, true, "https://www.iconpacks.net/icons/2/free-user-icon-3297-thumb.png"));
                 for (Account a : accounts) {
                     accountDao.insert(a);
                 }

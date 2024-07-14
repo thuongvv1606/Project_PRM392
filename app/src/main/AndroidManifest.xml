@@ -23,6 +23,12 @@
         android:theme="@style/Theme.RestaurantProject"
         tools:targetApi="31">
         <activity
+            android:name=".DeliveryListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DeliveryDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".OrderDeliveryActivity"
             android:exported="true" />
         <activity
