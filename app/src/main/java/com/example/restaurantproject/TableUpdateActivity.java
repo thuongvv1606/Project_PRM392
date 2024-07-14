@@ -153,7 +153,7 @@ public class TableUpdateActivity extends AppCompatActivity {
         toUpdateBtn.setOnClickListener(v -> updateMenu());
 
         Button toCancelBtn = findViewById(R.id.btn_cancel_table);
-        toUpdateBtn.setOnClickListener(new View.OnClickListener() {
+        toCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

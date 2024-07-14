@@ -26,6 +26,7 @@ import com.example.restaurantproject.ultils.constant.Common;
 public class TableDetailActivity extends AppCompatActivity {
     private TextView txt_name, txt_status, txt_restaurant, txt_num_seat;
     private ImageView txt_image;
+    private TableRepository tableRepository = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,8 @@ public class TableDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        tableRepository = new TableRepository(this);
 
         txt_name = findViewById(R.id.tv_table_add_name);
         txt_image = findViewById(R.id.iv_table_image);
@@ -69,12 +72,28 @@ public class TableDetailActivity extends AppCompatActivity {
             Glide.with(this).load(table.getTableImage()).into(txt_image);
         }
 
-        Button toUpdateBtn = findViewById(R.id.btn_update_table);
-        toUpdateBtn.setOnClickListener(new View.OnClickListener() {
+        if (table.getStatus() != 4){
+            Button toUpdateBtn = findViewById(R.id.btn_update_table);
+            toUpdateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TableDetailActivity.this, TableUpdateActivity.class);
+                    intent.putExtra("table_id", id);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            Button toUpdateBtn = findViewById(R.id.btn_update_table);
+            toUpdateBtn.setEnabled(false);
+        }
+
+
+        Button btnDelete = findViewById(R.id.btn_delete_table);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TableDetailActivity.this, TableUpdateActivity.class);
-                intent.putExtra("table_id", id);
+                tableRepository.updateTableStatus(id, 4);
+                Intent intent = new Intent(TableDetailActivity.this, TableListActivity.class);
                 startActivity(intent);
             }
         });

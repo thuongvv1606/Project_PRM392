@@ -36,9 +36,6 @@ public interface OrderDao {
             "WHERE order_id = :orderId")
     OrderDTO select(int orderId);
 
-    @Query("SELECT * FROM `Order` WHERE order_id = :orderId")
-    Order getById(int orderId);
-
     @Query("SELECT " +
             "`Order`.*, fullname" +
             " FROM `Order` " +
@@ -47,11 +44,10 @@ public interface OrderDao {
 
     @Query("DELETE FROM `Order`")
     void deleteAll();
+    @Query("Update `Order` SET status = 10 where order_id = :orderId")
+    void deleteStatus(int orderId);
 
     @Query("DELETE FROM `Order` WHERE order_id = :orderId")
     void delete(int orderId);
-
-    //@Query("SELECT * FROM `Order` O WHERE O.customer_id = :uid AND status = 1")
-    //List<OrderDTO> search(String searchStr);
 }
 

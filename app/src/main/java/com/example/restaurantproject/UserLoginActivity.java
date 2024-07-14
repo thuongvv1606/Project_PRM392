@@ -44,6 +44,13 @@ public class UserLoginActivity extends AppCompatActivity {
 
         accountRepository = new AccountRepository(this);
 
+        // trả về lỗi khi chưa đăng nhập
+        Intent intent = getIntent();
+        String msg = intent.getStringExtra("msg");
+        if (msg != null){
+            Toast.makeText(UserLoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
