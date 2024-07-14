@@ -41,7 +41,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private RestaurantRepository restaurantRepository = null;
     private RoleRepository roleRepository = null;
     private SessionManager sessionManager;
-    private MenuItem itemLogin, itemRegister, itemProfile, itemLogout;
+    private MenuItem itemAccounts, itemRestaurants, itemCategories, itemMenus,
+            itemProducts, itemOrders, itemReservations, itemDeliveries,
+            itemOrder, itemReservation,
+            itemLogin, itemRegister, itemProfile, itemLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,16 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         sessionManager = new SessionManager(this);
 
         // Tùy chỉnh hiển thị của MenuItem dựa vào điều kiện
+        itemAccounts = menu.findItem(R.id.nav_accounts);
+        itemRestaurants = menu.findItem(R.id.nav_restaurants);
+        itemCategories = menu.findItem(R.id.nav_categories);
+        itemMenus = menu.findItem(R.id.nav_menus);
+        itemProducts = menu.findItem(R.id.nav_products);
+        itemOrders = menu.findItem(R.id.nav_orders);
+        itemReservations = menu.findItem(R.id.nav_reservations);
+        itemDeliveries = menu.findItem(R.id.nav_deliveries);
+        itemOrder = menu.findItem(R.id.nav_order);
+        itemReservation = menu.findItem(R.id.nav_reservation);
         itemLogin = menu.findItem(R.id.nav_login);
         itemLogout = menu.findItem(R.id.nav_logout);
         itemProfile = menu.findItem(R.id.nav_profile);
@@ -91,6 +104,26 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         {
             itemLogin.setVisible(false);
             itemRegister.setVisible(false);
+
+            if (sessionManager.getAccountFromSession().getRoleId() == 1) {
+                itemAccounts.setVisible(true);
+                itemRestaurants.setVisible(true);
+            }
+            if (sessionManager.getAccountFromSession().getRoleId() == 1 ||
+                    sessionManager.getAccountFromSession().getRoleId() == 2 ||
+                    sessionManager.getAccountFromSession().getRoleId() == 3) {
+                itemCategories.setVisible(true);
+                itemMenus.setVisible(true);
+                itemProducts.setVisible(true);
+            }
+            if (sessionManager.getAccountFromSession().getRoleId() != 4) {
+                itemDeliveries.setVisible(true);
+            }
+            itemOrders.setVisible(true);
+            itemReservations.setVisible(true);
+
+            itemOrder.setVisible(false);
+            itemReservation.setVisible(false);
         }
         else
         {
@@ -106,13 +139,47 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             Intent intent = new Intent(NavigationActivity.this, MainActivity.class);
             startActivity(intent);
             return true;
+        } else if (item.getItemId() == R.id.nav_accounts) {
+            Intent intent = new Intent(NavigationActivity.this, AccountListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_categories) {
+            Intent intent = new Intent(NavigationActivity.this, CategoryListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_restaurants) {
+            Intent intent = new Intent(NavigationActivity.this, RestaurantListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_menus) {
+            Intent intent = new Intent(NavigationActivity.this, MenuListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_products) {
+            Intent intent = new Intent(NavigationActivity.this, ProductListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_orders) {
+            Intent intent = new Intent(NavigationActivity.this, OrderListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_reservations) {
+            Intent intent = new Intent(NavigationActivity.this, TableListActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.nav_deliveries) {
+            Intent intent = new Intent(NavigationActivity.this, OrderDeliveryActivity.class);
+            startActivity(intent);
+            return true;
         } else if (item.getItemId() == R.id.nav_order) {
-            drawer.closeDrawer(GravityCompat.START);
-            displayToast("Go to order page successfully!");
+            Intent intent = new Intent(NavigationActivity.this, UserLoginActivity.class);
+            startActivity(intent);
+            displayToast("You must login first to do this action!");
             return true;
         } else if (item.getItemId() == R.id.nav_reservation) {
-            drawer.closeDrawer(GravityCompat.START);
-            displayToast("Go to reservation page successfully!");
+            Intent intent = new Intent(NavigationActivity.this, UserLoginActivity.class);
+            startActivity(intent);
+            displayToast("You must login first to do this action!");
             return true;
         } else if (item.getItemId() == R.id.nav_login) {
             Intent intent = new Intent(NavigationActivity.this, UserLoginActivity.class);

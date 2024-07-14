@@ -30,7 +30,7 @@ public class OrderListActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_list);
+        setupContentLayout(R.layout.activity_order_list);
 
         orderRepository = new OrderRepository(this);
         List<OrderDTO> orderList = orderRepository.getAllOrders();

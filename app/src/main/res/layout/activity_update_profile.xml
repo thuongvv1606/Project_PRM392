@@ -265,7 +265,7 @@
             android:drawableLeft="@drawable/ic_cancel"
             android:gravity="center"
             android:paddingLeft="20dp"
-            android:text="Cancel"
+            android:text="Clear  "
             android:textColor="@color/navbar_green_2"
             android:textSize="18dp" />
 
