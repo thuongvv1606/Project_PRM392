@@ -44,8 +44,17 @@ public class OrderAddMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnReservaiton = findViewById(R.id.btn_reservation);
+        btnReservaiton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderAddMainActivity.this, ReservationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnOrderDelivery = findViewById(R.id.btn_order_delivery);
+
         btnOrderDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
