@@ -27,6 +27,9 @@ public class OrderRepository {
     public Order getOrder(int orderId) {
         return orderDao.select(orderId);
     }
+    public Order getById(int orderId) {
+        return orderDao.getById(orderId);
+    }
     public Order getOrderNewest() {
         return orderDao.selectNewest();
     }
@@ -34,6 +37,9 @@ public class OrderRepository {
     public List<OrderDTO> getAllOrders() {
         return orderDao.selectAll();
     }
+//    public List<OrderDTO> searchOrder(String searchStr) {
+//        return orderDao.search(searchStr);
+//    }
 
     public void deleteOrder(int orderId) {
         orderDao.delete(orderId);

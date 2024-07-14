@@ -39,18 +39,21 @@ import com.example.restaurantproject.repository.ProductRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.repository.TableRepository;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class OrderAddActivity extends AppCompatActivity {
-    private EditText edtCustomerName, edtNote;
+    private EditText edtNote;
     private Spinner spnRestaurant, spnTable;
     private RecyclerView rcvOrderItem;
-    private List<Product> lstproduct;
     private TextView tvTotalPrice;
     private Button btnAddMore, btnOrder, btnCancel;
     private RestaurantRepository restaurantRepository;
@@ -69,7 +72,7 @@ public class OrderAddActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult o) {
-                    if(o.getResultCode() == 2){
+                    if (o.getResultCode() == 2){
                         Intent data = o.getData();
                         orderItemList.clear();
                         orderItemList = (HashMap<Integer, Integer>) data.getSerializableExtra("orderItemList");
@@ -94,7 +97,7 @@ public class OrderAddActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderAddActivity.this, OrderAddMainActivity.class);
+                Intent intent = new Intent(OrderAddActivity.this, OrderListActivity.class);
                 startActivity(intent);
             }
         });
@@ -108,7 +111,6 @@ public class OrderAddActivity extends AppCompatActivity {
         orderRepository = new OrderRepository(this);
         orderDetailsRepository = new OrderDetailsRepository(this);
 
-        edtCustomerName = findViewById(R.id.edt_customer_name);
         edtNote = findViewById(R.id.edt_order_note);
 
         spnRestaurant = findViewById(R.id.spn_restaurant);
@@ -124,7 +126,7 @@ public class OrderAddActivity extends AppCompatActivity {
         // Set up button click listener
         btnAddMore = findViewById(R.id.btn_add_more_order_item);
         btnAddMore.setOnClickListener(v -> addMoreItem());
-        
+
         btnOrder = findViewById(R.id.btn_add_order);
         btnOrder.setOnClickListener(v -> addOrder());
 
@@ -163,7 +165,6 @@ public class OrderAddActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select a restaurant", Toast.LENGTH_SHORT).show();
             return 0;
         }
-
         return restaurantMap.get(selectedRestaurantName);
     }
     private Integer getTableId(){
@@ -183,25 +184,28 @@ public class OrderAddActivity extends AppCompatActivity {
             }
             activityResultLauncher.launch(intent);
         }
-
     }
 
     private void addOrder() {
         Order order = new Order();
-
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        // Format date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDate = dateFormat.format(date);
         order.setTotalPrice(getTotalPrice());
-        order.setOrderDate(LocalDate.now()+"");
+        order.setOrderDate(currentDate);
         order.setCustomerId(1);
         order.setStatus(1);
         order.setPayment(false);
         order.setTableID(getTableId());
-        order.setReservationDate(LocalDate.now()+"");
+        order.setReservationDate(currentDate);
         order.setNote(edtNote.getText().toString());
 
-        if (orderRepository != null && orderDetailsRepository != null){
+        if (orderRepository != null && orderDetailsRepository != null) {
             orderRepository.createOrder(order);
             int orderId = orderRepository.getOrderNewest().getOrderId();
-            for (ProductOrderDTO item:orderDTOList) {
+            for (ProductOrderDTO item : orderDTOList) {
                 OrderDetails orderDetails = new OrderDetails();
 
                 orderDetails.setOrderId(orderId);
@@ -211,7 +215,7 @@ public class OrderAddActivity extends AppCompatActivity {
 
                 orderDetailsRepository.createOrderDetails(orderDetails);
             }
-            Toast.makeText(OrderAddActivity.this, "Add category successfully",
+            Toast.makeText(OrderAddActivity.this, "Add order successfully",
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(OrderAddActivity.this, OrderListActivity.class);
             startActivity(intent);

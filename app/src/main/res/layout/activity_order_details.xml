@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderAddActivity">
+    tools:context=".OrderDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:id="@+id/tv_create_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order"
+            android:text="Order Details"
             android:textColor="@color/dark_green"
             android:textSize="30sp" />
     </LinearLayout>
@@ -53,15 +53,15 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_restaurant"
+                    android:id="@+id/tv_customer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Restaurant (*)"
+                    android:text="Customer"
                     android:textSize="20sp" />
 
-                <Spinner
-                    android:id="@+id/spn_restaurant"
+                <TextView
+                    android:id="@+id/txt_customer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -77,8 +77,25 @@
                     android:text="Table"
                     android:textSize="20sp" />
 
-                <Spinner
-                    android:id="@+id/spn_number_table"
+                <TextView
+                    android:id="@+id/txt_restaurant_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Status"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txt_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -97,14 +114,6 @@
                     android:id="@+id/list_dish_ordered_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-                <Button
-                    android:id="@+id/btn_add_more_order_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="20dp"
-                    android:backgroundTint="@color/navbar_green"
-                    android:text="Add more"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,7 +144,6 @@
                         android:text="VNĐ"/>
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/tv_order_note"
                     android:layout_width="wrap_content"
@@ -144,7 +152,7 @@
                     android:text="Note"
                     android:textSize="20sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/edt_order_note"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -163,19 +171,19 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btn_add_order"
+                        android:id="@+id/btn_go_order_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:backgroundTint="@color/navbar_green_2"
-                        android:text="Order" />
+                        android:text="Go to Update" />
 
                     <Button
-                        android:id="@+id/btn_cancel_add_order"
+                        android:id="@+id/btn_back_order_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/dark_green"
-                        android:text="Cancel" />
+                        android:text="Back to List" />
 
                 </LinearLayout>
 
@@ -184,4 +192,5 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
+
 </LinearLayout>
