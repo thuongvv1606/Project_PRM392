@@ -114,35 +114,35 @@ public class RestaurantUpdateActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Restaurant restaurant = new Restaurant();
-                restaurant.setRestaurantId(id);
+                Restaurant result = new Restaurant();
+                result.setRestaurantId(id);
                 String name = txt_name.getText().toString();
                 if (name.trim().isEmpty()) {
                     txt_name.setError("Name cannot be empty!");
                     return;
                 }
-                restaurant.setRestaurantName(name);
-                restaurant.setEmail(txt_email.getText().toString());
-                restaurant.setPhoneNumber(txt_phone.getText().toString());
-                restaurant.setAddress(txt_address.getText().toString());
-                restaurant.setRestaurantDescription(txt_description.getText().toString());
+                result.setRestaurantName(name);
+                result.setEmail(txt_email.getText().toString());
+                result.setPhoneNumber(txt_phone.getText().toString());
+                result.setAddress(txt_address.getText().toString());
+                result.setRestaurantDescription(txt_description.getText().toString());
 
                 if (imageUri != null) {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         String imagePath = saveImageToStorage.saveImageToStorage(bitmap);
-                        restaurant.setRestaurantImage(imagePath); // Cập nhật URI ảnh đại diện mới
+                        result.setRestaurantImage(imagePath); // Cập nhật URI ảnh đại diện mới
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(RestaurantUpdateActivity.this, "Failed to save image", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } else {
-                    restaurant.setRestaurantImage(restaurant.getRestaurantImage()); // Cập nhật ảnh đại diện cũ khi không có thay đổi
+                    result.setRestaurantImage(restaurant.getRestaurantImage()); // Cập nhật ảnh đại diện cũ khi không có thay đổi
                 }
 
                 if (restaurantRepository != null){
-                    restaurantRepository.updateRestaurant(restaurant);
+                    restaurantRepository.updateRestaurant(result);
                     Toast.makeText(RestaurantUpdateActivity.this, "Update restaurant successfully",
                             Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(RestaurantUpdateActivity.this, RestaurantListActivity.class);
