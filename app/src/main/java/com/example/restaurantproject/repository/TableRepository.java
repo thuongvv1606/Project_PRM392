@@ -22,6 +22,9 @@ public class TableRepository {
     public void updateTable(Table table) {
         tableDao.update(table);
     }
+    public void updateTableStatus(int tableId, int status) {
+        tableDao.updateStatus(tableId, status);
+    }
 
     public Table getTable(int tableId) {
         return tableDao.select(tableId);

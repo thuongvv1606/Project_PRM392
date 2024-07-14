@@ -18,6 +18,7 @@ import com.example.restaurantproject.R;
 import com.example.restaurantproject.TableDetailActivity;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Table;
+import com.example.restaurantproject.ultils.constant.Common;
 
 import java.util.List;
 
@@ -41,16 +42,20 @@ public class TableListAdapter extends RecyclerView.Adapter<TableListAdapter.Tabl
 
         holder.tvTableName.setText(table.getName());
         holder.tvNumSeat.setText("Number of seat: "+table.getSeatNum());
-        if (table.getStatus() == 1){
-            holder.tvNumSeat.setText("Empty table");
-            holder.btnReservation.setEnabled(true);
-        } else if (table.getStatus() == 2) {
-            holder.tvNumSeat.setText("Live table");
-            holder.btnReservation.setEnabled(false);
-        } else {
-            holder.tvNumSeat.setText("Error table");
-            holder.btnReservation.setEnabled(false);
-        }
+//        if (table.getStatus() == 1){
+//            holder.tvTableStatus.setText("Status: Empty table");
+//            holder.btnReservation.setEnabled(true);
+//        } else if (table.getStatus() == 2) {
+//            holder.tvTableStatus.setText("Status: Live table");
+//            holder.btnReservation.setEnabled(true);
+//        } else if (table.getStatus() == 4) {
+//            holder.tvTableStatus.setText("Status: Delete");
+//            holder.btnReservation.setEnabled(false);
+//        }else {
+//            holder.tvTableStatus.setText("Status: Error table");
+//            holder.btnReservation.setEnabled(true);
+//        }
+        holder.tvTableStatus.setText("Status: " + Common.tableStatus.get(table.getStatus()-1));
         holder.btnReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

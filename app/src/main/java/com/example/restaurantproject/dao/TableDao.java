@@ -21,7 +21,7 @@ public interface TableDao {
 
     @Query("SELECT * FROM `Table` WHERE table_id = :tableId")
     Table select(int tableId);
-    @Query("SELECT * FROM `Table` WHERE restaurant_id = :restaurantId")
+    @Query("SELECT * FROM `Table` WHERE restaurant_id = :restaurantId and status = 1")
     List<Table> selectByRestaurant(int restaurantId);
 
     @Query("SELECT * FROM `Table`")
@@ -32,4 +32,7 @@ public interface TableDao {
 
     @Query("DELETE FROM `Table` WHERE table_id = :tableId")
     void delete(int tableId);
+
+    @Query("Update `Table` SET status = :status where table_id = :tableId")
+    void updateStatus(int tableId, int status);
 }

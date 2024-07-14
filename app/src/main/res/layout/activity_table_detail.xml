@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Choose image"
+                    android:text="Image"
                     android:textStyle="bold"
                     />
 
@@ -147,6 +147,13 @@
                         android:backgroundTint="@color/navbar_green"
                         android:layout_marginRight="10dp"
                         android:text="Update"/>
+                    <Button
+                        android:id="@+id/btn_delete_table"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/red"
+                        android:layout_marginRight="10dp"
+                        android:text="Delete"/>
 
 
                 </LinearLayout>
