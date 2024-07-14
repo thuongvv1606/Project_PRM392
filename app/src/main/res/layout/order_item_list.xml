@@ -32,29 +32,13 @@
         android:layout_weight="0"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_plus_product"
-            android:layout_width="39.5dp"
-            android:layout_height="39.5dp"
-            android:scaleType="centerInside"
-            android:backgroundTint="@color/light_green"
-            android:text="-"/>
-
         <TextView
             android:id="@+id/tv_number"
-            android:layout_width="20dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="2"
             android:textSize="20dp"
             android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btn_minus_product"
-            android:layout_width="39.5dp"
-            android:layout_height="39.5dp"
-            android:scaleType="centerInside"
-            android:backgroundTint="@color/light_green"
-            android:text="+"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

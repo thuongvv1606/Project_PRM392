@@ -43,21 +43,21 @@ public class OrderListActivity extends NavigationActivity {
         else txtCount.setText("Found " + orderList.size() + " orders");
 
 
-//        Button btnCreateProduct = findViewById(R.id.btn_create_category);
+//        Button btnCreateProduct = findViewById(R.id.btn_create_order);
 //        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CategoryListActivity.this, CategoryAddActivity.class);
+//                Intent intent = new Intent(OrderListActivity.this, OrderAddActivity.class);
 //                startActivity(intent);
 //            }
 //        });
-//
-//        TextView searchStr = findViewById(R.id.edt_search_category);
-//        Button searchBtn = findViewById(R.id.btn_search_category);
+
+//        TextView searchStr = findViewById(R.id.edt_search_order);
+//        Button searchBtn = findViewById(R.id.btn_search_order);
 //        searchBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                List<Category> categoryList = categoryRepository.searchCategories(searchStr.getText().toString());
+//                List<Order> orders = orderRepository.(searchStr.getText().toString());
 //                setCategoryList(categoryList);
 //            }
 //        });
