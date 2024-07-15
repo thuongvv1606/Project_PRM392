@@ -35,5 +35,7 @@ public interface OrderDetailsDao {
 
     @Query("SELECT * FROM OrderDetails O WHERE O.order_id == :oid")
     List<OrderDetails> selectAllByOrderId(int oid);
+    @Query("DELETE FROM OrderDetails WHERE order_id = :oid AND product_id = :pid")
+    void deleteById(int oid, int pid);
 }
 

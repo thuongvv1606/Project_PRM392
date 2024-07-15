@@ -2,6 +2,7 @@ package com.example.restaurantproject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantproject.adapter.OrderDetailItemAdapter;
+import com.example.restaurantproject.adapter.OrderDetailsProductListAdapter;
 import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Menu;
@@ -34,7 +37,8 @@ import com.example.restaurantproject.repository.TableRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderUpdateActivity extends AppCompatActivity {
+public class OrderUpdateActivity extends AppCompatActivity implements OrderDetailItemAdapter.OnDataChangeListener
+{
     private TextView txt_customer, txt_table, txt_price, txt_note;
     private Spinner spinner;
     private Button btnUpdate, btnList;
@@ -55,6 +59,16 @@ public class OrderUpdateActivity extends AppCompatActivity {
             return insets;
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar_back_order_main);
+        // Set the navigation icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderUpdateActivity.this, OrderListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         txt_customer = findViewById(R.id.txt_customer_name);
         txt_table = findViewById(R.id.txt_restaurant_no);
         txt_price = findViewById(R.id.view_total_price);
@@ -70,16 +84,20 @@ public class OrderUpdateActivity extends AppCompatActivity {
         int id = intent.getIntExtra("order_id", -1);
         Order order = orderRepository.getOrder(id);
         Account account = accountRepository.getAccount(order.getCustomerId());
-        Table table = tableRepository.getTable(order.getTableID());
+        if (order.getTableID() != null) {
+            Table table = tableRepository.getTable(order.getTableID());
+            txt_table.setText(table.getName());
+        } else {
+            txt_table.setText("No table reservation");
+        }
         txt_customer.setText(account.getFullname());
-        txt_table.setText(table.getName());
         txt_price.setText("" + order.getTotalPrice());
         txt_note.setText("" + order.getNote());
 
         List<String> statusList = new ArrayList<>();
         statusList.add("Pending");
         statusList.add("Confirmed");
-        statusList.add("Confirmed");
+        statusList.add("In preparation");
         statusList.add("Ready");
         statusList.add("Out for delivery");
         statusList.add("Completed");
@@ -93,7 +111,21 @@ public class OrderUpdateActivity extends AppCompatActivity {
         int currentStatus = order.getStatus();
         spinner.setSelection(currentStatus - 1);
         List<OrderDetails> detailsList = orderDetailsRepository.selectAllByOrderId(id);
-        setOrderDetailsList(detailsList);
+        Button addMoreBtn = findViewById(R.id.btn_add_more_order_item);
+        if (order.getStatus() != 1) {
+            setOrderDetailsList(detailsList);
+        } else {
+            setOrderDetailsConfirmList(detailsList);
+        }
+
+        addMoreBtn.setVisibility(View.VISIBLE);
+        addMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(OrderUpdateActivity.this, MainProductList.class);
+                startActivity(intent1);
+            }
+        });
 
         btnUpdate = findViewById(R.id.btn_update_order);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +134,10 @@ public class OrderUpdateActivity extends AppCompatActivity {
                 // Update status based on spinner selection
                 int selectedPositionC = spinner.getSelectedItemPosition();
                 order.setStatus(selectedPositionC + 1);
+                Order order1 = orderRepository.getOrder(id);
+                order.setTotalPrice(order1.getTotalPrice());
                 orderRepository.updateOrder(order);
-                Toast.makeText(OrderUpdateActivity.this, "Update order successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(OrderUpdateActivity.this, "Update order successfully!", Toast.LENGTH_LONG).show();
                 Intent intent2 = new Intent(OrderUpdateActivity.this, OrderListActivity.class);
                 startActivity(intent2);
             }
@@ -121,8 +155,33 @@ public class OrderUpdateActivity extends AppCompatActivity {
 
     private void setOrderDetailsList(List<OrderDetails> detailsList) {
         RecyclerView recyclerView = findViewById(R.id.list_dish_ordered_recycler_view);
-        OrderDetailItemAdapter orderItemListAdapter = new OrderDetailItemAdapter(detailsList, this);
+        OrderDetailsProductListAdapter orderItemListAdapter = new OrderDetailsProductListAdapter(detailsList, this);
         recyclerView.setAdapter(orderItemListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void setOrderDetailsConfirmList(List<OrderDetails> detailsList) {
+        RecyclerView recyclerView = findViewById(R.id.list_dish_ordered_recycler_view);
+        OrderDetailItemAdapter orderItemListAdapter = new OrderDetailItemAdapter(detailsList, this, this);
+        recyclerView.setAdapter(orderItemListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onDataChanged() {
+        orderRepository = new OrderRepository(this);
+
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("order_id", -1);
+        Order order = orderRepository.getOrder(id);
+
+        txt_price.setText("" + order.getTotalPrice());
+
+        List<OrderDetails> detailsList = orderDetailsRepository.selectAllByOrderId(id);
+        if (order.getStatus() != 1) {
+            setOrderDetailsList(detailsList);
+        } else {
+            setOrderDetailsConfirmList(detailsList);
+        }
     }
 }

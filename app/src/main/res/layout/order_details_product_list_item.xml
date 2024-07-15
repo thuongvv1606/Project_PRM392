@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:textColor="@color/link_blue"
         />
 
@@ -32,37 +32,13 @@
         android:layout_weight="0"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_minus"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/home_green"
-            android:text="-"
-            android:textStyle="bold"/>
-
         <TextView
             android:id="@+id/tv_number"
-            android:layout_width="35dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="2"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btn_plus"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/home_green"
-            android:text="+"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
-            android:text="x"
-            android:textStyle="bold"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

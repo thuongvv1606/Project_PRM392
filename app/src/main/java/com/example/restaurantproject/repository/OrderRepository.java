@@ -27,16 +27,27 @@ public class OrderRepository {
     public Order getOrder(int orderId) {
         return orderDao.select(orderId);
     }
+    public Order getById(int orderId) {
+        return orderDao.getById(orderId);
+    }
     public Order getOrderNewest() {
         return orderDao.selectNewest();
-    }
-    public void delete(int orderId) {
-        orderDao.deleteStatus(orderId);
     }
 
     public List<OrderDTO> getAllOrders() {
         return orderDao.selectAll();
     }
+
+    public List<Order> getAll(int uid) {
+        return orderDao.selectOrders(uid);
+    }
+
+    public List<Order> getAllOfAccount(int uid) {
+        return orderDao.selectOrdersOfAccount(uid);
+    }
+//    public List<OrderDTO> searchOrder(String searchStr) {
+//        return orderDao.search(searchStr);
+//    }
 
     public void deleteOrder(int orderId) {
         orderDao.delete(orderId);

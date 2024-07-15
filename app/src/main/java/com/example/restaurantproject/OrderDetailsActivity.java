@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantproject.adapter.MenuListAdapter;
 import com.example.restaurantproject.adapter.OrderDetailItemAdapter;
+import com.example.restaurantproject.adapter.OrderDetailsProductListAdapter;
 import com.example.restaurantproject.adapter.OrderItemListAdapter;
 import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Menu;
@@ -31,6 +34,7 @@ import com.example.restaurantproject.repository.OrderDetailsRepository;
 import com.example.restaurantproject.repository.OrderRepository;
 import com.example.restaurantproject.repository.RestaurantRepository;
 import com.example.restaurantproject.repository.TableRepository;
+import com.example.restaurantproject.ultils.session.SessionManager;
 
 import java.util.List;
 
@@ -41,6 +45,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private AccountRepository accountRepository = null;
     private TableRepository tableRepository = null;
     private OrderDetailsRepository orderDetailsRepository = null;
+    private SessionManager sessionManager = null;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,6 +59,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
             return insets;
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar_back_order_main);
+        // Set the navigation icon click listener
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderDetailsActivity.this, OrderListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         txt_customer = findViewById(R.id.txt_customer_name);
         txt_table = findViewById(R.id.txt_restaurant_no);
         txt_price = findViewById(R.id.view_total_price);
@@ -64,21 +79,27 @@ public class OrderDetailsActivity extends AppCompatActivity {
         accountRepository = new AccountRepository(this);
         tableRepository = new TableRepository(this);
         orderDetailsRepository = new OrderDetailsRepository(this);
+        sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("order_id", -1);
         Order order = orderRepository.getOrder(id);
         Account account = accountRepository.getAccount(order.getCustomerId());
-        Table table = tableRepository.getTable(order.getTableID());
+        if (order.getTableID() != null) {
+            Table table = tableRepository.getTable(order.getTableID());
+            txt_table.setText(table.getName());
+        } else {
+            txt_table.setText("No table reservation");
+        }
+
         txt_customer.setText(account.getFullname());
-        txt_table.setText(table.getName());
         txt_price.setText("" + order.getTotalPrice());
         txt_note.setText("" + order.getNote());
         String status = "Pending";
         if (order.getStatus() == 2) {
             status = "Confirmed";
         } else if (order.getStatus() == 3) {
-            status = "Confirmed";
+            status = "In preparation";
         } else if (order.getStatus() == 4) {
             status = "Ready";
         } else if (order.getStatus() == 5) {
@@ -93,6 +114,23 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txt_status.setText(status);
         List<OrderDetails> detailsList = orderDetailsRepository.selectAllByOrderId(id);
         setOrderDetailsList(detailsList);
+
+        Button btnCheckout = findViewById(R.id.btn_checkout);
+
+        if (sessionManager.getAccountFromSession().getAccountId() == order.getCustomerId()
+            && order.getStatus() == 1) {
+            btnCheckout.setVisibility(View.VISIBLE);
+        }
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order.setStatus(2);
+                orderRepository.updateOrder(order);
+                Toast.makeText(OrderDetailsActivity.this, "Checkout order successfully!", Toast.LENGTH_LONG).show();
+                Intent intent1 = new Intent(OrderDetailsActivity.this, OrderListActivity.class);
+                startActivity(intent1);
+            }
+        });
 
         btnUpdate = findViewById(R.id.btn_go_order_update);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +154,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void setOrderDetailsList(List<OrderDetails> detailsList) {
         RecyclerView recyclerView = findViewById(R.id.list_dish_ordered_recycler_view);
-        OrderDetailItemAdapter orderItemListAdapter = new OrderDetailItemAdapter(detailsList, this);
+        OrderDetailsProductListAdapter orderItemListAdapter = new OrderDetailsProductListAdapter(detailsList, this);
         recyclerView.setAdapter(orderItemListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

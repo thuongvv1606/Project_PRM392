@@ -37,6 +37,9 @@ public class OrderDetailsRepository {
 //        orderDetailsDao.delete(orderDetailsId);
 //    }
 
+    public void deleteById(int oid, int pid) {
+        orderDetailsDao.deleteById(oid, pid);
+    }
     public void deleteAllOrderDetails() {
         orderDetailsDao.deleteAll();
     }

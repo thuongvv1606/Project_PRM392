@@ -19,7 +19,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/navbar_green"
             app:navigationIcon="@drawable/icon_back_arrow"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title=""/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -169,6 +170,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_checkout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:backgroundTint="@color/green_camo"
+                        android:text="Checkout"
+                        android:visibility="gone"/>
 
                     <Button
                         android:id="@+id/btn_go_order_update"

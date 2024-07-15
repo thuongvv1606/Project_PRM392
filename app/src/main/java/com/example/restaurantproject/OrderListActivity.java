@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,19 +23,33 @@ import com.example.restaurantproject.bean.Category;
 import com.example.restaurantproject.bean.Order;
 import com.example.restaurantproject.entity.OrderDTO;
 import com.example.restaurantproject.repository.OrderRepository;
+import com.example.restaurantproject.ultils.session.SessionManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class OrderListActivity extends NavigationActivity {
-
     private OrderRepository orderRepository = null;
+    private SessionManager sessionManager = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupContentLayout(R.layout.activity_order_list);
 
         orderRepository = new OrderRepository(this);
-        List<OrderDTO> orderList = orderRepository.getAllOrders();
+        sessionManager = new SessionManager(this);
+
+        List<Order> orderList = new ArrayList<>();
+        if (sessionManager.getAccountFromSession().getRoleId() != 4
+            || sessionManager.getAccountFromSession().getRoleId() != 5) {
+            orderList = orderRepository.getAll(sessionManager.getAccountFromSession().getAccountId());
+        }
+        else if (sessionManager.getAccountFromSession().getRoleId() == 4) {
+            orderList = orderRepository.getAllOfAccount(sessionManager.getAccountFromSession().getAccountId());
+        }
         setOrderList(orderList);
         TextView txtCount = findViewById(R.id.tv_order_count);
         if (orderList.size() == 0) txtCount.setText("Not found any Orders");
@@ -41,7 +57,6 @@ public class OrderListActivity extends NavigationActivity {
             txtCount.setText("Found 1 order");
         }
         else txtCount.setText("Found " + orderList.size() + " orders");
-
 
 //        Button btnCreateProduct = findViewById(R.id.btn_create_order);
 //        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +77,7 @@ public class OrderListActivity extends NavigationActivity {
 //            }
 //        });
     }
-    private void setOrderList(List<OrderDTO> orderList) {
+    private void setOrderList(List<Order> orderList) {
         RecyclerView recyclerView = findViewById(R.id.order_list_recyle_view);
         OrderListAdapter orderListAdapter = new OrderListAdapter(orderList, this);
         recyclerView.setAdapter(orderListAdapter);

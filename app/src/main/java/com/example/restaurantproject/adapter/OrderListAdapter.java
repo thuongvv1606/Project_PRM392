@@ -9,6 +9,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,24 +18,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.restaurantproject.CategoryDetailsActivity;
-import com.example.restaurantproject.CategoryListActivity;
-import com.example.restaurantproject.CategoryUpdateActivity;
-import com.example.restaurantproject.OrderDetailActivity;
+import com.example.restaurantproject.OrderDetailsActivity;
+import com.example.restaurantproject.OrderListActivity;
+import com.example.restaurantproject.OrderUpdateActivity;
 import com.example.restaurantproject.R;
-import com.example.restaurantproject.bean.Category;
+import com.example.restaurantproject.bean.Account;
 import com.example.restaurantproject.bean.Order;
 import com.example.restaurantproject.entity.OrderDTO;
-import com.example.restaurantproject.repository.CategoryRepository;
+import com.example.restaurantproject.repository.AccountRepository;
 import com.example.restaurantproject.repository.OrderRepository;
-import com.example.restaurantproject.ultils.constant.Common;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.OrderViewHolder> {
-    private List<OrderDTO> orders = null;
+    private List<Order> orders = null;
     private Context context;
-    public  OrderListAdapter(List<OrderDTO> orders, Context context){
+    public  OrderListAdapter(List<Order> orders, Context context){
         this.context = context;
         this.orders = orders;
     }
@@ -48,6 +49,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orders.get(position);
+        AccountRepository accountRepository = new AccountRepository(context);
 
         String id = "" + order.getOrderId();
         // Create a SpannableString with UnderlineSpan
@@ -56,27 +58,44 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
         // Set the spannableString to the TextView
         holder.tvOrderID.setText(spannableString);
-        holder.tvCustomerName.setText("" + order.getCustomerId());
+        Account customer = accountRepository.getAccount(order.getCustomerId());
+        holder.tvCustomerName.setText("" + customer.getFullname());
         holder.tvOrderDate.setText("" + order.getOrderDate());
-        holder.tvStatus.setText(Common.orderStatus.get(order.getStatus()));
+        String status = "Pending";
+        if (order.getStatus() == 2) {
+            status = "Confirmed";
+        } else if (order.getStatus() == 3) {
+            status = "Confirmed";
+        } else if (order.getStatus() == 4) {
+            status = "Ready";
+        } else if (order.getStatus() == 5) {
+            status = "Out for delivery";
+        } else if (order.getStatus() == 6) {
+            status = "Completed";
+        } else if (order.getStatus() == 7) {
+            status = "Canceled";
+        } else if (order.getStatus() == 8) {
+            status = "Refunded";
+        }
+        holder.tvStatus.setText(status);
 
         holder.tvOrderID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+                Intent intent = new Intent(context, OrderDetailsActivity.class);
                 intent.putExtra("order_id", order.getOrderId());
                 context.startActivity(intent);
             }
         });
 
-//        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, OrderUpdateActivity.class);
-//                intent.putExtra("order_id", order.getOrderId());
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderUpdateActivity.class);
+                intent.putExtra("order_id", order.getOrderId());
+                context.startActivity(intent);
+            }
+        });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +108,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                orderRepository.delete(Integer.parseInt(id));
+                                orderRepository.deleteOrder(Integer.parseInt(id));
                                 Toast.makeText(context, "Delete Order successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(context, CategoryListActivity.class);
+                                Intent intent = new Intent(context, OrderListActivity.class);
                                 context.startActivity(intent);
                             }
                         })
