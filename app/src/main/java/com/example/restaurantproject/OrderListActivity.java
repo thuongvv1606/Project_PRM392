@@ -45,10 +45,10 @@ public class OrderListActivity extends NavigationActivity {
         List<Order> orderList = new ArrayList<>();
         if (sessionManager.getAccountFromSession().getRoleId() != 4
             || sessionManager.getAccountFromSession().getRoleId() != 5) {
-            orderList = orderRepository.getAll(sessionManager.getAccountFromSession().getAccountId());
+            orderList = orderRepository.getAll(sessionManager.getAccountFromSession().getAccountId(), "%%");
         }
         else if (sessionManager.getAccountFromSession().getRoleId() == 4) {
-            orderList = orderRepository.getAllOfAccount(sessionManager.getAccountFromSession().getAccountId());
+            orderList = orderRepository.getAllOfAccount(sessionManager.getAccountFromSession().getAccountId(), "%%");
         }
         setOrderList(orderList);
         TextView txtCount = findViewById(R.id.tv_order_count);
@@ -67,15 +67,22 @@ public class OrderListActivity extends NavigationActivity {
 //            }
 //        });
 
-//        TextView searchStr = findViewById(R.id.edt_search_order);
-//        Button searchBtn = findViewById(R.id.btn_search_order);
-//        searchBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                List<Order> orders = orderRepository.(searchStr.getText().toString());
-//                setCategoryList(categoryList);
-//            }
-//        });
+        TextView searchStr = findViewById(R.id.edt_search_order);
+        Button searchBtn = findViewById(R.id.btn_search_order);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Order> orders = new ArrayList<>();
+                if (sessionManager.getAccountFromSession().getRoleId() != 4
+                        || sessionManager.getAccountFromSession().getRoleId() != 5) {
+                    orders = orderRepository.getAll(sessionManager.getAccountFromSession().getAccountId(), "%" + searchStr.getText().toString() + "%");
+                }
+                else if (sessionManager.getAccountFromSession().getRoleId() == 4) {
+                    orders = orderRepository.getAllOfAccount(sessionManager.getAccountFromSession().getAccountId(), "%" + searchStr.getText().toString() + "%");
+                }
+                setOrderList(orders);
+            }
+        });
     }
     private void setOrderList(List<Order> orderList) {
         RecyclerView recyclerView = findViewById(R.id.order_list_recyle_view);

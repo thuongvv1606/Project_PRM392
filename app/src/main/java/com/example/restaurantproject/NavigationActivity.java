@@ -168,7 +168,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.nav_deliveries) {
-            Intent intent = new Intent(NavigationActivity.this, OrderDeliveryActivity.class);
+            Intent intent = new Intent(NavigationActivity.this, DeliveryListActivity.class);
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.nav_order) {

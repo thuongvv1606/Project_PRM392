@@ -66,7 +66,7 @@ public class OrderDetailItemAdapter extends RecyclerView.Adapter<OrderDetailItem
             @Override
             public void onClick(View v) {
                  int quantity = Integer.parseInt(holder.tvNumber.getText().toString());
-                 if (quantity > 0) {
+                 if (quantity > 1) {
                      holder.tvNumber.setText(quantity - 1 + "");
                      details.setQuantity(quantity - 1);
                      orderDetailsRepository.updateOrderDetails(details);

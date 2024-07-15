@@ -38,12 +38,12 @@ public class OrderRepository {
         return orderDao.selectAll();
     }
 
-    public List<Order> getAll(int uid) {
-        return orderDao.selectOrders(uid);
+    public List<Order> getAll(int uid, String searchStr) {
+        return orderDao.getOrders(uid, searchStr);
     }
 
-    public List<Order> getAllOfAccount(int uid) {
-        return orderDao.selectOrdersOfAccount(uid);
+    public List<Order> getAllOfAccount(int uid, String searchStr) {
+        return orderDao.getOrdersOfAccount(uid, searchStr);
     }
 //    public List<OrderDTO> searchOrder(String searchStr) {
 //        return orderDao.search(searchStr);

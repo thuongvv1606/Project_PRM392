@@ -29,30 +29,30 @@
                 android:textStyle="bold"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <!--            <EditText-->
-        <!--                android:id="@+id/edt_search_order"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginBottom="10dp"-->
-        <!--                android:layout_marginRight="10dp"-->
-        <!--                android:background="@drawable/edittext_border"-->
-        <!--                android:hint="Search"-->
-        <!--                android:layout_weight="3"-->
-        <!--                />-->
+                    <EditText
+                        android:id="@+id/edt_search_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/edittext_border"
+                        android:hint="Search"
+                        android:layout_weight="3"
+                        />
 
-        <!--            <Button-->
-        <!--                android:id="@+id/btn_search_order"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:backgroundTint="@color/navbar_green"-->
-        <!--                android:text="Search"/>-->
+                    <Button
+                        android:id="@+id/btn_search_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/navbar_green"
+                        android:text="Search"/>
 
-        <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_create_order"-->

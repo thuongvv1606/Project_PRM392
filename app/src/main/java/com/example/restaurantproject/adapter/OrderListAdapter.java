@@ -65,7 +65,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         if (order.getStatus() == 2) {
             status = "Confirmed";
         } else if (order.getStatus() == 3) {
-            status = "Confirmed";
+            status = "In preparation";
         } else if (order.getStatus() == 4) {
             status = "Ready";
         } else if (order.getStatus() == 5) {

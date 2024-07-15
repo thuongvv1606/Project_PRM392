@@ -116,9 +116,9 @@ public class OrderUpdateActivity extends AppCompatActivity implements OrderDetai
             setOrderDetailsList(detailsList);
         } else {
             setOrderDetailsConfirmList(detailsList);
+            addMoreBtn.setVisibility(View.VISIBLE);
         }
 
-        addMoreBtn.setVisibility(View.VISIBLE);
         addMoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

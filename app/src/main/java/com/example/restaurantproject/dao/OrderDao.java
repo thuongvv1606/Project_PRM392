@@ -51,11 +51,14 @@ public interface OrderDao {
     @Query("DELETE FROM `Order` WHERE order_id = :orderId")
     void delete(int orderId);
 
-    @Query("SELECT * FROM `Order` WHERE (customer_id != :uid AND status != 1) OR customer_id == :uid ORDER BY order_date DESC")
-    List<Order> selectOrders(int uid);
+    @Query("SELECT O.* FROM `Order` O JOIN Account A ON O.customer_id = A.account_id " +
+            "WHERE ((O.customer_id != :uid AND O.status != 1) OR O.customer_id == :uid) " +
+            "AND A.fullname like :searchStr ORDER BY order_date DESC")
+    List<Order> getOrders(int uid, String searchStr);
 
-    @Query("SELECT * FROM `Order` WHERE customer_id = :uid ORDER BY order_date DESC")
-    List<Order> selectOrdersOfAccount(int uid);
+    @Query("SELECT O.* FROM `Order` O JOIN Account A ON O.customer_id = A.account_id " +
+            "WHERE O.customer_id = :uid and A.fullname like :searchStr ORDER BY order_date DESC")
+    List<Order> getOrdersOfAccount(int uid, String searchStr);
 
     //@Query("SELECT * FROM `Order` O WHERE O.customer_id = :uid AND status = 1")
     //List<OrderDTO> search(String searchStr);
