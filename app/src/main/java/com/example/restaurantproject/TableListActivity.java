@@ -24,13 +24,13 @@ import com.example.restaurantproject.repository.TableRepository;
 
 import java.util.List;
 
-public class TableListActivity extends AppCompatActivity {
+public class TableListActivity extends NavigationActivity {
     private TableRepository tableRepository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_table_list);
+        setupContentLayout(R.layout.activity_table_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
