@@ -60,6 +60,9 @@ public interface OrderDao {
             "WHERE O.customer_id = :uid and A.fullname like :searchStr ORDER BY order_date DESC")
     List<Order> getOrdersOfAccount(int uid, String searchStr);
 
+    @Query("SELECT * FROM `Order` WHERE order_id NOT IN (SELECT order_id FROM Delivery) AND status <= 3")
+    List<Order> getNoDeliveredOrders();
+
     //@Query("SELECT * FROM `Order` O WHERE O.customer_id = :uid AND status = 1")
     //List<OrderDTO> search(String searchStr);
 }

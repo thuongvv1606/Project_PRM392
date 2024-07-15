@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,14 +41,14 @@ public class DeliveryListActivity extends NavigationActivity {
         TextView txtCount = findViewById(R.id.tv_delivery_count);
         txtCount.setText("Found " + repository.getAllDelivery().size() + " delivery(ies)");
 
-//        Button btnCreateProduct = findViewById(R.id.b);
-//        btnCreateProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(CategoryListActivity.this, CategoryAddActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        Button btnCreateDelivery = findViewById(R.id.btn_add_delivery);
+        btnCreateDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DeliveryListActivity.this, DeliveryAddActivity.class);
+                startActivity(intent);
+            }
+        });
 
         EditText searchStr = findViewById(R.id.edt_search_delivery);
         Button searchBtn = findViewById(R.id.btn_search_delivery);

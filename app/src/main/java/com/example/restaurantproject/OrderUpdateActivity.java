@@ -39,7 +39,7 @@ import java.util.List;
 
 public class OrderUpdateActivity extends AppCompatActivity implements OrderDetailItemAdapter.OnDataChangeListener
 {
-    private TextView txt_customer, txt_table, txt_price, txt_note;
+    private TextView txt_customer, txt_table, txt_price, txt_address, txt_note;
     private Spinner spinner;
     private Button btnUpdate, btnList;
     private OrderRepository orderRepository = null;
@@ -73,6 +73,7 @@ public class OrderUpdateActivity extends AppCompatActivity implements OrderDetai
         txt_table = findViewById(R.id.txt_restaurant_no);
         txt_price = findViewById(R.id.view_total_price);
         txt_note = findViewById(R.id.edt_order_note);
+        txt_address = findViewById(R.id.txt_address);
         spinner = findViewById(R.id.edit_spinner_status);
 
         orderRepository = new OrderRepository(this);
@@ -93,6 +94,7 @@ public class OrderUpdateActivity extends AppCompatActivity implements OrderDetai
         txt_customer.setText(account.getFullname());
         txt_price.setText("" + order.getTotalPrice());
         txt_note.setText("" + order.getNote());
+        txt_address.setText(order.getAddress());
 
         List<String> statusList = new ArrayList<>();
         statusList.add("Pending");
@@ -136,6 +138,7 @@ public class OrderUpdateActivity extends AppCompatActivity implements OrderDetai
                 order.setStatus(selectedPositionC + 1);
                 Order order1 = orderRepository.getOrder(id);
                 order.setTotalPrice(order1.getTotalPrice());
+                order.setAddress(txt_address.getText().toString());
                 orderRepository.updateOrder(order);
                 Toast.makeText(OrderUpdateActivity.this, "Update order successfully!", Toast.LENGTH_LONG).show();
                 Intent intent2 = new Intent(OrderUpdateActivity.this, OrderListActivity.class);

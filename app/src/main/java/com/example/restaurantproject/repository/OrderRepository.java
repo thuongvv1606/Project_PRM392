@@ -38,6 +38,10 @@ public class OrderRepository {
         return orderDao.selectAll();
     }
 
+    public List<Order> getAllNotDeliveredOrder() {
+        return orderDao.getNoDeliveredOrders();
+    }
+
     public List<Order> getAll(int uid, String searchStr) {
         return orderDao.getOrders(uid, searchStr);
     }

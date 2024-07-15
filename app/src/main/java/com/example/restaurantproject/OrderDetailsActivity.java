@@ -39,7 +39,7 @@ import com.example.restaurantproject.ultils.session.SessionManager;
 import java.util.List;
 
 public class OrderDetailsActivity extends AppCompatActivity {
-    private TextView txt_customer, txt_table, txt_price, txt_note, txt_status;
+    private TextView txt_customer, txt_table, txt_price, txt_address, txt_note, txt_status;
     private Button btnUpdate, btnList;
     private OrderRepository orderRepository = null;
     private AccountRepository accountRepository = null;
@@ -74,6 +74,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txt_price = findViewById(R.id.view_total_price);
         txt_note = findViewById(R.id.edt_order_note);
         txt_status = findViewById(R.id.txt_status);
+        txt_address = findViewById(R.id.txt_address);
 
         orderRepository = new OrderRepository(this);
         accountRepository = new AccountRepository(this);
@@ -94,7 +95,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         txt_customer.setText(account.getFullname());
         txt_price.setText("" + order.getTotalPrice());
-        txt_note.setText("" + order.getNote());
+        txt_note.setText(order.getNote());
+        txt_address.setText(order.getAddress());
         String status = "Pending";
         if (order.getStatus() == 2) {
             status = "Confirmed";
