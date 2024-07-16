@@ -54,13 +54,13 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_create_order"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:backgroundTint="@color/dark_green"-->
-        <!--            android:layout_marginRight="10dp"-->
-        <!--            android:text="Add" />-->
+        <Button
+            android:id="@+id/btn_create_reservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/dark_green"
+            android:text="Reservation" />
 
         <TextView
             android:id="@+id/tv_order_count"

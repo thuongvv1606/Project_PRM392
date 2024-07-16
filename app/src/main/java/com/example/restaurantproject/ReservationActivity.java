@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -191,6 +192,11 @@ public class ReservationActivity extends AppCompatActivity {
             Toast.makeText(ReservationActivity.this, "Reservation date can't null", Toast.LENGTH_LONG).show();
             return;
         }
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        // Format date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String currentDate = dateFormat.format(date);
         Order order = new Order();
 
         order.setCustomerId(loggedInAccount.getAccountId());
@@ -198,6 +204,7 @@ public class ReservationActivity extends AppCompatActivity {
         order.setPayment(false);
         order.setTableID(getTableId());
         order.setReservationDate(reservatonDate);
+        order.setOrderDate(currentDate);
         order.setNote(edtNote.getText().toString());
 
         if (orderRepository != null && tableRepository != null){
