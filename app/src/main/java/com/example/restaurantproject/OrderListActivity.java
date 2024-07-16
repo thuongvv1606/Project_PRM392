@@ -83,6 +83,15 @@ public class OrderListActivity extends NavigationActivity {
                 setOrderList(orders);
             }
         });
+
+        Button reservaionButton = findViewById(R.id.btn_create_reservation);
+        reservaionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderListActivity.this, ReservationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void setOrderList(List<Order> orderList) {
         RecyclerView recyclerView = findViewById(R.id.order_list_recyle_view);
